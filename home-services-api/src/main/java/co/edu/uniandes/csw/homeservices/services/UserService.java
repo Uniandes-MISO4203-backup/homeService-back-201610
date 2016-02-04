@@ -11,20 +11,17 @@ package co.edu.uniandes.csw.homeservices.services;
  */
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.service.AuthService;
+import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
-import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
-import co.edu.uniandes.csw.homeservices.converters.CustomerConverter;
-import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
-import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.directory.CustomData;
 import com.stormpath.sdk.resource.ResourceException;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
-
 
 public class UserService extends AuthService {
 
@@ -48,14 +45,14 @@ public class UserService extends AuthService {
                 entity.setName(user.getGivenName());
                 entity.setLastName(user.getSurName());
                 entity = customerLogic.createCustomer(entity);
-                customData.put(CUSTOMERID, entity.getId().toString());
+                customData.put(CUSTOMERID, entity.getId());
             }
             if (user.getRoles().contains(CONTRACTOR_ROLE)) {
                 ContractorEntity entity = new ContractorEntity();
                 entity.setName(user.getGivenName());
                 entity.setLastName(user.getSurName());
                 entity = contractorLogic.createContractor(entity);
-                customData.put(CONTRACTORID, entity.getId().toString());
+                customData.put(CONTRACTORID, entity.getId());
             }
             customData.save();
         } catch (ResourceException e) {
@@ -63,4 +60,32 @@ public class UserService extends AuthService {
         }
     }
 
+    public static CustomerEntity getCustomer(String href) {
+        Account account = getAccount(href);
+        Integer customerId = (Integer) account.getCustomData().get(CUSTOMERID);
+        if (customerId == null) {
+            throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
+        }
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(new Long(customerId));
+        return customer;
+    }
+
+    public static ContractorEntity getContractor(String href) {
+        Account account = getAccount(href);
+        Integer translatorId = (Integer) account.getCustomData().get(CONTRACTORID);
+        if (translatorId == null) {
+            throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
+        }
+        ContractorEntity contractor = new ContractorEntity();
+        contractor.setId(new Long(translatorId));
+        return contractor;
+    }
+
+    public static Account getAccount(String href) {
+        if (href == null) {
+            throw new WebApplicationException(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return getClient().getResource(href, Account.class);
+    }
 }
