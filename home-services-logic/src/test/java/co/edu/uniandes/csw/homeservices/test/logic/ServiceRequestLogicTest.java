@@ -4,10 +4,10 @@ import co.edu.uniandes.csw.homeservices.ejbs.ServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ServiceRequestPersistence;
+import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
+import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
-import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
-import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -63,22 +63,22 @@ public class ServiceRequestLogicTest {
     /**
      * @generated
      */
-    private List<CustomerEntity> customerData = new ArrayList<>();
-
-    /**
-     * @generated
-     */
-    private List<SkillEntity> expectedskillsData = new ArrayList<>();
-
-    /**
-     * @generated
-     */
     private List<StatusEntity> statusData = new ArrayList<>();
 
     /**
      * @generated
      */
     private List<CategoryEntity> categoryData = new ArrayList<>();
+
+    /**
+     * @generated
+     */
+    private List<CustomerEntity> customerData = new ArrayList<>();
+
+    /**
+     * @generated
+     */
+    private List<SkillEntity> expectedskillsData = new ArrayList<>();
 
     /**
      * @generated
@@ -119,28 +119,16 @@ public class ServiceRequestLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from ServiceRequestEntity").executeUpdate();
-        em.createQuery("delete from CustomerEntity").executeUpdate();
-        em.createQuery("delete from SkillEntity").executeUpdate();
         em.createQuery("delete from StatusEntity").executeUpdate();
         em.createQuery("delete from CategoryEntity").executeUpdate();
+        em.createQuery("delete from CustomerEntity").executeUpdate();
+        em.createQuery("delete from SkillEntity").executeUpdate();
     }
 
     /**
      * @generated
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
-            em.persist(customer);
-            customerData.add(customer);
-        }
-
-        for (int i = 0; i < 3; i++) {
-            SkillEntity expectedskills = factory.manufacturePojo(SkillEntity.class);
-            em.persist(expectedskills);
-            expectedskillsData.add(expectedskills);
-        }
-
         for (int i = 0; i < 3; i++) {
             StatusEntity status = factory.manufacturePojo(StatusEntity.class);
             em.persist(status);
@@ -154,15 +142,27 @@ public class ServiceRequestLogicTest {
         }
 
         for (int i = 0; i < 3; i++) {
+            CustomerEntity customer = factory.manufacturePojo(CustomerEntity.class);
+            em.persist(customer);
+            customerData.add(customer);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            SkillEntity expectedskills = factory.manufacturePojo(SkillEntity.class);
+            em.persist(expectedskills);
+            expectedskillsData.add(expectedskills);
+        }
+
+        for (int i = 0; i < 3; i++) {
             ServiceRequestEntity entity = factory.manufacturePojo(ServiceRequestEntity.class);
-
-            entity.setCustomer(customerData.get(0));
-
-            entity.getExpectedskills().add(expectedskillsData.get(0));
 
             entity.setStatus(statusData.get(0));
 
             entity.setCategory(categoryData.get(0));
+
+            entity.setCustomer(customerData.get(0));
+
+            entity.getExpectedskills().add(expectedskillsData.get(0));
 
             em.persist(entity);
             data.add(entity);
@@ -183,7 +183,6 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(result.getRecommendedTime(), entity.getRecommendedTime());
         Assert.assertEquals(result.getCreationDate(), entity.getCreationDate());
         Assert.assertEquals(result.getDueDate(), entity.getDueDate());
-        Assert.assertEquals(result.getStatusService(), entity.getStatusService());
     }
 
     /**
@@ -218,7 +217,6 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(entity.getRecommendedTime(), resultEntity.getRecommendedTime());
         Assert.assertEquals(entity.getCreationDate(), resultEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), resultEntity.getDueDate());
-        Assert.assertEquals(entity.getStatusService(), resultEntity.getStatusService());
     }
 
     /**
@@ -252,7 +250,6 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(pojoEntity.getRecommendedTime(), resp.getRecommendedTime());
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
-        Assert.assertEquals(pojoEntity.getStatusService(), resp.getStatusService());
     }
 
     /**

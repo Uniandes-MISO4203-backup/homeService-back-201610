@@ -145,16 +145,15 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Se
 #####Estructura de objeto ServiceRequest
 ```javascript
 {
-    customer: '' /*Objeto que representa instancia de Customer*/,
-    recommendedTime: '' /*Tipo String*/,
-    price: '' /*Tipo Integer*/,
-    creationDate: '' /*Tipo Date*/,
-    name: '' /*Tipo String*/,
+    dueDate: '' /*Tipo Date*/,
     id: '' /*Tipo Long*/,
-    statusService: '' /*Tipo String*/,
-    status: '' /*Objeto que representa instancia de Status*/,
+    recommendedTime: '' /*Tipo String*/,
+    name: '' /*Tipo String*/,
     category: '' /*Objeto que representa instancia de Category*/,
-    dueDate: '' /*Tipo Date*/
+    status: '' /*Objeto que representa instancia de Status*/,
+    creationDate: '' /*Tipo Date*/,
+    customer: '' /*Objeto que representa instancia de Customer*/,
+    price: '' /*Tipo Integer*/
 }
 ```
 #####Servicios

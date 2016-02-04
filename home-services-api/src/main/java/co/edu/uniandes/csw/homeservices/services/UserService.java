@@ -17,7 +17,7 @@ import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import com.stormpath.sdk.account.Account;
-import com.stormpath.sdk.directory.CustomData;
+import com.stormpath.sdk.group.Group;
 import com.stormpath.sdk.resource.ResourceException;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -25,10 +25,10 @@ import javax.ws.rs.WebApplicationException;
 
 public class UserService extends AuthService {
 
-    private static final String CUSTOMERID = "customer_id";
-    private static final String CONTRACTORID = "contractor_id";
-    private static final String CUSTOMER_ROLE = "customer";
-    private static final String CONTRACTOR_ROLE = "contractor";
+    private static final String CUSTOMER_CUSTOM_DATA_KEY = "customer_id";
+    private static final String CONTRACTOR_CUSTOM_DATA_KEY = "contractor_id";
+    private static final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/8qQhS1L3L1xrzgv2mxxPn";
+    private static final String CONTRACTOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/MYGQnB0wYXcWuuF45b5O7";
 
     @Inject
     private ICustomerLogic customerLogic;
@@ -39,22 +39,25 @@ public class UserService extends AuthService {
     public void register(UserDTO user) {
         try {
             Account acc = createUser(user);
-            CustomData customData = acc.getCustomData();
-            if (user.getRoles().contains(CUSTOMER_ROLE)) {
-                CustomerEntity entity = new CustomerEntity();
-                entity.setName(user.getGivenName());
-                entity.setLastName(user.getSurName());
-                entity = customerLogic.createCustomer(entity);
-                customData.put(CUSTOMERID, entity.getId());
+            for (Group group : acc.getGroups()) {
+                switch (group.getHref()) {
+                    case CUSTOMER_GROUP_HREF:
+                        CustomerEntity customer = new CustomerEntity();
+                        customer.setName(user.getGivenName());
+                        customer.setLastName(user.getSurName());
+                        customer = customerLogic.createCustomer(customer);
+                        acc.getCustomData().put(CUSTOMER_CUSTOM_DATA_KEY, customer.getId());
+                        break;
+                    case CONTRACTOR_GROUP_HREF:
+                        ContractorEntity contractor = new ContractorEntity();
+                        contractor.setName(user.getGivenName());
+                        contractor.setLastName(user.getSurName());
+                        contractor = contractorLogic.createContractor(contractor);
+                        acc.getCustomData().put(CONTRACTOR_CUSTOM_DATA_KEY, contractor.getId());
+                        break;
+                }
             }
-            if (user.getRoles().contains(CONTRACTOR_ROLE)) {
-                ContractorEntity entity = new ContractorEntity();
-                entity.setName(user.getGivenName());
-                entity.setLastName(user.getSurName());
-                entity = contractorLogic.createContractor(entity);
-                customData.put(CONTRACTORID, entity.getId());
-            }
-            customData.save();
+            acc.getCustomData().save();
         } catch (ResourceException e) {
             throw new WebApplicationException(e, e.getStatus());
         }
@@ -62,7 +65,7 @@ public class UserService extends AuthService {
 
     public static CustomerEntity getCustomer(String href) {
         Account account = getAccount(href);
-        Integer customerId = (Integer) account.getCustomData().get(CUSTOMERID);
+        Integer customerId = (Integer) account.getCustomData().get(CUSTOMER_CUSTOM_DATA_KEY);
         if (customerId == null) {
             throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
         }
@@ -73,7 +76,7 @@ public class UserService extends AuthService {
 
     public static ContractorEntity getContractor(String href) {
         Account account = getAccount(href);
-        Integer translatorId = (Integer) account.getCustomData().get(CONTRACTORID);
+        Integer translatorId = (Integer) account.getCustomData().get(CONTRACTOR_CUSTOM_DATA_KEY);
         if (translatorId == null) {
             throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
         }

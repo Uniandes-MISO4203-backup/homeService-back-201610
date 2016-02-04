@@ -15,10 +15,10 @@ public class ContractorDTO {
     private String name;
     private String lastName;
     private String document;
-    @PodamExclude
-    private List<SkillDTO> skills = new ArrayList<>();
     
     private List<WorkExperienceDTO> workExperiences = new ArrayList<>();
+    @PodamExclude
+    private List<SkillDTO> skills = new ArrayList<>();
 
     /**
      * @generated
@@ -79,20 +79,6 @@ public class ContractorDTO {
     /**
      * @generated
      */
-    public List<SkillDTO> getSkills() {
-        return skills;
-    }
-
-    /**
-     * @generated
-     */
-    public void setSkills(List<SkillDTO> skills) {
-        this.skills = skills;
-    }
-
-    /**
-     * @generated
-     */
     public List<WorkExperienceDTO> getWorkExperiences() {
         return workExperiences;
     }
@@ -102,6 +88,20 @@ public class ContractorDTO {
      */
     public void setWorkExperiences(List<WorkExperienceDTO> workexperiences) {
         this.workExperiences = workexperiences;
+    }
+
+    /**
+     * @generated
+     */
+    public List<SkillDTO> getSkills() {
+        return skills;
+    }
+
+    /**
+     * @generated
+     */
+    public void setSkills(List<SkillDTO> skills) {
+        this.skills = skills;
     }
 
 }

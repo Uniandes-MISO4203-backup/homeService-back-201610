@@ -218,7 +218,6 @@ public class CustomerLogicTest {
         Assert.assertEquals(serviceRequestEntity.getRecommendedTime(), response.getRecommendedTime());
         Assert.assertEquals(serviceRequestEntity.getCreationDate(), response.getCreationDate());
         Assert.assertEquals(serviceRequestEntity.getDueDate(), response.getDueDate());
-        Assert.assertEquals(serviceRequestEntity.getStatusService(), response.getStatusService());
     }
 
     /**

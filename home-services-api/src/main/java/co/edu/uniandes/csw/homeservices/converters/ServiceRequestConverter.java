@@ -35,7 +35,6 @@ public abstract class ServiceRequestConverter {
             dto.setRecommendedTime(entity.getRecommendedTime());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            dto.setStatusService(entity.getStatusService());
 
             return dto;
         } else {
@@ -80,10 +79,9 @@ public abstract class ServiceRequestConverter {
             dto.setRecommendedTime(entity.getRecommendedTime());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
-            dto.setStatusService(entity.getStatusService());
-            dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
             dto.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
             dto.setCategory(CategoryConverter.refEntity2DTO(entity.getCategory()));
+            dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
 
             return dto;
         } else {
@@ -109,10 +107,9 @@ public abstract class ServiceRequestConverter {
             entity.setRecommendedTime(dto.getRecommendedTime());
             entity.setCreationDate(dto.getCreationDate());
             entity.setDueDate(dto.getDueDate());
-            entity.setStatusService(dto.getStatusService());
-            entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
             entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
             entity.setCategory(CategoryConverter.refDTO2Entity(dto.getCategory()));
+            entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
 
             return entity;
         } else {

@@ -4,8 +4,8 @@ import co.edu.uniandes.csw.homeservices.ejbs.ContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
-import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
+import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import java.util.ArrayList;
 import java.util.List;
 

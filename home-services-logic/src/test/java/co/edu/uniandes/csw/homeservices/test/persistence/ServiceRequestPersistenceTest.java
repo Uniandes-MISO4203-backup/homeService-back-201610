@@ -117,7 +117,6 @@ public class ServiceRequestPersistenceTest {
         Assert.assertEquals(newEntity.getName(), entity.getName());
         Assert.assertEquals(newEntity.getPrice(), entity.getPrice());
         Assert.assertEquals(newEntity.getRecommendedTime(), entity.getRecommendedTime());
-        Assert.assertEquals(newEntity.getStatusService(), entity.getStatusService());
     }
 
     /**
@@ -151,7 +150,6 @@ public class ServiceRequestPersistenceTest {
         Assert.assertEquals(entity.getRecommendedTime(), newEntity.getRecommendedTime());
         Assert.assertEquals(entity.getCreationDate(), newEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), newEntity.getDueDate());
-        Assert.assertEquals(entity.getStatusService(), newEntity.getStatusService());
     }
 
     /**
@@ -183,6 +181,5 @@ public class ServiceRequestPersistenceTest {
         Assert.assertEquals(newEntity.getName(), resp.getName());
         Assert.assertEquals(newEntity.getPrice(), resp.getPrice());
         Assert.assertEquals(newEntity.getRecommendedTime(), resp.getRecommendedTime());
-        Assert.assertEquals(newEntity.getStatusService(), resp.getStatusService());
     }
 }

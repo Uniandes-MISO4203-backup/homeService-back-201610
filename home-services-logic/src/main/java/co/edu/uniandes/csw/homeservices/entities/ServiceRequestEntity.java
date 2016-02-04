@@ -32,7 +32,13 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
 
-    private String statusService;
+    @PodamExclude
+    @ManyToOne
+    private CategoryEntity category;
+
+    @PodamExclude
+    @ManyToOne
+    private StatusEntity status;
 
     @PodamExclude
     @ManyToOne
@@ -41,14 +47,6 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToMany
     private List<SkillEntity> expectedskills = new ArrayList<>();
-
-    @PodamExclude
-    @ManyToOne
-    private StatusEntity status;
-
-    @PodamExclude
-    @ManyToOne
-    private CategoryEntity category;
 
     /**
      * @generated
@@ -109,34 +107,6 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public String getStatusService(){
-        return statusService;
-    }
-
-    /**
-     * @generated
-     */
-    public void setStatusService(String statusService){
-        this.statusService = statusService;
-    }
-
-    /**
-     * @generated
-     */
-    public CustomerEntity getCustomer() {
-        return customer;
-    }
-
-    /**
-     * @generated
-     */
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * @generated
-     */
     public StatusEntity getStatus() {
         return status;
     }
@@ -160,6 +130,20 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
      */
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    /**
+     * @generated
+     */
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    /**
+     * @generated
+     */
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 
     /**

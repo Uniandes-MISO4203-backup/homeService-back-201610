@@ -209,7 +209,6 @@ public class CustomerTest {
         Assert.assertEquals(serviceRequests.getRecommendedTime(), servicerequestsTest.getRecommendedTime());
         Assert.assertEquals(serviceRequests.getCreationDate(), servicerequestsTest.getCreationDate());
         Assert.assertEquals(serviceRequests.getDueDate(), servicerequestsTest.getDueDate());
-        Assert.assertEquals(serviceRequests.getStatusService(), servicerequestsTest.getStatusService());
         Assert.assertEquals(Created, response.getStatus());
 
         response = target.path(customerPath).path(customer.getId().toString())
@@ -257,7 +256,6 @@ public class CustomerTest {
         Assert.assertEquals(serviceRequests.getRecommendedTime(), servicerequestsTest.getRecommendedTime());
         Assert.assertEquals(serviceRequests.getCreationDate(), servicerequestsTest.getCreationDate());
         Assert.assertEquals(serviceRequests.getDueDate(), servicerequestsTest.getDueDate());
-        Assert.assertEquals(serviceRequests.getStatusService(), servicerequestsTest.getStatusService());
     }
 
     @Test
