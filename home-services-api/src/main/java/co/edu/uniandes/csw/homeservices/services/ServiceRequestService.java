@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,9 @@ import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
+import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
+import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @generated
@@ -30,37 +34,43 @@ import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 @Produces(MediaType.APPLICATION_JSON)
 public class ServiceRequestService {
 
-    @Inject private IServiceRequestLogic serviceRequestLogic;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("maxRecords") private Integer maxRecords;
+    @Inject
+    private IServiceRequestLogic serviceRequestLogic;
+    @Inject
+    private ICustomerLogic customerLogic;
+    @Context
+    private HttpServletResponse response;
+    @Context
+    private HttpServletRequest req;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("maxRecords")
+    private Integer maxRecords;
 
     /**
      * Obtiene la lista de los registros de Book.
      *
-     * @return Colección de objetos de ServiceRequestDTO cada uno con sus respectivos Review
+     * @return Colección de objetos de ServiceRequestDTO cada uno con sus
+     * respectivos Review
      * @generated
      */
     @GET
     public List<ServiceRequestDTO> getServiceRequests() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", serviceRequestLogic.countServiceRequests());
-            return ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getServiceRequests(page, maxRecords));
-        }
-        return ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getServiceRequests());
+        return ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())));
     }
 
     /**
      * Obtiene los datos de una instancia de Book a partir de su ID.
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de ServiceRequestDTO con los datos del Book consultado y sus Review
+     * @return Instancia de ServiceRequestDTO con los datos del Book consultado
+     * y sus Review
      * @generated
      */
     @GET
     @Path("{id: \\d+}")
     public ServiceRequestDTO getServiceRequest(@PathParam("id") Long id) {
-        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.getServiceRequest(id));
+        return ServiceRequestConverter.fullEntity2DTO(customerLogic.addServiceRequests(getCustomerId(req.getRemoteUser()), id));
     }
 
     /**
@@ -74,6 +84,9 @@ public class ServiceRequestService {
     @StatusCreated
     public ServiceRequestDTO createServiceRequest(ServiceRequestDTO dto) {
         ServiceRequestEntity entity = ServiceRequestConverter.fullDTO2Entity(dto);
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(getCustomerId(req.getRemoteUser()));
+        entity.setCustomer(customer);
         return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.createServiceRequest(entity));
     }
 
@@ -106,11 +119,12 @@ public class ServiceRequestService {
     }
 
     /**
-     * Obtiene una colección de instancias de SkillDTO asociadas a una
-     * instancia de ServiceRequest
+     * Obtiene una colección de instancias de SkillDTO asociadas a una instancia
+     * de ServiceRequest
      *
      * @param serviceRequestId Identificador de la instancia de ServiceRequest
-     * @return Colección de instancias de SkillDTO asociadas a la instancia de ServiceRequest
+     * @return Colección de instancias de SkillDTO asociadas a la instancia de
+     * ServiceRequest
      * @generated
      */
     @GET
@@ -147,11 +161,14 @@ public class ServiceRequestService {
     }
 
     /**
-     * Remplaza las instancias de Skill asociadas a una instancia de ServiceRequest
+     * Remplaza las instancias de Skill asociadas a una instancia de
+     * ServiceRequest
      *
      * @param serviceRequestId Identificador de la instancia de ServiceRequest
-     * @param skills Colección de instancias de SkillDTO a asociar a instancia de ServiceRequest
-     * @return Nueva colección de SkillDTO asociada a la instancia de ServiceRequest
+     * @param skills Colección de instancias de SkillDTO a asociar a instancia
+     * de ServiceRequest
+     * @return Nueva colección de SkillDTO asociada a la instancia de
+     * ServiceRequest
      * @generated
      */
     @PUT

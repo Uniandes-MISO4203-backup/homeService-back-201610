@@ -65,25 +65,31 @@ public class UserService extends AuthService {
 
     public static Long getCustomerId(String href) {
         Account account = getAccount(href);
+        if (account == null) {
+            return null;
+        }
         Integer customerId = (Integer) account.getCustomData().get(CUSTOMER_CUSTOM_DATA_KEY);
         if (customerId == null) {
-            throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
+            return null;
         }
         return new Long(customerId);
     }
 
     public static Long getContractorId(String href) {
         Account account = getAccount(href);
+        if (account == null) {
+            return null;
+        }
         Integer translatorId = (Integer) account.getCustomData().get(CONTRACTOR_CUSTOM_DATA_KEY);
         if (translatorId == null) {
-            throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
+            return null;
         }
         return new Long(translatorId);
     }
 
     public static Account getAccount(String href) {
         if (href == null) {
-            throw new WebApplicationException(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
         return getClient().getResource(href, Account.class);
     }

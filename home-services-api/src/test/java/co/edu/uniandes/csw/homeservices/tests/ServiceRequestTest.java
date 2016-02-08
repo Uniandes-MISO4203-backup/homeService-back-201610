@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.homeservices.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
+import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.services.ServiceRequestService;
@@ -124,10 +125,15 @@ public class ServiceRequestTest {
     public void createServiceRequestTest() throws IOException {
         ServiceRequestDTO serviceRequest = oraculo.get(0);
         Cookie cookieSessionId = login(username, password);
+
+        CustomerDTO customer = new PodamFactoryImpl().manufacturePojo(CustomerDTO.class);
+        target.path("customers").request().cookie(cookieSessionId)
+                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+
         Response response = target.path(serviceRequestPath)
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(serviceRequest, MediaType.APPLICATION_JSON));
-        ServiceRequestDTO  servicerequestTest = (ServiceRequestDTO) response.readEntity(ServiceRequestDTO.class);
+        ServiceRequestDTO servicerequestTest = (ServiceRequestDTO) response.readEntity(ServiceRequestDTO.class);
         Assert.assertEquals(serviceRequest.getId(), servicerequestTest.getId());
         Assert.assertEquals(serviceRequest.getName(), servicerequestTest.getName());
         Assert.assertEquals(serviceRequest.getPrice(), servicerequestTest.getPrice());
@@ -204,7 +210,6 @@ public class ServiceRequestTest {
 
         SkillDTO expectedskills = oraculoExpectedskills.get(0);
         ServiceRequestDTO serviceRequest = oraculo.get(0);
-
 
         Response response = target.path("skills")
                 .request().cookie(cookieSessionId)
