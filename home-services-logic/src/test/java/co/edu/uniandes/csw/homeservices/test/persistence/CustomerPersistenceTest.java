@@ -117,6 +117,7 @@ public class CustomerPersistenceTest {
         Assert.assertEquals(newEntity.getName(), entity.getName());
         Assert.assertEquals(newEntity.getLastName(), entity.getLastName());
         Assert.assertEquals(newEntity.getDocument(), entity.getDocument());
+        Assert.assertEquals(newEntity.getPicture(), entity.getPicture());
     }
 
     /**
@@ -148,6 +149,7 @@ public class CustomerPersistenceTest {
         Assert.assertEquals(entity.getName(), newEntity.getName());
         Assert.assertEquals(entity.getLastName(), newEntity.getLastName());
         Assert.assertEquals(entity.getDocument(), newEntity.getDocument());
+        Assert.assertEquals(entity.getPicture(), newEntity.getPicture());
     }
 
     /**
@@ -179,5 +181,6 @@ public class CustomerPersistenceTest {
         Assert.assertEquals(newEntity.getName(), resp.getName());
         Assert.assertEquals(newEntity.getLastName(), resp.getLastName());
         Assert.assertEquals(newEntity.getDocument(), resp.getDocument());
+        Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
     }
 }

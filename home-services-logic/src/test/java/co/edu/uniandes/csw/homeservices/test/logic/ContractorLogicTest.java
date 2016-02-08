@@ -4,8 +4,8 @@ import co.edu.uniandes.csw.homeservices.ejbs.ContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
-import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
+import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +142,7 @@ public class ContractorLogicTest {
         Assert.assertEquals(result.getName(), entity.getName());
         Assert.assertEquals(result.getLastName(), entity.getLastName());
         Assert.assertEquals(result.getDocument(), entity.getDocument());
+        Assert.assertEquals(result.getPicture(), entity.getPicture());
     }
 
     /**
@@ -174,6 +175,7 @@ public class ContractorLogicTest {
         Assert.assertEquals(entity.getName(), resultEntity.getName());
         Assert.assertEquals(entity.getLastName(), resultEntity.getLastName());
         Assert.assertEquals(entity.getDocument(), resultEntity.getDocument());
+        Assert.assertEquals(entity.getPicture(), resultEntity.getPicture());
     }
 
     /**
@@ -205,6 +207,7 @@ public class ContractorLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
         Assert.assertEquals(pojoEntity.getLastName(), resp.getLastName());
         Assert.assertEquals(pojoEntity.getDocument(), resp.getDocument());
+        Assert.assertEquals(pojoEntity.getPicture(), resp.getPicture());
     }
 
     /**

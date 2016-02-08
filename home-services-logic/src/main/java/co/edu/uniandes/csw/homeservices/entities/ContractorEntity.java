@@ -20,13 +20,15 @@ public class ContractorEntity extends BaseEntity implements Serializable {
 
     private String document;
 
-    
-    @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkExperienceEntity> workExperiences = new ArrayList<>();
+    private String picture;
 
     @PodamExclude
     @ManyToMany
     private List<SkillEntity> skills = new ArrayList<>();
+
+    
+    @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkExperienceEntity> workExperiences = new ArrayList<>();
 
     /**
      * @generated
@@ -59,15 +61,15 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public List<WorkExperienceEntity> getWorkExperiences() {
-        return workExperiences;
+    public String getPicture(){
+        return picture;
     }
 
     /**
      * @generated
      */
-    public void setWorkExperiences(List<WorkExperienceEntity> workexperiences) {
-        this.workExperiences = workexperiences;
+    public void setPicture(String picture){
+        this.picture = picture;
     }
 
     /**
@@ -82,5 +84,19 @@ public class ContractorEntity extends BaseEntity implements Serializable {
      */
     public void setSkills(List<SkillEntity> skills) {
         this.skills = skills;
+    }
+
+    /**
+     * @generated
+     */
+    public List<WorkExperienceEntity> getWorkExperiences() {
+        return workExperiences;
+    }
+
+    /**
+     * @generated
+     */
+    public void setWorkExperiences(List<WorkExperienceEntity> workexperiences) {
+        this.workExperiences = workexperiences;
     }
 }

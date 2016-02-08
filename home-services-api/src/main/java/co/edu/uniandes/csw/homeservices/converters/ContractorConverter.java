@@ -33,6 +33,7 @@ public abstract class ContractorConverter {
             dto.setName(entity.getName());
             dto.setLastName(entity.getLastName());
             dto.setDocument(entity.getDocument());
+            dto.setPicture(entity.getPicture());
 
             return dto;
         } else {
@@ -75,6 +76,7 @@ public abstract class ContractorConverter {
             dto.setName(entity.getName());
             dto.setLastName(entity.getLastName());
             dto.setDocument(entity.getDocument());
+            dto.setPicture(entity.getPicture());
 
             return dto;
         } else {
@@ -98,6 +100,7 @@ public abstract class ContractorConverter {
             entity.setName(dto.getName());
             entity.setLastName(dto.getLastName());
             entity.setDocument(dto.getDocument());
+            entity.setPicture(dto.getPicture());
 
             return entity;
         } else {
@@ -116,8 +119,8 @@ public abstract class ContractorConverter {
     public static ContractorDTO fullEntity2DTO(ContractorEntity entity) {
         if (entity != null) {
             ContractorDTO dto = basicEntity2DTO(entity);
-            dto.setWorkExperiences(WorkExperienceConverter.listEntity2DTO(entity.getWorkExperiences()));
             dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
+            dto.setWorkExperiences(WorkExperienceConverter.listEntity2DTO(entity.getWorkExperiences()));
             return dto;
         } else {
             return null;
@@ -135,8 +138,8 @@ public abstract class ContractorConverter {
     public static ContractorEntity fullDTO2Entity(ContractorDTO dto) {
         if (dto != null) {
             ContractorEntity entity = basicDTO2Entity(dto);
-            entity.setWorkExperiences(WorkExperienceConverter.childListDTO2Entity(dto.getWorkExperiences(), entity));
             entity.setSkills(SkillConverter.listDTO2Entity(dto.getSkills()));
+            entity.setWorkExperiences(WorkExperienceConverter.childListDTO2Entity(dto.getWorkExperiences(), entity));
             return entity;
         } else {
             return null;

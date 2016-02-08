@@ -138,6 +138,7 @@ public class CustomerLogicTest {
         Assert.assertEquals(result.getName(), entity.getName());
         Assert.assertEquals(result.getLastName(), entity.getLastName());
         Assert.assertEquals(result.getDocument(), entity.getDocument());
+        Assert.assertEquals(result.getPicture(), entity.getPicture());
     }
 
     /**
@@ -170,6 +171,7 @@ public class CustomerLogicTest {
         Assert.assertEquals(entity.getName(), resultEntity.getName());
         Assert.assertEquals(entity.getLastName(), resultEntity.getLastName());
         Assert.assertEquals(entity.getDocument(), resultEntity.getDocument());
+        Assert.assertEquals(entity.getPicture(), resultEntity.getPicture());
     }
 
     /**
@@ -201,6 +203,7 @@ public class CustomerLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
         Assert.assertEquals(pojoEntity.getLastName(), resp.getLastName());
         Assert.assertEquals(pojoEntity.getDocument(), resp.getDocument());
+        Assert.assertEquals(pojoEntity.getPicture(), resp.getPicture());
     }
 
     /**

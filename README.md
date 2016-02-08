@@ -70,7 +70,8 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Co
     id: '' /*Tipo Long*/,
     name: '' /*Tipo String*/,
     lastName: '' /*Tipo String*/,
-    document: '' /*Tipo String*/
+    document: '' /*Tipo String*/,
+    picture: '' /*Tipo String*/
 }
 ```
 #####Servicios
@@ -113,7 +114,8 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Cu
     id: '' /*Tipo Long*/,
     name: '' /*Tipo String*/,
     lastName: '' /*Tipo String*/,
-    document: '' /*Tipo String*/
+    document: '' /*Tipo String*/,
+    picture: '' /*Tipo String*/
 }
 ```
 #####Servicios
@@ -145,14 +147,14 @@ En la siguiente tabla se detalla los servicios REST generados para la entidad Se
 #####Estructura de objeto ServiceRequest
 ```javascript
 {
-    dueDate: '' /*Tipo Date*/,
-    id: '' /*Tipo Long*/,
-    recommendedTime: '' /*Tipo String*/,
+    creationDate: '' /*Tipo Date*/,
     name: '' /*Tipo String*/,
+    recommendedTime: '' /*Tipo String*/,
     category: '' /*Objeto que representa instancia de Category*/,
     status: '' /*Objeto que representa instancia de Status*/,
-    creationDate: '' /*Tipo Date*/,
     customer: '' /*Objeto que representa instancia de Customer*/,
+    dueDate: '' /*Tipo Date*/,
+    id: '' /*Tipo Long*/,
     price: '' /*Tipo Integer*/
 }
 ```

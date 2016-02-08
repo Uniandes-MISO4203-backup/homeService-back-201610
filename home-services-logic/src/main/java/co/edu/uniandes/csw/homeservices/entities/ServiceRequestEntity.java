@@ -33,6 +33,10 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     private Date dueDate;
 
     @PodamExclude
+    @ManyToMany
+    private List<SkillEntity> expectedskills = new ArrayList<>();
+
+    @PodamExclude
     @ManyToOne
     private CategoryEntity category;
 
@@ -43,10 +47,6 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private CustomerEntity customer;
-
-    @PodamExclude
-    @ManyToMany
-    private List<SkillEntity> expectedskills = new ArrayList<>();
 
     /**
      * @generated
@@ -107,20 +107,6 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public StatusEntity getStatus() {
-        return status;
-    }
-
-    /**
-     * @generated
-     */
-    public void setStatus(StatusEntity status) {
-        this.status = status;
-    }
-
-    /**
-     * @generated
-     */
     public CategoryEntity getCategory() {
         return category;
     }
@@ -144,6 +130,20 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
      */
     public void setCustomer(CustomerEntity customer) {
         this.customer = customer;
+    }
+
+    /**
+     * @generated
+     */
+    public StatusEntity getStatus() {
+        return status;
+    }
+
+    /**
+     * @generated
+     */
+    public void setStatus(StatusEntity status) {
+        this.status = status;
     }
 
     /**

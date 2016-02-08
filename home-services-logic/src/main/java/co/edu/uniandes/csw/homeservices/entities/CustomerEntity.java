@@ -18,6 +18,8 @@ public class CustomerEntity extends BaseEntity implements Serializable {
 
     private String document;
 
+    private String picture;
+
     @PodamExclude
     @OneToMany(mappedBy = "customer")
     private List<ServiceRequestEntity> serviceRequests = new ArrayList<>();
@@ -48,6 +50,20 @@ public class CustomerEntity extends BaseEntity implements Serializable {
      */
     public void setDocument(String document){
         this.document = document;
+    }
+
+    /**
+     * @generated
+     */
+    public String getPicture(){
+        return picture;
+    }
+
+    /**
+     * @generated
+     */
+    public void setPicture(String picture){
+        this.picture = picture;
     }
 
     /**

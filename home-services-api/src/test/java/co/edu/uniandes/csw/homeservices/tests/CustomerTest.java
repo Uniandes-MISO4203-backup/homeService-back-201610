@@ -132,6 +132,7 @@ public class CustomerTest {
         Assert.assertEquals(customer.getName(), customerTest.getName());
         Assert.assertEquals(customer.getLastName(), customerTest.getLastName());
         Assert.assertEquals(customer.getDocument(), customerTest.getDocument());
+        Assert.assertEquals(customer.getPicture(), customerTest.getPicture());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -146,6 +147,7 @@ public class CustomerTest {
         Assert.assertEquals(customerTest.getName(), oraculo.get(0).getName());
         Assert.assertEquals(customerTest.getLastName(), oraculo.get(0).getLastName());
         Assert.assertEquals(customerTest.getDocument(), oraculo.get(0).getDocument());
+        Assert.assertEquals(customerTest.getPicture(), oraculo.get(0).getPicture());
     }
 
     @Test
@@ -170,6 +172,7 @@ public class CustomerTest {
         customer.setName(customerChanged.getName());
         customer.setLastName(customerChanged.getLastName());
         customer.setDocument(customerChanged.getDocument());
+        customer.setPicture(customerChanged.getPicture());
         Response response = target.path(customerPath).path(customer.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(customer, MediaType.APPLICATION_JSON));
         CustomerDTO customerTest = (CustomerDTO) response.readEntity(CustomerDTO.class);
@@ -177,6 +180,7 @@ public class CustomerTest {
         Assert.assertEquals(customer.getName(), customerTest.getName());
         Assert.assertEquals(customer.getLastName(), customerTest.getLastName());
         Assert.assertEquals(customer.getDocument(), customerTest.getDocument());
+        Assert.assertEquals(customer.getPicture(), customerTest.getPicture());
     }
 
     @Test

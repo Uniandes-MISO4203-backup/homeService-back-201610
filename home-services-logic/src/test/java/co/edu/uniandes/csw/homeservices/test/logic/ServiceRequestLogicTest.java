@@ -4,10 +4,10 @@ import co.edu.uniandes.csw.homeservices.ejbs.ServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ServiceRequestPersistence;
+import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
 import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
-import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -63,7 +63,7 @@ public class ServiceRequestLogicTest {
     /**
      * @generated
      */
-    private List<StatusEntity> statusData = new ArrayList<>();
+    private List<SkillEntity> expectedskillsData = new ArrayList<>();
 
     /**
      * @generated
@@ -78,7 +78,7 @@ public class ServiceRequestLogicTest {
     /**
      * @generated
      */
-    private List<SkillEntity> expectedskillsData = new ArrayList<>();
+    private List<StatusEntity> statusData = new ArrayList<>();
 
     /**
      * @generated
@@ -119,10 +119,10 @@ public class ServiceRequestLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from ServiceRequestEntity").executeUpdate();
-        em.createQuery("delete from StatusEntity").executeUpdate();
+        em.createQuery("delete from SkillEntity").executeUpdate();
         em.createQuery("delete from CategoryEntity").executeUpdate();
         em.createQuery("delete from CustomerEntity").executeUpdate();
-        em.createQuery("delete from SkillEntity").executeUpdate();
+        em.createQuery("delete from StatusEntity").executeUpdate();
     }
 
     /**
@@ -130,9 +130,9 @@ public class ServiceRequestLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            StatusEntity status = factory.manufacturePojo(StatusEntity.class);
-            em.persist(status);
-            statusData.add(status);
+            SkillEntity expectedskills = factory.manufacturePojo(SkillEntity.class);
+            em.persist(expectedskills);
+            expectedskillsData.add(expectedskills);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -148,21 +148,21 @@ public class ServiceRequestLogicTest {
         }
 
         for (int i = 0; i < 3; i++) {
-            SkillEntity expectedskills = factory.manufacturePojo(SkillEntity.class);
-            em.persist(expectedskills);
-            expectedskillsData.add(expectedskills);
+            StatusEntity status = factory.manufacturePojo(StatusEntity.class);
+            em.persist(status);
+            statusData.add(status);
         }
 
         for (int i = 0; i < 3; i++) {
             ServiceRequestEntity entity = factory.manufacturePojo(ServiceRequestEntity.class);
 
-            entity.setStatus(statusData.get(0));
+            entity.getExpectedskills().add(expectedskillsData.get(0));
 
             entity.setCategory(categoryData.get(0));
 
             entity.setCustomer(customerData.get(0));
 
-            entity.getExpectedskills().add(expectedskillsData.get(0));
+            entity.setStatus(statusData.get(0));
 
             em.persist(entity);
             data.add(entity);

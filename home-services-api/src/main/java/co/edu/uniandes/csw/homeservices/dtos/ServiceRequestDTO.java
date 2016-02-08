@@ -20,20 +20,18 @@ public class ServiceRequestDTO {
     private String name;
     private Integer price;
     private String recommendedTime;
-    @XmlJavaTypeAdapter(DateAdapter.class)
     @PodamStrategyValue(DateStrategy.class)
     private Date creationDate;
-    @XmlJavaTypeAdapter(DateAdapter.class)
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
+    @PodamExclude
+    private List<SkillDTO> expectedskills = new ArrayList<>();
     @PodamExclude
     private CategoryDTO category;
     @PodamExclude
     private StatusDTO status;
     @PodamExclude
     private CustomerDTO customer;
-    @PodamExclude
-    private List<SkillDTO> expectedskills = new ArrayList<>();
 
     /**
      * @generated
@@ -122,20 +120,6 @@ public class ServiceRequestDTO {
     /**
      * @generated
      */
-    public StatusDTO getStatus() {
-        return status;
-    }
-
-    /**
-     * @generated
-     */
-    public void setStatus(StatusDTO status) {
-        this.status = status;
-    }
-
-    /**
-     * @generated
-     */
     public CategoryDTO getCategory() {
         return category;
     }
@@ -159,6 +143,20 @@ public class ServiceRequestDTO {
      */
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
+    }
+
+    /**
+     * @generated
+     */
+    public StatusDTO getStatus() {
+        return status;
+    }
+
+    /**
+     * @generated
+     */
+    public void setStatus(StatusDTO status) {
+        this.status = status;
     }
 
     /**

@@ -3,8 +3,8 @@ package co.edu.uniandes.csw.homeservices.tests;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
-import co.edu.uniandes.csw.homeservices.dtos.WorkExperienceDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
+import co.edu.uniandes.csw.homeservices.dtos.WorkExperienceDTO;
 import co.edu.uniandes.csw.homeservices.services.ContractorService;
 import java.io.File;
 import java.io.IOException;
@@ -142,6 +142,7 @@ public class ContractorTest {
         Assert.assertEquals(contractor.getName(), contractorTest.getName());
         Assert.assertEquals(contractor.getLastName(), contractorTest.getLastName());
         Assert.assertEquals(contractor.getDocument(), contractorTest.getDocument());
+        Assert.assertEquals(contractor.getPicture(), contractorTest.getPicture());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -156,6 +157,7 @@ public class ContractorTest {
         Assert.assertEquals(contractorTest.getName(), oraculo.get(0).getName());
         Assert.assertEquals(contractorTest.getLastName(), oraculo.get(0).getLastName());
         Assert.assertEquals(contractorTest.getDocument(), oraculo.get(0).getDocument());
+        Assert.assertEquals(contractorTest.getPicture(), oraculo.get(0).getPicture());
     }
 
     @Test
@@ -180,6 +182,7 @@ public class ContractorTest {
         contractor.setName(contractorChanged.getName());
         contractor.setLastName(contractorChanged.getLastName());
         contractor.setDocument(contractorChanged.getDocument());
+        contractor.setPicture(contractorChanged.getPicture());
         Response response = target.path(contractorPath).path(contractor.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(contractor, MediaType.APPLICATION_JSON));
         ContractorDTO contractorTest = (ContractorDTO) response.readEntity(ContractorDTO.class);
@@ -187,6 +190,7 @@ public class ContractorTest {
         Assert.assertEquals(contractor.getName(), contractorTest.getName());
         Assert.assertEquals(contractor.getLastName(), contractorTest.getLastName());
         Assert.assertEquals(contractor.getDocument(), contractorTest.getDocument());
+        Assert.assertEquals(contractor.getPicture(), contractorTest.getPicture());
     }
 
     @Test

@@ -178,7 +178,7 @@ public abstract class WorkExperienceConverter {
 
     /**
      * Convierte una instancia de WorkExperienceDTO a WorkExperienceEntity asignando un valor
-     * al atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@12d2ed75 (name: contractor, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) de WorkExperienceEntity. Se usa cuando se necesita convertir
+     * al atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@1ac5e0e1 (name: contractor, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) de WorkExperienceEntity. Se usa cuando se necesita convertir
      * un WorkExperienceDTO asignando el libro asociado
      * @param dto Instancia de WorkExperienceDTO
      * @param parent Instancia de ContractorEntity
@@ -194,10 +194,10 @@ public abstract class WorkExperienceConverter {
     /**
      * Convierte una colección de instancias de WorkExperienceDTO a WorkExperienceEntity
      * asignando el mismo padre para todos. Se usa cuando se necesita crear o
-     * actualizar varios WorkExperienceEntity con el mismo org.eclipse.uml2.uml.internal.impl.PropertyImpl@12d2ed75 (name: contractor, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false)
+     * actualizar varios WorkExperienceEntity con el mismo org.eclipse.uml2.uml.internal.impl.PropertyImpl@1ac5e0e1 (name: contractor, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false)
      * @param dtos Colección de instancias de WorkExperienceDTO
      * @param parent Instancia de ContractorEntity
-     * @return Colección de WorkExperienceEntity con el atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@12d2ed75 (name: contractor, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) asignado
+     * @return Colección de WorkExperienceEntity con el atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@1ac5e0e1 (name: contractor, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) asignado
      * @generated
      */
     public static List<WorkExperienceEntity> childListDTO2Entity(List<WorkExperienceDTO> dtos, ContractorEntity parent) {
