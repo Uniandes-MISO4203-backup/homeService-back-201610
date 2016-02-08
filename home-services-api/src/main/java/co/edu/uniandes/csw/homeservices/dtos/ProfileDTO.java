@@ -7,6 +7,7 @@ public class ProfileDTO {
     private String name;
     private String lastName;
     private String document;
+    private String picture;
 
     public ProfileDTO() {
     }
@@ -56,6 +57,20 @@ public class ProfileDTO {
      */
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    /**
+     * @return the picture
+     */
+    public String getPicture() {
+        return picture;
+    }
+
+    /**
+     * @param picture the picture to set
+     */
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
 }

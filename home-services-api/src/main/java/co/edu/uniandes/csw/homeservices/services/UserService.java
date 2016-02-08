@@ -63,26 +63,22 @@ public class UserService extends AuthService {
         }
     }
 
-    public static CustomerEntity getCustomer(String href) {
+    public static Long getCustomerId(String href) {
         Account account = getAccount(href);
         Integer customerId = (Integer) account.getCustomData().get(CUSTOMER_CUSTOM_DATA_KEY);
         if (customerId == null) {
             throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
         }
-        CustomerEntity customer = new CustomerEntity();
-        customer.setId(new Long(customerId));
-        return customer;
+        return new Long(customerId);
     }
 
-    public static ContractorEntity getContractor(String href) {
+    public static Long getContractorId(String href) {
         Account account = getAccount(href);
         Integer translatorId = (Integer) account.getCustomData().get(CONTRACTOR_CUSTOM_DATA_KEY);
         if (translatorId == null) {
             throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
         }
-        ContractorEntity contractor = new ContractorEntity();
-        contractor.setId(new Long(translatorId));
-        return contractor;
+        return new Long(translatorId);
     }
 
     public static Account getAccount(String href) {
