@@ -20,7 +20,6 @@ import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import com.stormpath.sdk.resource.ResourceException;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
 
 public class UserService extends AuthService {
