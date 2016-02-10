@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +20,14 @@ import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
+import co.edu.uniandes.csw.homeservices.converters.CustomerConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
+import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
+import com.stormpath.sdk.account.Account;
+import com.stormpath.sdk.group.Group;
+import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @generated
@@ -29,8 +36,11 @@ import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ContractorService {
+    private static final String CONTRACTOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/MYGQnB0wYXcWuuF45b5O7";
+    private static final String ADMIN_GROUP_HREF = "https://api.stormpath.com/v1/groups/o77o1TImVkj4huhD3WQ9U";
 
     @Inject private IContractorLogic contractorLogic;
+    @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
@@ -43,11 +53,26 @@ public class ContractorService {
      */
     @GET
     public List<ContractorDTO> getContractors() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
-            return ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
+        String accountHref = req.getRemoteUser();
+        if (accountHref != null) {
+            Account account = getClient().getResource(accountHref, Account.class);
+            for (Group gr : account.getGroups()) {
+                switch (gr.getHref()) {                    
+                    case ADMIN_GROUP_HREF:
+                        if (page != null && maxRecords != null) {
+                        this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
+                        return ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
+                        }
+                        return ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
+                    case CONTRACTOR_GROUP_HREF:
+                        Integer id = (int) account.getCustomData().get("contractor_id");
+                        List<ContractorDTO> list = new ArrayList();
+                        list.add(ContractorConverter.fullEntity2DTO(contractorLogic.getContractor(id.longValue())));
+                        return list;    
+                }
+            }
         }
-        return ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
+        return null;          
     }
 
     /**

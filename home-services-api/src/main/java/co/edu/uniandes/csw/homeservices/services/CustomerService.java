@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import static co.edu.uniandes.csw.auth.stormpath.Utils.getClient;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,10 @@ import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import co.edu.uniandes.csw.homeservices.converters.CustomerConverter;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
+import com.stormpath.sdk.account.Account;
+import com.stormpath.sdk.group.Group;
+import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @generated
@@ -29,8 +34,11 @@ import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerService {
+    private static final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/8qQhS1L3L1xrzgv2mxxPn";
+    private static final String ADMIN_GROUP_HREF = "https://api.stormpath.com/v1/groups/o77o1TImVkj4huhD3WQ9U";
 
     @Inject private ICustomerLogic customerLogic;
+    @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
@@ -43,11 +51,26 @@ public class CustomerService {
      */
     @GET
     public List<CustomerDTO> getCustomers() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", customerLogic.countCustomers());
-            return CustomerConverter.listEntity2DTO(customerLogic.getCustomers(page, maxRecords));
+        String accountHref = req.getRemoteUser();
+        if (accountHref != null) {
+            Account account = getClient().getResource(accountHref, Account.class);
+            for (Group gr : account.getGroups()) {
+                switch (gr.getHref()) {                    
+                    case ADMIN_GROUP_HREF:
+                        if (page != null && maxRecords != null) {
+                        this.response.setIntHeader("X-Total-Count", customerLogic.countCustomers());
+                        return CustomerConverter.listEntity2DTO(customerLogic.getCustomers(page, maxRecords));
+                    }
+                        return CustomerConverter.listEntity2DTO(customerLogic.getCustomers());
+                    case CUSTOMER_GROUP_HREF:
+                        Integer id = (int) account.getCustomData().get("customer_id");
+                        List<CustomerDTO> list = new ArrayList();
+                        list.add(CustomerConverter.fullEntity2DTO(customerLogic.getCustomer(id.longValue())));
+                        return list;    
+                }
+            }
         }
-        return CustomerConverter.listEntity2DTO(customerLogic.getCustomers());
+        return null;        
     }
 
     /**
