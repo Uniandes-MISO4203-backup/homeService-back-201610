@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>home-services-api</artifactId>
-    <name>HomeServices.api</name>
+    <name>MPHomeServices.api</name>
     <packaging>war</packaging>
     <parent>
         <groupId>co.edu.uniandes.csw.homeservices</groupId>
