@@ -3,7 +3,3 @@ jdk:
 - oraclejdk8
 after_success:
 - mvn sonar:sonar
-env:
-  USERNAME_USER: jairud100saberes
-  PASSWORD_USER: Password1
-  
