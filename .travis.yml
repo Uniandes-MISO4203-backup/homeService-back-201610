@@ -3,6 +3,3 @@ jdk:
 - oraclejdk8
 after_success:
 - mvn sonar:sonar
-env:
-  USERNAME_USER: homecare
-  PASSWORD_USER: Password1
