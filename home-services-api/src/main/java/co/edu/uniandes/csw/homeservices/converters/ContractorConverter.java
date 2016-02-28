@@ -34,7 +34,7 @@ public abstract class ContractorConverter {
             dto.setLastName(entity.getLastName());
             dto.setDocument(entity.getDocument());
             dto.setPicture(entity.getPicture());
-
+            dto.setCity(entity.getCity());
             return dto;
         } else {
             return null;
@@ -77,6 +77,7 @@ public abstract class ContractorConverter {
             dto.setLastName(entity.getLastName());
             dto.setDocument(entity.getDocument());
             dto.setPicture(entity.getPicture());
+            dto.setCity(entity.getCity());
 
             return dto;
         } else {
@@ -101,6 +102,7 @@ public abstract class ContractorConverter {
             entity.setLastName(dto.getLastName());
             entity.setDocument(dto.getDocument());
             entity.setPicture(dto.getPicture());
+            entity.setCity(dto.getCity());
 
             return entity;
         } else {

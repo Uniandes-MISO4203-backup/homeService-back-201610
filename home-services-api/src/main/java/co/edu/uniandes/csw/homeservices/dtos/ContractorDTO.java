@@ -16,6 +16,8 @@ public class ContractorDTO {
     private String lastName;
     private String document;
     private String picture;
+    private String city;
+            
     @PodamExclude
     private List<SkillDTO> skills = new ArrayList<>();
     
@@ -118,5 +120,20 @@ public class ContractorDTO {
     public void setWorkExperiences(List<WorkExperienceDTO> workexperiences) {
         this.workExperiences = workexperiences;
     }
+    
+     /**
+     * @generated
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * @generated
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+    
 
 }
