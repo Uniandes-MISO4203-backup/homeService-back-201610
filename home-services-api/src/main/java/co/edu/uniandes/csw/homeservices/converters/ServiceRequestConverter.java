@@ -35,6 +35,7 @@ public abstract class ServiceRequestConverter {
             dto.setRecommendedTime(entity.getRecommendedTime());
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
+            dto.setDescription(entity.getDescription());
 
             return dto;
         } else {
@@ -82,6 +83,7 @@ public abstract class ServiceRequestConverter {
             dto.setCategory(CategoryConverter.refEntity2DTO(entity.getCategory()));
             dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
             dto.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
+            dto.setDescription(entity.getDescription());
 
             return dto;
         } else {
@@ -110,6 +112,7 @@ public abstract class ServiceRequestConverter {
             entity.setCategory(CategoryConverter.refDTO2Entity(dto.getCategory()));
             entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));
             entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
+            entity.setDescription(dto.getDescription());
 
             return entity;
         } else {

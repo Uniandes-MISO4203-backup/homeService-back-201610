@@ -32,6 +32,9 @@ public class ServiceRequestDTO {
     private StatusDTO status;
     @PodamExclude
     private CustomerDTO customer;
+    
+    private String description;
+    
 
     /**
      * @generated
@@ -171,6 +174,20 @@ public class ServiceRequestDTO {
      */
     public void setExpectedskills(List<SkillDTO> expectedskills) {
         this.expectedskills = expectedskills;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
