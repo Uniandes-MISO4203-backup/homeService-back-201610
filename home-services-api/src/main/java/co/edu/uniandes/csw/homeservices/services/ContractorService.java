@@ -36,8 +36,8 @@ import javax.servlet.http.HttpServletRequest;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ContractorService {
-    private static final String CONTRACTOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/MYGQnB0wYXcWuuF45b5O7";
-    private static final String ADMIN_GROUP_HREF = "https://api.stormpath.com/v1/groups/o77o1TImVkj4huhD3WQ9U";
+    private static final String CONTRACTOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/17sNxjYJEeYN8qDMfuBIbh";
+    private static final String ADMIN_GROUP_HREF = "https://api.stormpath.com/v1/groups/rRAbN1pw2hLLj66xeAx4z";
 
     @Inject private IContractorLogic contractorLogic;
     @Context private HttpServletRequest req;

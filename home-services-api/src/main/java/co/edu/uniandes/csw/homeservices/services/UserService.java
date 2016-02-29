@@ -26,8 +26,8 @@ public class UserService extends AuthService {
 
     private static final String CUSTOMER_CUSTOM_DATA_KEY = "customer_id";
     private static final String CONTRACTOR_CUSTOM_DATA_KEY = "contractor_id";
-    private static final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/8qQhS1L3L1xrzgv2mxxPn";
-    private static final String CONTRACTOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/MYGQnB0wYXcWuuF45b5O7";
+    private static final String CUSTOMER_GROUP_HREF = "https://api.stormpath.com/v1/groups/yAWNHHo2KKxlRy7mdmVY9";
+    private static final String CONTRACTOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/17sNxjYJEeYN8qDMfuBIbh";
 
     @Inject
     private ICustomerLogic customerLogic;

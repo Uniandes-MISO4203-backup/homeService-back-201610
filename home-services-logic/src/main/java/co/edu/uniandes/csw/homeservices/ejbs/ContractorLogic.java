@@ -64,6 +64,7 @@ public class ContractorLogic implements IContractorLogic {
         ContractorEntity newEntity = entity;
         ContractorEntity oldEntity = persistence.find(entity.getId());
         newEntity.setSkills(oldEntity.getSkills());
+        newEntity.setTelefono(oldEntity.getTelefono());
         return persistence.update(newEntity);
     }
 
