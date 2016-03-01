@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/MISO4203-201610/HomeService-Back.svg?branch=master)](https://travis-ci.org/MISO4203-201610/HomeService-Back)
+
 # Tabla de contenidos
 -  [Introducción](#introducción)
 -  [API](#api-de-la-aplicación-homeservices)

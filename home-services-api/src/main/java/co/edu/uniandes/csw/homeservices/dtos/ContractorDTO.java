@@ -16,6 +16,8 @@ public class ContractorDTO {
     private String lastName;
     private String document;
     private String picture;
+    private String telefono;
+    
     @PodamExclude
     private List<SkillDTO> skills = new ArrayList<>();
     
@@ -118,5 +120,15 @@ public class ContractorDTO {
     public void setWorkExperiences(List<WorkExperienceDTO> workexperiences) {
         this.workExperiences = workexperiences;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
+    
 
 }

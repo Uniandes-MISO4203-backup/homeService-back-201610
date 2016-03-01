@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 public class WorkExperienceEntity extends BaseEntity implements Serializable {
 
     private String description;
+    /*
+        How many hour took this job
+    */
+    private Integer hours;
 
     @PodamExclude
     @ManyToOne
@@ -44,5 +48,19 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable {
      */
     public void setContractor(ContractorEntity contractor) {
         this.contractor = contractor;
+    }
+
+    /**
+     * @return the hours
+     */
+    public Integer getHours() {
+        return hours;
+    }
+
+    /**
+     * @param hours the hours to set
+     */
+    public void setHours(Integer hours) {
+        this.hours = hours;
     }
 }
