@@ -16,6 +16,7 @@ public class CustomerDTO {
     private String lastName;
     private String document;
     private String picture;
+    private String address;
     @PodamExclude
     private List<ServiceRequestDTO> serviceRequests = new ArrayList<>();
 
@@ -88,6 +89,15 @@ public class CustomerDTO {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
 
     /**
      * @generated
