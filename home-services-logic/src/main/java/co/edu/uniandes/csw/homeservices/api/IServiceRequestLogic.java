@@ -17,4 +17,5 @@ public interface IServiceRequestLogic {
     public SkillEntity addExpectedskills(Long serviceRequestId, Long expectedskillsId);
     public List<SkillEntity> replaceExpectedskills(Long serviceRequestId, List<SkillEntity> list);
     public void removeExpectedskills(Long serviceRequestId, Long expectedskillsId);
+    public List<ServiceRequestEntity> getByDescription(String description, Long customerId);
 }

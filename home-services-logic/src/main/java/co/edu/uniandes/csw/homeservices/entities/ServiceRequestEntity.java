@@ -13,11 +13,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @generated
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Service.getByDescription", query = "select u from ServiceRequestEntity u JOIN u.customer c1 Where UPPER(u.description) like :description and c1.id= :customerId")
+})   
 public class ServiceRequestEntity extends BaseEntity implements Serializable {
 
     private Integer price;
