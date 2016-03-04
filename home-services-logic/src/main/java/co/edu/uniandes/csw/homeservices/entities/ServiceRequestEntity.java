@@ -54,6 +54,11 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     private CustomerEntity customer;
     
     private String description;
+    
+    @PodamExclude
+    @ManyToOne
+    private CalificationServiceEntity calificationService;
+    
 
     /**
      * @generated
@@ -179,5 +184,19 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the calificationService
+     */
+    public CalificationServiceEntity getCalificationService() {
+        return calificationService;
+    }
+
+    /**
+     * @param calificationService the calificationService to set
+     */
+    public void setCalificationService(CalificationServiceEntity calificationService) {
+        this.calificationService = calificationService;
     }
 }
