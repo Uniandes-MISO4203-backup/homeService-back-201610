@@ -16,6 +16,7 @@ public class ContractorDTO {
     private String lastName;
     private String document;
     private String picture;
+    private String city;
     private String telefono;
     
     @PodamExclude
@@ -120,6 +121,21 @@ public class ContractorDTO {
     public void setWorkExperiences(List<WorkExperienceDTO> workexperiences) {
         this.workExperiences = workexperiences;
     }
+    
+     /**
+     * @generated
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * @generated
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+    
 
     public String getTelefono() {
         return telefono;

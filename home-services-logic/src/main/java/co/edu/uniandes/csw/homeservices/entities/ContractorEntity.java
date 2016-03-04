@@ -22,6 +22,8 @@ public class ContractorEntity extends BaseEntity implements Serializable {
 
     private String picture;
     
+    private String city;
+
     private String telefono;
 
     @PodamExclude
@@ -102,6 +104,21 @@ public class ContractorEntity extends BaseEntity implements Serializable {
         this.workExperiences = workexperiences;
     }
 
+    
+         /**
+     * @generated
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * @generated
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -111,4 +128,5 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     }
     
     
+
 }
