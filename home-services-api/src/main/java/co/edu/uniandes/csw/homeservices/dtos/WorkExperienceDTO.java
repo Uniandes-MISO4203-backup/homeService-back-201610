@@ -12,6 +12,7 @@ public class WorkExperienceDTO {
     private Long id;
     private String name;
     private String description;
+    private Integer hours;
     @PodamExclude
     private ContractorDTO contractor;
 
@@ -69,6 +70,20 @@ public class WorkExperienceDTO {
      */
     public void setContractor(ContractorDTO contractor) {
         this.contractor = contractor;
+    }
+
+    /**
+     * @return the hours
+     */
+    public Integer getHours() {
+        return hours;
+    }
+
+    /**
+     * @param hours the hours to set
+     */
+    public void setHours(Integer hours) {
+        this.hours = hours;
     }
 
 }

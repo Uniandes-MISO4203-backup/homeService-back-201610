@@ -17,7 +17,8 @@ public class ContractorDTO {
     private String document;
     private String picture;
     private String city;
-            
+    private String telefono;
+    
     @PodamExclude
     private List<SkillDTO> skills = new ArrayList<>();
     
@@ -134,6 +135,16 @@ public class ContractorDTO {
     public void setCity(String city) {
         this.city = city;
     }
+    
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
     
 
 }

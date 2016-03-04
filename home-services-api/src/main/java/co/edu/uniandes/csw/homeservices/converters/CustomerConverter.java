@@ -34,6 +34,7 @@ public abstract class CustomerConverter {
             dto.setLastName(entity.getLastName());
             dto.setDocument(entity.getDocument());
             dto.setPicture(entity.getPicture());
+            dto.setAddress(entity.getAddress());
 
             return dto;
         } else {
@@ -77,7 +78,8 @@ public abstract class CustomerConverter {
             dto.setLastName(entity.getLastName());
             dto.setDocument(entity.getDocument());
             dto.setPicture(entity.getPicture());
-
+            dto.setAddress(entity.getAddress());
+            
             return dto;
         } else {
             return null;
@@ -101,7 +103,8 @@ public abstract class CustomerConverter {
             entity.setLastName(dto.getLastName());
             entity.setDocument(dto.getDocument());
             entity.setPicture(dto.getPicture());
-
+            entity.setAddress(dto.getAddress());
+            
             return entity;
         } else {
             return null;

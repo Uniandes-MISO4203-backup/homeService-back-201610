@@ -24,6 +24,8 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     
     private String city;
 
+    private String telefono;
+
     @PodamExclude
     @ManyToMany
     private List<SkillEntity> skills = new ArrayList<>();
@@ -101,6 +103,7 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     public void setWorkExperiences(List<WorkExperienceEntity> workexperiences) {
         this.workExperiences = workexperiences;
     }
+
     
          /**
      * @generated
@@ -115,4 +118,15 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
+    
+
 }
