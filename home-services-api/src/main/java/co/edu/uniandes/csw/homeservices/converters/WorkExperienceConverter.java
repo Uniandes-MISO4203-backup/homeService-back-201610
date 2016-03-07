@@ -74,6 +74,7 @@ public abstract class WorkExperienceConverter {
             WorkExperienceDTO dto = new WorkExperienceDTO();
             dto.setId(entity.getId());
             dto.setName(entity.getName());
+            dto.setHours(entity.getHours());
             dto.setDescription(entity.getDescription());
             dto.setContractor(ContractorConverter.refEntity2DTO(entity.getContractor()));
             dto.setDescription(entity.getDescription());
@@ -101,6 +102,7 @@ public abstract class WorkExperienceConverter {
             entity.setDescription(dto.getDescription());
             entity.setContractor(ContractorConverter.refDTO2Entity(dto.getContractor()));
             entity.setDescription(dto.getDescription());
+            entity.setHours(dto.getHours());
 
             return entity;
         } else {

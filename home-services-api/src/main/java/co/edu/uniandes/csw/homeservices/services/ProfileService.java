@@ -30,16 +30,21 @@ public class ProfileService {
     public ProfileDTO getProfile() {
         ProfileDTO profile = new ProfileDTO(getAccount(req.getRemoteUser()));
         try {
-            CustomerEntity customer = customerLogic.getCustomer(getCustomerId(req.getRemoteUser()));
-            profile.setDocument(customer.getDocument());
-            profile.setPicture(customer.getPicture());
-
+            Long customerId = getCustomerId(req.getRemoteUser());
+            if (customerId != null) {
+                CustomerEntity customer = customerLogic.getCustomer(customerId);
+                profile.setDocument(customer.getDocument());
+                profile.setPicture(customer.getPicture());
+            }
         } catch (WebApplicationException e) {
         }
         try {
-            ContractorEntity contractor = contractorLogic.getContractor(getContractorId(req.getRemoteUser()));
-            profile.setDocument(contractor.getDocument());
-            profile.setPicture(contractor.getPicture());
+            Long contractorId = getContractorId(req.getRemoteUser());
+            if (contractorId != null) {
+                ContractorEntity contractor = contractorLogic.getContractor(contractorId);
+                profile.setDocument(contractor.getDocument());
+                profile.setPicture(contractor.getPicture());
+            }
         } catch (WebApplicationException e) {
         }
         return profile;
