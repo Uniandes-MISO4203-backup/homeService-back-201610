@@ -33,8 +33,7 @@ public class ServiceRequestDTO {
     @PodamExclude
     private CustomerDTO customer;
     private String description;
-    @PodamExclude
-    private CalificationServiceDTO calificationService;
+    
     
     
 
@@ -192,18 +191,6 @@ public class ServiceRequestDTO {
         this.description = description;
     }
 
-    /**
-     * @return the calificationService
-     */
-    public CalificationServiceDTO getCalificationService() {
-        return calificationService;
-    }
-
-    /**
-     * @param calificationService the calificationService to set
-     */
-    public void setCalificationService(CalificationServiceDTO calificationService) {
-        this.calificationService = calificationService;
-    }
+    
 
 }
