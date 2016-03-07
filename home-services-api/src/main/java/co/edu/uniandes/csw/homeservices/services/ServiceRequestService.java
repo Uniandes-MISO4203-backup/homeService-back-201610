@@ -46,6 +46,8 @@ public class ServiceRequestService {
     private Integer page;
     @QueryParam("maxRecords")
     private Integer maxRecords;
+    @QueryParam("description")
+    private String description;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -56,7 +58,14 @@ public class ServiceRequestService {
      */
     @GET
     public List<ServiceRequestDTO> getServiceRequests() {
-        return ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())));
+        List<ServiceRequestDTO> list= null;
+        if (description!=null){
+            list= ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getByDescription(description, getCustomerId(req.getRemoteUser())));
+        }
+        else{
+            list= ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())));
+        }  
+        return list;
     }
 
     /**
