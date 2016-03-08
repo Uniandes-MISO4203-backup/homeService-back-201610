@@ -20,10 +20,8 @@ import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
-import co.edu.uniandes.csw.homeservices.converters.CustomerConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
-import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -45,6 +43,7 @@ public class ContractorService {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
+    @QueryParam("skillName") private String skillName;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -197,5 +196,18 @@ public class ContractorService {
     @Path("{contractorId: \\d+}/skills/{skillId: \\d+}")
     public void removeSkills(@PathParam("contractorId") Long contractorId, @PathParam("skillId") Long skillId) {
         contractorLogic.removeSkills(contractorId, skillId);
+    }
+    
+    /**
+     * Obtiene una coleccion de contractors que contengan un skill 
+     * relevante al enviado como parametro
+     *
+     * @param skillName nombre de un skill por el cual se quiere hacer la bbusqueda
+     * @return Coleccion de instancias de ContractorDTO que contengan el skill enviado
+     */
+    @GET
+    @Path("bySkill")
+    public List<ContractorDTO> listContractorsBySkill() {
+        return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkill(skillName));
     }
 }

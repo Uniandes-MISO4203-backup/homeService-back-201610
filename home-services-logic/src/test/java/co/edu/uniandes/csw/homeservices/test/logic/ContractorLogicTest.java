@@ -30,6 +30,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class ContractorLogicTest {
 
+    //Skill para las pruebas unitarias de busqueda por skill
+    private SkillEntity skillA;
+    private String skillName = "Plomería";
+    
     /**
      * @generated
      */
@@ -110,6 +114,13 @@ public class ContractorLogicTest {
      * @generated
      */
     private void insertData() {
+        
+        SkillEntity skillA = new SkillEntity();
+        skillA.setName(skillName);
+        skillA.setDescription("Trabajos con las tuberias");
+        em.persist(skillA);
+        skillsData.add(skillA);
+                
         for (int i = 0; i < 3; i++) {
             SkillEntity skills = factory.manufacturePojo(SkillEntity.class);
             em.persist(skills);
@@ -145,6 +156,8 @@ public class ContractorLogicTest {
         Assert.assertEquals(result.getPicture(), entity.getPicture());
     }
 
+    
+    
     /**
      * @generated
      */
@@ -269,5 +282,17 @@ public class ContractorLogicTest {
         contractorLogic.removeSkills(data.get(0).getId(), skillsData.get(0).getId());
         SkillEntity response = contractorLogic.getSkills(data.get(0).getId(), skillsData.get(0).getId());
         Assert.assertNull(response);
+    }
+    
+    
+    /**
+     * Prueba unitaria para consulta de contractors por skill
+     */
+    @Test
+    public void getContractorsBySkillNameTest() {
+        List<ContractorEntity> contractors = contractorLogic.getContractorsBySkill(skillName);
+        
+        Assert.assertNull(contractors);
+        Assert.assertTrue(contractors != null && contractors.size() > 0);
     }
 }

@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -129,5 +130,21 @@ public class ContractorLogic implements IContractorLogic {
         SkillEntity skillsEntity = new SkillEntity();
         skillsEntity.setId(skillsId);
         entity.getSkills().remove(skillsEntity);
+    }
+    
+    /**
+     * Metodo que permite realizar la busqueda de los contractors dado un 
+     * skill en string
+     * 
+     * @param skill 
+     * @return List<ContractorEntity> encontrados que tienen ese skill 
+     *         dentro de sus skill, o lista vacia si no encuentra nada
+     */
+    @Override
+    public List<ContractorEntity> getContractorsBySkill(String skill) {
+        
+        List<ContractorEntity> contractorsBySkill = persistence.getContractorsBySkill(skill);
+        
+        return contractorsBySkill;
     }
 }
