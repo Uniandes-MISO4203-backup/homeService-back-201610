@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -18,7 +19,7 @@ public class SkillEntity extends BaseEntity implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "CONTRACTORENTITY_ID") },
             joinColumns = { @JoinColumn(name = "SKILLS_ID")}
     )
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.PERSIST)
     private List<ContractorEntity> contractors;
     
     private String description;
