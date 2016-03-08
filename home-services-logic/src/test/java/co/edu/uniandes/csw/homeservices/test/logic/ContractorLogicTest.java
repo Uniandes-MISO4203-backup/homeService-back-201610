@@ -31,7 +31,6 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class ContractorLogicTest {
 
     //Skill para las pruebas unitarias de busqueda por skill
-    private SkillEntity skillA;
     private String skillName = "Plomería";
     
     /**
@@ -115,14 +114,10 @@ public class ContractorLogicTest {
      */
     private void insertData() {
         
-        SkillEntity skillA = new SkillEntity();
-        skillA.setName(skillName);
-        skillA.setDescription("Trabajos con las tuberias");
-        em.persist(skillA);
-        skillsData.add(skillA);
-                
+  
         for (int i = 0; i < 3; i++) {
             SkillEntity skills = factory.manufacturePojo(SkillEntity.class);
+            skills.setName(skillName);
             em.persist(skills);
             skillsData.add(skills);
         }
