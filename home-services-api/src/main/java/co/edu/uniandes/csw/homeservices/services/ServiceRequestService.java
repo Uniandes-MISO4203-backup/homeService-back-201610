@@ -23,8 +23,10 @@ import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
+import co.edu.uniandes.csw.homeservices.loggers.BasicLogger;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.log4j.Logger;
 
 /**
  * @generated
@@ -48,6 +50,10 @@ public class ServiceRequestService {
     private Integer maxRecords;
     @QueryParam("description")
     private String description;
+    
+    static final Logger logger = Logger.getLogger(ServiceRequestService.class);
+    
+    
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -58,6 +64,7 @@ public class ServiceRequestService {
      */
     @GET
     public List<ServiceRequestDTO> getServiceRequests() {
+        
         List<ServiceRequestDTO> list= null;
         if (description!=null){
             list= ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getByDescription(description, getCustomerId(req.getRemoteUser())));

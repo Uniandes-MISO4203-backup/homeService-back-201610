@@ -14,6 +14,8 @@ import javax.ws.rs.core.Context;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getContractorId;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.inject.Inject;
+import org.apache.log4j.Logger;
+
 
 @Path("profile")
 public class ProfileService {
@@ -26,6 +28,8 @@ public class ProfileService {
     @Inject
     private IContractorLogic contractorLogic;
 
+    static final Logger logger = Logger.getLogger(ProfileService.class);
+
     @GET
     public ProfileDTO getProfile() {
         ProfileDTO profile = new ProfileDTO(getAccount(req.getRemoteUser()));
@@ -34,13 +38,18 @@ public class ProfileService {
             profile.setDocument(customer.getDocument());
             profile.setPicture(customer.getPicture());
 
-        } catch (WebApplicationException e) {
+        } catch (WebApplicationException e){ 
+
+            logger.error( e.getMessage());
         }
         try {
             ContractorEntity contractor = contractorLogic.getContractor(getContractorId(req.getRemoteUser()));
             profile.setDocument(contractor.getDocument());
             profile.setPicture(contractor.getPicture());
         } catch (WebApplicationException e) {
+            
+
+            logger.error(e.getMessage());
         }
         return profile;
     }
