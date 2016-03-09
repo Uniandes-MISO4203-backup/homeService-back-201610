@@ -23,7 +23,6 @@ import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
-import co.edu.uniandes.csw.homeservices.loggers.BasicLogger;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
