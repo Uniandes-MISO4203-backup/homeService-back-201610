@@ -9,6 +9,7 @@
         <class>co.edu.uniandes.csw.homeservices.entities.SkillEntity</class>
         <class>co.edu.uniandes.csw.homeservices.entities.StatusEntity</class>
         <class>co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity</class>
+        <class>co.edu.uniandes.csw.homeservices.entities.EducationEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <shared-cache-mode>NONE</shared-cache-mode>
         <properties>
