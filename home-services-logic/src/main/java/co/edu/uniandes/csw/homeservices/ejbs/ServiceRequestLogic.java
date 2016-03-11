@@ -130,4 +130,9 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
         expectedskillsEntity.setId(expectedskillsId);
         entity.getExpectedskills().remove(expectedskillsEntity);
     }
+    
+    @Override
+    public List<ServiceRequestEntity> getByDescription(String description, Long customerId) {
+        return persistence.getByDescription(description, customerId);
+    }
 }
