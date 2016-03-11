@@ -188,4 +188,35 @@ public class ContractorPersistenceTest {
         Assert.assertEquals(newEntity.getDocument(), resp.getDocument());
         Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
     }
+    
+        /**
+     * @generated
+     */
+    @Test
+    public void getContractorsBySkillName() {
+        ContractorEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        ContractorEntity newEntity = factory.manufacturePojo(ContractorEntity.class);
+        
+        String skillName = "";
+        
+        if (newEntity.getSkills() != null) {
+            
+            skillName = newEntity.getSkills().get(0).getName();
+        }
+        
+        contractorPersistence.update(newEntity);
+
+        List<ContractorEntity> resp = contractorPersistence.getContractorsBySkill(skillName);
+        
+        if (skillName.equals("")){
+        
+            Assert.assertEquals(null, resp);
+            
+        } else {
+        
+            Assert.assertNotEquals("", skillName);
+            Assert.assertTrue(resp.size() > 0);
+        }
+    }
 }
