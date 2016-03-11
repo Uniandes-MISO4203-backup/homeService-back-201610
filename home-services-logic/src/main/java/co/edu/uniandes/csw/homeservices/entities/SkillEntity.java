@@ -19,7 +19,7 @@ public class SkillEntity extends BaseEntity implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "CONTRACTORENTITY_ID") },
             joinColumns = { @JoinColumn(name = "SKILLS_ID")}
     )
-    @ManyToMany()
+    @ManyToMany(cascade=CascadeType.ALL)
     private List<ContractorEntity> contractors;
     
     private String description;
