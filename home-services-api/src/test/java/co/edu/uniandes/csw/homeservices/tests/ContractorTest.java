@@ -143,6 +143,12 @@ public class ContractorTest {
         Assert.assertEquals(contractor.getLastName(), contractorTest.getLastName());
         Assert.assertEquals(contractor.getDocument(), contractorTest.getDocument());
         Assert.assertEquals(contractor.getPicture(), contractorTest.getPicture());
+        WorkExperienceDTO workExperienceTest=contractorTest.getWorkExperiences().get(0);
+        WorkExperienceDTO workExperience=contractor.getWorkExperiences().get(0);
+        //Assert.assertEquals(workExperience.getId(), workExperienceTest.getId());
+        Assert.assertEquals(workExperience.getName(), workExperienceTest.getName());
+        Assert.assertEquals(workExperience.getDescription(), workExperienceTest.getDescription());
+        Assert.assertEquals(workExperience.getHours(), workExperienceTest.getHours());
         Assert.assertEquals(Created, response.getStatus());
     }
 
