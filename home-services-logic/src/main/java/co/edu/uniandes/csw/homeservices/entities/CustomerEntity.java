@@ -19,6 +19,8 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     private String document;
 
     private String picture;
+    
+    private String address;
 
     @PodamExclude
     @OneToMany(mappedBy = "customer")
@@ -79,4 +81,13 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     public void setServiceRequests(List<ServiceRequestEntity> servicerequests) {
         this.serviceRequests = servicerequests;
     }
+    
+     public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
 }

@@ -43,9 +43,12 @@ public class ProfileService {
             logger.error( e.getMessage());
         }
         try {
-            ContractorEntity contractor = contractorLogic.getContractor(getContractorId(req.getRemoteUser()));
-            profile.setDocument(contractor.getDocument());
-            profile.setPicture(contractor.getPicture());
+            Long contractorId = getContractorId(req.getRemoteUser());
+            if (contractorId != null) {
+                ContractorEntity contractor = contractorLogic.getContractor(contractorId);
+                profile.setDocument(contractor.getDocument());
+                profile.setPicture(contractor.getPicture());
+            }
         } catch (WebApplicationException e) {
             
 
