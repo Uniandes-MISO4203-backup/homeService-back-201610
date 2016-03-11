@@ -50,7 +50,7 @@ public class ServiceRequestService {
     @QueryParam("description")
     private String description;
     
-    static final Logger logger = Logger.getLogger(ServiceRequestService.class);
+    
     
     
 
