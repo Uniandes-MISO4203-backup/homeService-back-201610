@@ -10,6 +10,7 @@
     <class>co.edu.uniandes.csw.homeservices.entities.SkillEntity</class>
     <class>co.edu.uniandes.csw.homeservices.entities.StatusEntity</class>
     <class>co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.EducationEntity</class>
     <properties>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>

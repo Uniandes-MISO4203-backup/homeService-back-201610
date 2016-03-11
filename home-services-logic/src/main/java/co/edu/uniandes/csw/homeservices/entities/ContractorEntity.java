@@ -25,6 +25,8 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     private String city;
 
     private String telefono;
+    
+    private String profileDescription;
 
     @PodamExclude
     @ManyToMany
@@ -33,8 +35,11 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     
     @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkExperienceEntity> workExperiences = new ArrayList<>();
-
-    /**
+    
+    @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EducationEntity> educations = new ArrayList<>();
+    
+    /**@OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
      * @generated
      */
     public String getLastName(){
@@ -104,7 +109,14 @@ public class ContractorEntity extends BaseEntity implements Serializable {
         this.workExperiences = workexperiences;
     }
 
-    
+    public List<EducationEntity> getEducations() {
+        return educations;
+    }
+
+    public void setEducations(List<EducationEntity> educations) {
+        this.educations = educations;
+    }
+
          /**
      * @generated
      */
@@ -126,7 +138,13 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
-    
+
+    public String getProfileDescription() {
+        return profileDescription;
+    }
+
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
+    }
 
 }
