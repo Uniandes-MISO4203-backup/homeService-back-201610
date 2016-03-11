@@ -26,6 +26,8 @@ import javax.persistence.NamedQuery;
 public class ServiceRequestEntity extends BaseEntity implements Serializable {
 
     private Integer price;
+    
+    private Integer score;
 
     private String recommendedTime;
 
@@ -182,6 +184,20 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the score
+     */
+    public Integer getScore() {
+        return score;
+    }
+
+    /**
+     * @param score the score to set
+     */
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
    
