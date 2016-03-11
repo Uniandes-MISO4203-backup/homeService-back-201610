@@ -28,7 +28,7 @@ public class ProfileService {
     @Inject
     private IContractorLogic contractorLogic;
 
-    static final Logger logger = Logger.getLogger(ProfileService.class);
+    private static final Logger LOGGER = Logger.getLogger(ProfileService.class);
 
     @GET
     public ProfileDTO getProfile() {
@@ -39,8 +39,7 @@ public class ProfileService {
             profile.setPicture(customer.getPicture());
 
         } catch (WebApplicationException e){ 
-
-            logger.error( e.getMessage());
+            LOGGER.info(e);
         }
         try {
             Long contractorId = getContractorId(req.getRemoteUser());
@@ -50,9 +49,7 @@ public class ProfileService {
                 profile.setPicture(contractor.getPicture());
             }
         } catch (WebApplicationException e) {
-            
-
-            logger.error(e.getMessage());
+            LOGGER.info(e);
         }
         return profile;
     }
