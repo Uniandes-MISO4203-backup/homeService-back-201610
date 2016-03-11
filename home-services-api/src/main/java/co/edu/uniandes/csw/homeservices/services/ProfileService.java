@@ -14,6 +14,8 @@ import javax.ws.rs.core.Context;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getContractorId;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.inject.Inject;
+import org.apache.log4j.Logger;
+
 
 @Path("profile")
 public class ProfileService {
@@ -26,17 +28,18 @@ public class ProfileService {
     @Inject
     private IContractorLogic contractorLogic;
 
+    private static final Logger LOGGER = Logger.getLogger(ProfileService.class);
+
     @GET
     public ProfileDTO getProfile() {
         ProfileDTO profile = new ProfileDTO(getAccount(req.getRemoteUser()));
         try {
-            Long customerId = getCustomerId(req.getRemoteUser());
-            if (customerId != null) {
-                CustomerEntity customer = customerLogic.getCustomer(customerId);
-                profile.setDocument(customer.getDocument());
-                profile.setPicture(customer.getPicture());
-            }
-        } catch (WebApplicationException e) {
+            CustomerEntity customer = customerLogic.getCustomer(getCustomerId(req.getRemoteUser()));
+            profile.setDocument(customer.getDocument());
+            profile.setPicture(customer.getPicture());
+
+        } catch (WebApplicationException e){ 
+            LOGGER.info(e);
         }
         try {
             Long contractorId = getContractorId(req.getRemoteUser());
@@ -46,6 +49,7 @@ public class ProfileService {
                 profile.setPicture(contractor.getPicture());
             }
         } catch (WebApplicationException e) {
+            LOGGER.info(e);
         }
         return profile;
     }
