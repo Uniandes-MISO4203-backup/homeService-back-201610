@@ -212,6 +212,7 @@ public class ContractorPersistenceTest {
         
             Assert.assertNotEquals("", skillName);
             Assert.assertTrue(resp.size() > 0);
+            
         } 
     }
 }
