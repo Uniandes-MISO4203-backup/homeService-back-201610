@@ -56,19 +56,25 @@ public class ContractorService {
         String accountHref = req.getRemoteUser();
         if (accountHref != null) {
             Account account = getClient().getResource(accountHref, Account.class);
-            for (Group gr : account.getGroups()) {
-                switch (gr.getHref()) {                    
-                    case ADMIN_GROUP_HREF:
-                        if (page != null && maxRecords != null) {
-                        this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
-                        return ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
-                        }
-                        return ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
-                    case CONTRACTOR_GROUP_HREF:
-                        Integer id = (int) account.getCustomData().get("contractor_id");
-                        List<ContractorDTO> list = new ArrayList();
-                        list.add(ContractorConverter.fullEntity2DTO(contractorLogic.getContractor(id.longValue())));
-                        return list;    
+            
+            if (skillName != null && !skillName.equals("")){
+                return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkill(skillName));
+            } else {
+            
+                for (Group gr : account.getGroups()) {
+                    switch (gr.getHref()) {                    
+                        case ADMIN_GROUP_HREF:
+                            if (page != null && maxRecords != null) {
+                            this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
+                            return ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
+                            }
+                            return ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
+                        case CONTRACTOR_GROUP_HREF:
+                            Integer id = (int) account.getCustomData().get("contractor_id");
+                            List<ContractorDTO> list = new ArrayList();
+                            list.add(ContractorConverter.fullEntity2DTO(contractorLogic.getContractor(id.longValue())));
+                            return list;    
+                    }
                 }
             }
         }
@@ -196,18 +202,5 @@ public class ContractorService {
     @Path("{contractorId: \\d+}/skills/{skillId: \\d+}")
     public void removeSkills(@PathParam("contractorId") Long contractorId, @PathParam("skillId") Long skillId) {
         contractorLogic.removeSkills(contractorId, skillId);
-    }
-    
-    /**
-     * Obtiene una coleccion de contractors que contengan un skill 
-     * relevante al enviado como parametro
-     *
-     * @param skillName nombre de un skill por el cual se quiere hacer la bbusqueda
-     * @return Coleccion de instancias de ContractorDTO que contengan el skill enviado
-     */
-    @GET
-    @Path("bySkill")
-    public List<ContractorDTO> listContractorsBySkill() {
-        return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkill(skillName));
     }
 }
