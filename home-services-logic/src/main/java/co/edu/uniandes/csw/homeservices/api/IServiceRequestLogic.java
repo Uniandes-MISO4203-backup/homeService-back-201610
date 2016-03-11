@@ -11,6 +11,7 @@ public interface IServiceRequestLogic {
     public ServiceRequestEntity getServiceRequest(Long id);
     public ServiceRequestEntity createServiceRequest(ServiceRequestEntity entity);
     public ServiceRequestEntity updateServiceRequest(ServiceRequestEntity entity);
+    public ServiceRequestEntity updateScore(Long id, Integer score);
     public void deleteServiceRequest(Long id);
     public List<SkillEntity> listExpectedskills(Long serviceRequestId);
     public SkillEntity getExpectedskills(Long serviceRequestId, Long expectedskillsId);
