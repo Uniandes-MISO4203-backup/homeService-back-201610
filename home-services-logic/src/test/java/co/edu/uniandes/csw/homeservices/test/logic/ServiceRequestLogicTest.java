@@ -284,34 +284,6 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(pojoEntity.getStatus().getId(), resp.getStatus().getId());
         Assert.assertNull(resp.getScore());
     }
-    
-    /*
-        
-    @Test
-    public void updateScoreTest() {
-        ServiceRequestEntity entity = data.get(0);
-        StatusEntity status= em.find(StatusEntity.class, StatusEntity.FINISHED);
-        entity.setStatus(status);
-        serviceRequestLogic.updateServiceRequest(entity);
-        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
-        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
-        Assert.assertEquals(StatusEntity.FINISHED, status.getId());
-        Assert.assertNotNull(response);
-        Assert.assertEquals(new Integer(5), resp.getScore());
-    }
-    
-    @Test
-    public void updateScoreTest2() {
-        ServiceRequestEntity entity = data.get(0);
-        StatusEntity status= em.find(StatusEntity.class, 1L);
-        entity.setStatus(status);
-        serviceRequestLogic.updateServiceRequest(entity);
-        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
-        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
-        Assert.assertNull(response);
-        Assert.assertNull(resp.getScore());
-    }
-    */
 
     /**
      * @generated

@@ -65,7 +65,7 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
         ServiceRequestEntity newEntity = entity;
         ServiceRequestEntity oldEntity = persistence.find(entity.getId());
         newEntity.setExpectedskills(oldEntity.getExpectedskills());
-        if(!entity.getStatus().getId().equals(StatusEntity.FINISHED)){
+        if(entity.getStatus()!=null && !entity.getStatus().getId().equals(StatusEntity.FINISHED)){
             //keep score null while state is not finished
             entity.setScore(null);
         }
