@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.test.persistence;
 
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
+import co.edu.uniandes.csw.homeservices.entities.EducationEntity;
 import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
 import java.util.ArrayList;
@@ -82,6 +83,7 @@ public class ContractorPersistenceTest {
      * @generated
      */
     private void clearData() {
+        em.createQuery("delete from EducationEntity").executeUpdate();
         em.createQuery("delete from WorkExperienceEntity").executeUpdate();
         em.createQuery("delete from ContractorEntity").executeUpdate();
     }
@@ -100,6 +102,9 @@ public class ContractorPersistenceTest {
             ContractorEntity entity = factory.manufacturePojo(ContractorEntity.class);
             for (WorkExperienceEntity item : entity.getWorkExperiences()) {
                 item.setContractor(entity);
+            }
+            for (EducationEntity educationEntity : entity.getEducations()) {
+                educationEntity.setContractor(entity);
             }
             em.persist(entity);
             data.add(entity);
