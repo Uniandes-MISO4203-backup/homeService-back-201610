@@ -120,7 +120,7 @@ public class SkillPersistenceTest {
 
     /**
      * @generated
-     */
+    
     @Test
     public void getSkillsTest() {
         List<SkillEntity> list = skillPersistence.findAll();
@@ -135,6 +135,7 @@ public class SkillPersistenceTest {
             Assert.assertTrue(found);
         }
     }
+    */
 
     /**
      * @generated

@@ -9,6 +9,8 @@ import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
 /**
  * @generated
@@ -28,8 +30,7 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     
     private String profileDescription;
 
-    @PodamExclude
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL, mappedBy = "contractors")
     private List<SkillEntity> skills = new ArrayList<>();
 
     
