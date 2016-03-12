@@ -26,7 +26,7 @@ import javax.persistence.NamedQuery;
 public class ServiceRequestEntity extends BaseEntity implements Serializable {
 
     private Integer price;
-    
+    @PodamExclude
     private Integer score;
 
     private String recommendedTime;

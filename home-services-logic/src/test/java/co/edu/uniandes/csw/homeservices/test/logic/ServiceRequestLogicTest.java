@@ -146,10 +146,14 @@ public class ServiceRequestLogicTest {
             em.persist(customer);
             customerData.add(customer);
         }
-
+        
+        
         for (int i = 0; i < 3; i++) {
-            StatusEntity status = factory.manufacturePojo(StatusEntity.class);
-            em.persist(status);
+            /*For create statusEntity with especified ids (1,2,3)*/
+            String query = "INSERT INTO StatusEntity  (id, name) " +
+            "VALUES  ("+(i+1)+",'Status"+(i+1)+"')";
+            em.createNativeQuery(query).executeUpdate();
+            StatusEntity status= em.find(StatusEntity.class, new Long(i+1));
             statusData.add(status);
         }
 
@@ -311,5 +315,30 @@ public class ServiceRequestLogicTest {
         serviceRequestLogic.removeExpectedskills(data.get(0).getId(), expectedskillsData.get(0).getId());
         SkillEntity response = serviceRequestLogic.getExpectedskills(data.get(0).getId(), expectedskillsData.get(0).getId());
         Assert.assertNull(response);
+    }
+    
+    @Test
+    public void updateScoreTest() {
+        ServiceRequestEntity entity = data.get(0);
+        StatusEntity status= em.find(StatusEntity.class, StatusEntity.FINISHED);
+        entity.setStatus(status);
+        serviceRequestLogic.updateServiceRequest(entity);
+        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
+        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
+        Assert.assertEquals(StatusEntity.FINISHED, status.getId());
+        Assert.assertNotNull(response);
+        Assert.assertEquals(new Integer(5), resp.getScore());
+    }
+    
+    @Test
+    public void updateScoreTest2() {
+        ServiceRequestEntity entity = data.get(0);
+        StatusEntity status= em.find(StatusEntity.class, 1L);
+        entity.setStatus(status);
+        serviceRequestLogic.updateServiceRequest(entity);
+        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
+        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
+        Assert.assertNull(response);
+        Assert.assertNull(resp.getScore());
     }
 }

@@ -140,7 +140,7 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
     @Override
     public ServiceRequestEntity updateScore(Long id, Integer score) {
         ServiceRequestEntity entity = persistence.find(id);
-        if(entity.getStatus().getId()==StatusEntity.FINISHED){
+        if(entity.getStatus().getId().equals(StatusEntity.FINISHED)){
             entity.setScore(score);
             return persistence.update(entity);
         }else{
