@@ -18,7 +18,7 @@ public class ServiceRequestDTO {
     private String name;
     private Integer price;
     private String recommendedTime;
-    @PodamExclude
+    
     private Integer score;
     @PodamStrategyValue(DateStrategy.class)
     private Date creationDate;

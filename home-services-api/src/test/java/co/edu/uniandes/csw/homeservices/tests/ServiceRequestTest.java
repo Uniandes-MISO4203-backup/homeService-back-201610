@@ -5,6 +5,8 @@ import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
+import co.edu.uniandes.csw.homeservices.dtos.StatusDTO;
+import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.services.ServiceRequestService;
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +48,7 @@ public class ServiceRequestTest {
     private final static List<ServiceRequestDTO> oraculo = new ArrayList<>();
     private final String expectedskillsPath = "expectedskills";
     private final static List<SkillDTO> oraculoExpectedskills = new ArrayList<>();
+    private final static List<StatusDTO> oraculoStatus = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -88,14 +91,22 @@ public class ServiceRequestTest {
     }
 
     public static void insertData() {
+        PodamFactory factory = new PodamFactoryImpl();
+        for (int i = 0; i < StatusEntity.FINISHED; i++) {
+            StatusDTO status =  factory.manufacturePojo(StatusDTO.class);
+            status.setId(i + 1L);
+            oraculoStatus.add(status);
+        }
+        
         for (int i = 0; i < 5; i++) {
-            PodamFactory factory = new PodamFactoryImpl();
+            
             ServiceRequestDTO serviceRequest = factory.manufacturePojo(ServiceRequestDTO.class);
             serviceRequest.setId(i + 1L);
-
+            serviceRequest.setStatus(oraculoStatus.get(0));
             oraculo.add(serviceRequest);
 
             SkillDTO expectedskills = factory.manufacturePojo(SkillDTO.class);
+            
             expectedskills.setId(i + 1L);
             oraculoExpectedskills.add(expectedskills);
         }
@@ -182,8 +193,9 @@ public class ServiceRequestTest {
         serviceRequest.setRecommendedTime(serviceRequestChanged.getRecommendedTime());
         serviceRequest.setCreationDate(serviceRequestChanged.getCreationDate());
         serviceRequest.setDueDate(serviceRequestChanged.getDueDate());
+        serviceRequest.setScore(new Integer(3));
         Response response = target.path(serviceRequestPath).path(serviceRequest.getId().toString())
-                .request().cookie(cookieSessionId).put(Entity.entity(serviceRequest, MediaType.APPLICATION_JSON));
+            .request().cookie(cookieSessionId).put(Entity.entity(serviceRequest, MediaType.APPLICATION_JSON));
         ServiceRequestDTO servicerequestTest = (ServiceRequestDTO) response.readEntity(ServiceRequestDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(serviceRequest.getName(), servicerequestTest.getName());
@@ -191,8 +203,25 @@ public class ServiceRequestTest {
         Assert.assertEquals(serviceRequest.getRecommendedTime(), servicerequestTest.getRecommendedTime());
         Assert.assertEquals(serviceRequest.getCreationDate(), servicerequestTest.getCreationDate());
         Assert.assertEquals(serviceRequest.getDueDate(), servicerequestTest.getDueDate());
+        Assert.assertNull(servicerequestTest.getScore());
     }
-
+    /*
+    @Test
+    @InSequence(5)
+    public void updateServiceRequestTest2() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        ServiceRequestDTO serviceRequest = oraculo.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        serviceRequest.setStatus(oraculoStatus.get(oraculoStatus.size()-1));
+        serviceRequest.setScore(new Integer(4));
+        Response response = target.path(serviceRequestPath).path(serviceRequest.getId().toString())
+            .request().cookie(cookieSessionId).put(Entity.entity(serviceRequest, MediaType.APPLICATION_JSON));
+        ServiceRequestDTO servicerequestTest = (ServiceRequestDTO) response.readEntity(ServiceRequestDTO.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(serviceRequest.getStatus().getId(), servicerequestTest.getStatus().getId());
+        Assert.assertEquals(serviceRequest.getScore(), servicerequestTest.getScore());
+    }
+*/
     @Test
     @InSequence(9)
     public void deleteServiceRequestTest() {

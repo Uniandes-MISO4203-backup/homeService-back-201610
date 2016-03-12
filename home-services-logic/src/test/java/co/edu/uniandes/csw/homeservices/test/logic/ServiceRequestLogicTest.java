@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -243,7 +242,10 @@ public class ServiceRequestLogicTest {
         ServiceRequestEntity pojoEntity = factory.manufacturePojo(ServiceRequestEntity.class);
 
         pojoEntity.setId(entity.getId());
-
+        StatusEntity status= em.find(StatusEntity.class, StatusEntity.FINISHED);
+        pojoEntity.setStatus(status);
+        pojoEntity.setScore(5);
+        
         serviceRequestLogic.updateServiceRequest(pojoEntity);
 
         ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
@@ -254,7 +256,62 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(pojoEntity.getRecommendedTime(), resp.getRecommendedTime());
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
+        Assert.assertEquals(pojoEntity.getStatus().getId(), resp.getStatus().getId());
+        Assert.assertEquals(pojoEntity.getScore(),resp.getScore());
     }
+    /**
+     * @generated
+     */
+    @Test
+    public void updateServiceRequestTest2() {
+        ServiceRequestEntity entity = data.get(0);
+        ServiceRequestEntity pojoEntity = factory.manufacturePojo(ServiceRequestEntity.class);
+
+        pojoEntity.setId(entity.getId());
+        StatusEntity status= statusData.get(0);
+        pojoEntity.setStatus(status);
+        pojoEntity.setScore(5);
+        serviceRequestLogic.updateServiceRequest(pojoEntity);
+
+        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getName(), resp.getName());
+        Assert.assertEquals(pojoEntity.getPrice(), resp.getPrice());
+        Assert.assertEquals(pojoEntity.getRecommendedTime(), resp.getRecommendedTime());
+        Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
+        Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
+        Assert.assertEquals(pojoEntity.getStatus().getId(), resp.getStatus().getId());
+        Assert.assertNull(resp.getScore());
+    }
+    
+    /*
+        
+    @Test
+    public void updateScoreTest() {
+        ServiceRequestEntity entity = data.get(0);
+        StatusEntity status= em.find(StatusEntity.class, StatusEntity.FINISHED);
+        entity.setStatus(status);
+        serviceRequestLogic.updateServiceRequest(entity);
+        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
+        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
+        Assert.assertEquals(StatusEntity.FINISHED, status.getId());
+        Assert.assertNotNull(response);
+        Assert.assertEquals(new Integer(5), resp.getScore());
+    }
+    
+    @Test
+    public void updateScoreTest2() {
+        ServiceRequestEntity entity = data.get(0);
+        StatusEntity status= em.find(StatusEntity.class, 1L);
+        entity.setStatus(status);
+        serviceRequestLogic.updateServiceRequest(entity);
+        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
+        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
+        Assert.assertNull(response);
+        Assert.assertNull(resp.getScore());
+    }
+    */
 
     /**
      * @generated
@@ -316,29 +373,5 @@ public class ServiceRequestLogicTest {
         SkillEntity response = serviceRequestLogic.getExpectedskills(data.get(0).getId(), expectedskillsData.get(0).getId());
         Assert.assertNull(response);
     }
-    
-    @Test
-    public void updateScoreTest() {
-        ServiceRequestEntity entity = data.get(0);
-        StatusEntity status= em.find(StatusEntity.class, StatusEntity.FINISHED);
-        entity.setStatus(status);
-        serviceRequestLogic.updateServiceRequest(entity);
-        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
-        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
-        Assert.assertEquals(StatusEntity.FINISHED, status.getId());
-        Assert.assertNotNull(response);
-        Assert.assertEquals(new Integer(5), resp.getScore());
-    }
-    
-    @Test
-    public void updateScoreTest2() {
-        ServiceRequestEntity entity = data.get(0);
-        StatusEntity status= em.find(StatusEntity.class, 1L);
-        entity.setStatus(status);
-        serviceRequestLogic.updateServiceRequest(entity);
-        ServiceRequestEntity response = serviceRequestLogic.updateScore(entity.getId(), 5);
-        ServiceRequestEntity resp = em.find(ServiceRequestEntity.class, entity.getId());
-        Assert.assertNull(response);
-        Assert.assertNull(resp.getScore());
-    }
+
 }

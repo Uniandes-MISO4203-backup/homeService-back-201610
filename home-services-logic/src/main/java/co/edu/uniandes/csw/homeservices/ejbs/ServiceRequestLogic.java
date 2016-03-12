@@ -59,12 +59,16 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
 
     /**
      * @generated
-     */
+     */ 
     @Override
     public ServiceRequestEntity updateServiceRequest(ServiceRequestEntity entity) {
         ServiceRequestEntity newEntity = entity;
         ServiceRequestEntity oldEntity = persistence.find(entity.getId());
         newEntity.setExpectedskills(oldEntity.getExpectedskills());
+        if(!entity.getStatus().getId().equals(StatusEntity.FINISHED)){
+            //keep score null while state is not finished
+            entity.setScore(null);
+        }
         return persistence.update(newEntity);
     }
 
@@ -137,14 +141,4 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
         return persistence.getByDescription(description, customerId);
     }
 
-    @Override
-    public ServiceRequestEntity updateScore(Long id, Integer score) {
-        ServiceRequestEntity entity = persistence.find(id);
-        if(entity.getStatus().getId().equals(StatusEntity.FINISHED)){
-            entity.setScore(score);
-            return persistence.update(entity);
-        }else{
-            return null;
-        }
-    }
 }
