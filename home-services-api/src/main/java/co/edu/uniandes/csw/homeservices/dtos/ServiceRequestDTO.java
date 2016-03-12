@@ -32,8 +32,9 @@ public class ServiceRequestDTO {
     private StatusDTO status;
     @PodamExclude
     private CustomerDTO customer;
-    
     private String description;
+    
+    
     
 
     /**
@@ -189,5 +190,7 @@ public class ServiceRequestDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    
 
 }

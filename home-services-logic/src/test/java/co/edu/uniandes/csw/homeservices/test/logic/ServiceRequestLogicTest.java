@@ -183,6 +183,7 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(result.getRecommendedTime(), entity.getRecommendedTime());
         Assert.assertEquals(result.getCreationDate(), entity.getCreationDate());
         Assert.assertEquals(result.getDueDate(), entity.getDueDate());
+        Assert.assertEquals(result.getDescription(), entity.getDescription());
     }
 
     /**
@@ -217,6 +218,14 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(entity.getRecommendedTime(), resultEntity.getRecommendedTime());
         Assert.assertEquals(entity.getCreationDate(), resultEntity.getCreationDate());
         Assert.assertEquals(entity.getDueDate(), resultEntity.getDueDate());
+        Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
+    }
+    
+    @Test
+    public void getServiceByDescriptionTest(){
+        ServiceRequestEntity entity = data.get(0);
+        List<ServiceRequestEntity> resultListEntity = serviceRequestLogic.getByDescription(entity.getDescription(), entity.getCustomer().getId());
+        Assert.assertNotNull(resultListEntity);
     }
 
     /**
@@ -250,6 +259,7 @@ public class ServiceRequestLogicTest {
         Assert.assertEquals(pojoEntity.getRecommendedTime(), resp.getRecommendedTime());
         Assert.assertEquals(pojoEntity.getCreationDate(), resp.getCreationDate());
         Assert.assertEquals(pojoEntity.getDueDate(), resp.getDueDate());
+        Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
     }
 
     /**
