@@ -128,6 +128,7 @@ public abstract class ContractorConverter {
             ContractorDTO dto = basicEntity2DTO(entity);
             dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
             dto.setWorkExperiences(WorkExperienceConverter.listEntity2DTO(entity.getWorkExperiences()));
+            dto.setEducations(EducationConverter.listEntity2DTO(entity.getEducations()));
             return dto;
         } else {
             return null;
@@ -147,6 +148,7 @@ public abstract class ContractorConverter {
             ContractorEntity entity = basicDTO2Entity(dto);
             entity.setSkills(SkillConverter.listDTO2Entity(dto.getSkills()));
             entity.setWorkExperiences(WorkExperienceConverter.childListDTO2Entity(dto.getWorkExperiences(), entity));
+            entity.setEducations(EducationConverter.childListDTO2Entity(dto.getEducations(), entity));
             return entity;
         } else {
             return null;

@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.homeservices.test.logic;
 import co.edu.uniandes.csw.homeservices.ejbs.ContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
+import co.edu.uniandes.csw.homeservices.entities.EducationEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
@@ -101,6 +102,7 @@ public class ContractorLogicTest {
      * @generated
      */
     private void clearData() {
+        em.createQuery("delete from EducationEntity").executeUpdate();
         em.createQuery("delete from WorkExperienceEntity").executeUpdate();
         em.createQuery("delete from ContractorEntity").executeUpdate();
         em.createQuery("delete from SkillEntity").executeUpdate();
@@ -121,6 +123,10 @@ public class ContractorLogicTest {
 
             for (WorkExperienceEntity item : entity.getWorkExperiences()) {
                 item.setContractor(entity);
+            }
+            
+            for (EducationEntity educationEntity : entity.getEducations()) {
+                educationEntity.setContractor(entity);
             }
 
             entity.getSkills().add(skillsData.get(0));

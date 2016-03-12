@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.homeservices.tests;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
+import co.edu.uniandes.csw.homeservices.dtos.EducationDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.dtos.WorkExperienceDTO;
 import co.edu.uniandes.csw.homeservices.services.ContractorService;
@@ -101,6 +102,14 @@ public class ContractorTest {
             }
 
             contractor.setWorkExperiences(workExperiencesList);
+            
+            List<EducationDTO> educations = new ArrayList<>();
+            for (int j = 1; j <= 2; j++) {
+                EducationDTO educationDTO = factory.manufacturePojo(EducationDTO.class);
+                educationDTO.setId(new Long(j));
+                educations.add(educationDTO);
+            }
+            contractor.setEducations(educations);
 
             oraculo.add(contractor);
 
