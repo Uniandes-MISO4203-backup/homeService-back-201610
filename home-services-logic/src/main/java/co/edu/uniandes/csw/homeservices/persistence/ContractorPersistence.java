@@ -64,4 +64,36 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
  
         return contractorsBySkill;
     }
+    
+    /**
+     * Metodo que permite realizar la busqueda de los contractors dado un 
+     * skill en string
+     * 
+     * @param skill
+     * @return List<ContractorEntity> encontrados que tienen ese skill 
+     *         dentro de sus skill, o lista vacia si no encuentra nada
+     */
+    public List<ContractorEntity> getContractorsByExperience(String experience) {
+        
+        List<ContractorEntity> contractorsByExperience = new ArrayList<ContractorEntity>();
+        
+        if (experience != null && !experience.isEmpty()){    
+            String queryStr = "SELECT c FROM ContractorEntity c JOIN c.workExperiences workExperience WHERE workExperience.description = :experience";
+           
+            try {
+
+                Query query = em.createQuery(queryStr);
+                query.setParameter("experience", experience);
+                contractorsByExperience = query.getResultList();
+
+            } catch (Exception e) {
+                System.out.println("Error al consultar contractor pot experience " + e.getMessage());
+                return contractorsByExperience;
+            }
+        }
+ 
+        return contractorsByExperience;
+    }
+    
+    
 }

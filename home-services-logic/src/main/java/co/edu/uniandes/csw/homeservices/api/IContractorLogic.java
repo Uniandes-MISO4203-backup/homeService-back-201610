@@ -18,4 +18,5 @@ public interface IContractorLogic {
     public List<SkillEntity> replaceSkills(Long contractorId, List<SkillEntity> list);
     public void removeSkills(Long contractorId, Long skillsId);
     public List<ContractorEntity> getContractorsBySkill(String skill);
+    public List<ContractorEntity> getContractorsByExperience(String skill);
 }
