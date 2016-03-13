@@ -20,10 +20,8 @@ import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
-import co.edu.uniandes.csw.homeservices.converters.CustomerConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
-import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -45,6 +43,7 @@ public class ContractorService {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
+    @QueryParam("skillName") private String skillName;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -57,19 +56,25 @@ public class ContractorService {
         String accountHref = req.getRemoteUser();
         if (accountHref != null) {
             Account account = getClient().getResource(accountHref, Account.class);
-            for (Group gr : account.getGroups()) {
-                switch (gr.getHref()) {                    
-                    case ADMIN_GROUP_HREF:
-                        if (page != null && maxRecords != null) {
-                        this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
-                        return ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
-                        }
-                        return ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
-                    case CONTRACTOR_GROUP_HREF:
-                        Integer id = (int) account.getCustomData().get("contractor_id");
-                        List<ContractorDTO> list = new ArrayList();
-                        list.add(ContractorConverter.fullEntity2DTO(contractorLogic.getContractor(id.longValue())));
-                        return list;    
+            
+            if (skillName != null && !skillName.equals("")){
+                return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkill(skillName));
+            } else {
+            
+                for (Group gr : account.getGroups()) {
+                    switch (gr.getHref()) {                    
+                        case ADMIN_GROUP_HREF:
+                            if (page != null && maxRecords != null) {
+                            this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
+                            return ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
+                            }
+                            return ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
+                        case CONTRACTOR_GROUP_HREF:
+                            Integer id = (int) account.getCustomData().get("contractor_id");
+                            List<ContractorDTO> list = new ArrayList();
+                            list.add(ContractorConverter.fullEntity2DTO(contractorLogic.getContractor(id.longValue())));
+                            return list;    
+                    }
                 }
             }
         }

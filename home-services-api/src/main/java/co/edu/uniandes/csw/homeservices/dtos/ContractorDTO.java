@@ -23,6 +23,8 @@ public class ContractorDTO {
     private List<SkillDTO> skills = new ArrayList<>();
     
     private List<WorkExperienceDTO> workExperiences = new ArrayList<>();
+    
+    private List<EducationDTO> educations = new ArrayList<>();
 
     /**
      * @generated
@@ -121,6 +123,15 @@ public class ContractorDTO {
     public void setWorkExperiences(List<WorkExperienceDTO> workexperiences) {
         this.workExperiences = workexperiences;
     }
+
+    public List<EducationDTO> getEducations() {
+        return educations;
+    }
+
+    public void setEducations(List<EducationDTO> educations) {
+        this.educations = educations;
+    }
+    
     
      /**
      * @generated

@@ -140,6 +140,7 @@ public class ServiceRequestTest {
         Assert.assertEquals(serviceRequest.getRecommendedTime(), servicerequestTest.getRecommendedTime());
         Assert.assertEquals(serviceRequest.getCreationDate(), servicerequestTest.getCreationDate());
         Assert.assertEquals(serviceRequest.getDueDate(), servicerequestTest.getDueDate());
+        Assert.assertEquals(serviceRequest.getDescription(), servicerequestTest.getDescription());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -156,6 +157,7 @@ public class ServiceRequestTest {
         Assert.assertEquals(servicerequestTest.getRecommendedTime(), oraculo.get(0).getRecommendedTime());
         Assert.assertEquals(servicerequestTest.getCreationDate(), oraculo.get(0).getCreationDate());
         Assert.assertEquals(servicerequestTest.getDueDate(), oraculo.get(0).getDueDate());
+        Assert.assertEquals(servicerequestTest.getDescription() , oraculo.get(0).getDescription() );
     }
 
     @Test
@@ -182,6 +184,7 @@ public class ServiceRequestTest {
         serviceRequest.setRecommendedTime(serviceRequestChanged.getRecommendedTime());
         serviceRequest.setCreationDate(serviceRequestChanged.getCreationDate());
         serviceRequest.setDueDate(serviceRequestChanged.getDueDate());
+        serviceRequest.setDescription(serviceRequestChanged.getDescription());
         Response response = target.path(serviceRequestPath).path(serviceRequest.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(serviceRequest, MediaType.APPLICATION_JSON));
         ServiceRequestDTO servicerequestTest = (ServiceRequestDTO) response.readEntity(ServiceRequestDTO.class);
@@ -191,6 +194,7 @@ public class ServiceRequestTest {
         Assert.assertEquals(serviceRequest.getRecommendedTime(), servicerequestTest.getRecommendedTime());
         Assert.assertEquals(serviceRequest.getCreationDate(), servicerequestTest.getCreationDate());
         Assert.assertEquals(serviceRequest.getDueDate(), servicerequestTest.getDueDate());
+        Assert.assertEquals(serviceRequest.getDescription(), servicerequestTest.getDescription());
     }
 
     @Test

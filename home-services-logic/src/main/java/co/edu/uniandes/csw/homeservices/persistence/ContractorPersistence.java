@@ -5,6 +5,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Query;
 
 /**
  * @generated
@@ -29,5 +32,36 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
     @Override
     protected Class<ContractorEntity> getEntityClass() {
         return ContractorEntity.class;
+    }
+    
+    /**
+     * Metodo que permite realizar la busqueda de los contractors dado un 
+     * skill en string
+     * 
+     * @param skill
+     * @return List<ContractorEntity> encontrados que tienen ese skill 
+     *         dentro de sus skill, o lista vacia si no encuentra nada
+     */
+    public List<ContractorEntity> getContractorsBySkill(String skill) {
+        
+        List<ContractorEntity> contractorsBySkill = new ArrayList<ContractorEntity>();
+        
+        if (skill != null && !skill.isEmpty()){
+            skill = skill.toUpperCase().trim();     
+            String consulta = "SELECT c FROM ContractorEntity c JOIN c.skills skill WHERE UPPER(skill.name) = :skillName";
+           
+            try {
+
+                Query query = em.createQuery(consulta);
+                query.setParameter("skillName", skill);
+                contractorsBySkill = query.getResultList();
+
+            } catch (Exception e) {
+                System.out.println("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
+                return contractorsBySkill;
+            }
+        }
+ 
+        return contractorsBySkill;
     }
 }
