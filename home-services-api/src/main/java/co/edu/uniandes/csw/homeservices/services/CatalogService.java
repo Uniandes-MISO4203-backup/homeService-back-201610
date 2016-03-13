@@ -45,11 +45,11 @@ public class CatalogService {
     @GET
     public List<ServiceRequestDTO> getServiceRequests() {
         if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", serviceRequestLogic.countServiceRequests());
-            return ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())  ));
-          
           //  this.response.setIntHeader("X-Total-Count", serviceRequestLogic.countServiceRequests());
-          //  return ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getServiceRequests(page, maxRecords));
+          //  return ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())  ));
+          
+            this.response.setIntHeader("X-Total-Count", serviceRequestLogic.countServiceRequests());
+            return ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getServiceRequests(page, maxRecords));
         }
         //return ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getServiceRequests());
        return ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())  ));
