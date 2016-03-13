@@ -58,6 +58,7 @@ public class EducationConverter {
             entity.setId(dto.getId());
             entity.setName(dto.getName());
             entity.setInstitute(dto.getInstitute());
+            entity.setEndYear(dto.getYear());
             entity.setContractor(ContractorConverter.refDTO2Entity(dto.getContractor()));
             return entity;
         } else {
