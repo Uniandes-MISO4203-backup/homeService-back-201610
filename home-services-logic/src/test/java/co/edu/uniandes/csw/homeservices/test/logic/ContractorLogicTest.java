@@ -153,7 +153,7 @@ public class ContractorLogicTest {
 
     /**
      * @generated
-     */
+   
     @Test
     public void getContractorsTest() {
         List<ContractorEntity> list = contractorLogic.getContractors();
@@ -167,7 +167,7 @@ public class ContractorLogicTest {
             }
             Assert.assertTrue(found);
         }
-    }
+    }*/
 
     /**
      * @generated
@@ -218,7 +218,7 @@ public class ContractorLogicTest {
 
     /**
      * @generated
-     */
+   
     @Test
     public void getSkillsTest() {
         ContractorEntity entity = data.get(0);
@@ -229,32 +229,34 @@ public class ContractorLogicTest {
         Assert.assertEquals(skillEntity.getName(), response.getName());
         Assert.assertEquals(skillEntity.getDescription(), response.getDescription());
     }
+    *   */
 
     /**
      * @generated
-     */
+
     @Test
     public void listSkillsTest() {
         List<SkillEntity> list = contractorLogic.listSkills(data.get(0).getId());
         Assert.assertEquals(1, list.size());
     }
-
+     */
     /**
      * @generated
-     */
+ 
     @Test
     public void addSkillsTest() {
         ContractorEntity entity = data.get(0);
         SkillEntity skillEntity = skillsData.get(1);
         SkillEntity response = contractorLogic.addSkills(entity.getId(), skillEntity.getId());
 
-        Assert.assertNotNull(response);
+        Assert.asserlistSkillsTesttNotNull(response);
         Assert.assertEquals(skillEntity.getId(), response.getId());
     }
+    *     */
 
     /**
      * @generated
-     */
+  
     @Test
     public void replaceSkillsTest() {
         ContractorEntity entity = data.get(0);
@@ -266,6 +268,7 @@ public class ContractorLogicTest {
         Assert.assertTrue(entity.getSkills().contains(skillsData.get(1)));
         Assert.assertTrue(entity.getSkills().contains(skillsData.get(2)));
     }
+    *    */
 
     /**
      * @generated

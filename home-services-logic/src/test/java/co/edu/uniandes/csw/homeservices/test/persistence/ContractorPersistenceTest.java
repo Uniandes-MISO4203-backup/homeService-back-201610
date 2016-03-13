@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.test.persistence;
 
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
+import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.EducationEntity;
 import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
@@ -192,5 +193,31 @@ public class ContractorPersistenceTest {
         Assert.assertEquals(newEntity.getLastName(), resp.getLastName());
         Assert.assertEquals(newEntity.getDocument(), resp.getDocument());
         Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
+    }
+    
+        /**
+     * @generated
+     */
+    @Test
+    public void getContractorsBySkillName() {
+
+        String skillName = "a";
+        PodamFactory factory = new PodamFactoryImpl();
+        ContractorEntity newEntity = factory.manufacturePojo(ContractorEntity.class);
+        SkillEntity skill = factory.manufacturePojo(SkillEntity.class);
+        skill.setName(skillName);
+        newEntity.getSkills().add(skill);
+        
+       
+        newEntity = contractorPersistence.create(newEntity);
+
+        List<ContractorEntity> resp = contractorPersistence.getContractorsBySkill(skillName);
+        
+        if (resp != null){
+        
+            Assert.assertNotEquals("", skillName);
+            Assert.assertTrue(resp.size() > 0);
+            
+        } 
     }
 }

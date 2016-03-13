@@ -29,7 +29,7 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     private String profileDescription;
 
     @PodamExclude
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL, mappedBy = "contractors")
     private List<SkillEntity> skills = new ArrayList<>();
 
     
