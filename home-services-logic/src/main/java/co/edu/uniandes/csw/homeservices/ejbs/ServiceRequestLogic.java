@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ServiceRequestPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
+import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -58,12 +59,16 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
 
     /**
      * @generated
-     */
+     */ 
     @Override
     public ServiceRequestEntity updateServiceRequest(ServiceRequestEntity entity) {
         ServiceRequestEntity newEntity = entity;
         ServiceRequestEntity oldEntity = persistence.find(entity.getId());
         newEntity.setExpectedskills(oldEntity.getExpectedskills());
+        if(entity.getStatus()!=null && !entity.getStatus().getId().equals(StatusEntity.FINISHED)){
+            //keep score null while state is not finished
+            entity.setScore(null);
+        }
         return persistence.update(newEntity);
     }
 
@@ -135,4 +140,5 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
     public List<ServiceRequestEntity> getByDescription(String description, Long customerId) {
         return persistence.getByDescription(description, customerId);
     }
+
 }

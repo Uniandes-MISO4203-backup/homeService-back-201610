@@ -3,8 +3,6 @@ package co.edu.uniandes.csw.homeservices.dtos;
 import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.Date;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import co.edu.uniandes.csw.auth.model.DateAdapter;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.util.List;
@@ -20,6 +18,8 @@ public class ServiceRequestDTO {
     private String name;
     private Integer price;
     private String recommendedTime;
+    
+    private Integer score;
     @PodamStrategyValue(DateStrategy.class)
     private Date creationDate;
     @PodamStrategyValue(DateStrategy.class)
@@ -191,6 +191,17 @@ public class ServiceRequestDTO {
         this.description = description;
     }
 
-    
+    /**
+     * @return the score
+     */
+    public Integer getScore() {
+        return score;
+    }
 
+    /**
+     * @param score the score to set
+     */
+    public void setScore(Integer score) {
+        this.score = score;
+    }   
 }
