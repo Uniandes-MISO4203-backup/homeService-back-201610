@@ -44,6 +44,7 @@ public class ContractorService {
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
     @QueryParam("skillName") private String skillName;
+    @QueryParam("experienceName") private String experienceDesc;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -59,7 +60,10 @@ public class ContractorService {
             
             if (skillName != null && !skillName.equals("")){
                 return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkill(skillName));
-            } else {
+            }else if(experienceDesc != null && !experienceDesc.equals("")){
+                return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsByExperience(experienceDesc));
+            }
+            else {
             
                 for (Group gr : account.getGroups()) {
                     switch (gr.getHref()) {                    
