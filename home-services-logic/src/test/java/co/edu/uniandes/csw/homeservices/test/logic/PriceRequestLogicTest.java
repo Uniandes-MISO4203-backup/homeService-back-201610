@@ -36,7 +36,7 @@ public class PriceRequestLogicTest {
     private PodamFactory factory = new PodamFactoryImpl();
     
     @Inject
-    private PriceRequestLogic priceRequestLogic;
+    private IPriceRequestLogic priceRequestLogic;
     
     @PersistenceContext
     private EntityManager em;
