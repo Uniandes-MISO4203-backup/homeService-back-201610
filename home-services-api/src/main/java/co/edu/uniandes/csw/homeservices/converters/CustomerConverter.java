@@ -11,13 +11,6 @@ import java.util.List;
 public abstract class CustomerConverter {
 
     /**
-     * Constructor privado para evitar la creación del constructor implícito de Java
-     * @generated
-     */
-    private CustomerConverter() {
-    }
-
-    /**
      * Realiza la conversión de CustomerEntity a CustomerDTO.
      * Se invoca cuando otra entidad tiene una referencia a CustomerEntity.
      * Entrega únicamente los atributos proprios de la entidad.
