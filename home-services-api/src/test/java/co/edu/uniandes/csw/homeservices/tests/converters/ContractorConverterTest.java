@@ -4,10 +4,10 @@ package co.edu.uniandes.csw.homeservices.tests.converters;
 
 import co.edu.uniandes.csw.homeservices.ejbs.CategoryLogic;
 import co.edu.uniandes.csw.homeservices.api.ICategoryLogic;
-import co.edu.uniandes.csw.homeservices.converters.CustomerConverter;
-import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
+import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
+import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
-import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
+import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.persistence.CategoryPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +27,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author jair
  */
 @RunWith(Arquillian.class)
-public class CustomerConverterTest {
+public class ContractorConverterTest {
     
     private PodamFactory factory = new PodamFactoryImpl();
-    
     
     @Deployment
     public static JavaArchive createDeployment() {
@@ -44,9 +43,15 @@ public class CustomerConverterTest {
     }
     
     @Test
+    public void refEntity2DTONullInput() {
+        ContractorDTO result = ContractorConverter.refEntity2DTO(null);
+        Assert.assertNull(result);
+    }
+    
+    @Test
     public void refDTO2EntityNullInput() {
-        CustomerDTO dto = factory.manufacturePojo(CustomerDTO.class);
-        CustomerEntity result = CustomerConverter.refDTO2Entity(dto);
+        ContractorDTO dto = factory.manufacturePojo(ContractorDTO.class);
+        ContractorEntity result = ContractorConverter.refDTO2Entity(dto);
         Assert.assertNotNull(result);
         Assert.assertEquals(dto.getId(), result.getId());
     }
@@ -55,9 +60,9 @@ public class CustomerConverterTest {
      */
     @Test
     public void listEntity2DTONullInput() {
-        List<CustomerEntity> list= new ArrayList<>();
+        List<ContractorEntity> list= new ArrayList<>();
         list.add(null);
-        List<CustomerDTO> result = CustomerConverter.listEntity2DTO(list);
+        List<ContractorDTO> result = ContractorConverter.listEntity2DTO(list);
         Assert.assertNotNull(result);
         Assert.assertNull(result.get(0));
     }
@@ -67,35 +72,35 @@ public class CustomerConverterTest {
      */
     @Test
     public void listDTO2EntityNullInput() {
-        List<CustomerDTO> list= new ArrayList<>();
+        List<ContractorDTO> list= new ArrayList<>();
         list.add(null);
-        List<CustomerEntity> result = CustomerConverter.listDTO2Entity(list);
+        List<ContractorEntity> result = ContractorConverter.listDTO2Entity(list);
         Assert.assertNotNull(result);
         Assert.assertNull(result.get(0));
     }
     
     @Test
     public void fullEntity2DTONullInput() {
-        CustomerDTO result = CustomerConverter.fullEntity2DTO(null);
+        ContractorDTO result = ContractorConverter.fullEntity2DTO(null);
         Assert.assertNull(result);
     }
     
     @Test
     public void fullDTO2EntityNullInput() {
-        CustomerEntity result = CustomerConverter.fullDTO2Entity(null);
+        ContractorEntity result = ContractorConverter.fullDTO2Entity(null);
         Assert.assertNull(result);
     }
     
     @Test
     public void listEntity2DTONullListInput() {
-        List<CustomerDTO> result = CustomerConverter.listEntity2DTO(null);
+        List<ContractorDTO> result = ContractorConverter.listEntity2DTO(null);
         Assert.assertNotNull(result);
         Assert.assertEquals(0,result.size());
     }
 
     @Test
     public void listDTO2EntityNullListInput() {
-        List<CustomerEntity> result = CustomerConverter.listDTO2Entity(null);
+        List<ContractorEntity> result = ContractorConverter.listDTO2Entity(null);
         Assert.assertNotNull(result);
         Assert.assertEquals(0, result.size());
     }
