@@ -119,4 +119,10 @@ public class PricePersistenceTest {
         Assert.assertEquals(newEntity.getName(), resp.getName());
     }
     
+    @Test
+    public void getByCustomerTest() {
+        List<PriceEntity> entityList = pricePersistence.getByCustomer(1+1L);
+        Assert.assertEquals(0,entityList.size());
+    }
+    
 }
