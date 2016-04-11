@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -16,6 +18,9 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author juan camilo cerquera lozada <jc.cerquera10@uniandes.edu.co>
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "PriceRequest.getByCustomer", query = "SELECT pr FROM PriceRequestEntity pr JOIN pr.serviceRequest sr JOIN sr.customer c1 WHERE c1.id = :customerId")
+})   
 public class PriceRequestEntity extends BaseEntity implements Serializable{
     
     /* 
