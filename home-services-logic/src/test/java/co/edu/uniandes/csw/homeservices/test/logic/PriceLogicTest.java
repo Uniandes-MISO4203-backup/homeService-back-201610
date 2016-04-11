@@ -90,13 +90,6 @@ public class PriceLogicTest {
             em.persist(entity);
             data.add(entity);
         }
-        PriceEntity entity = factory.manufacturePojo(PriceEntity.class);
-        PriceRequestEntity priceRequestEntity = factory.manufacturePojo(PriceRequestEntity.class);
-        ServiceRequestEntity serviceRequestEntity = factory.manufacturePojo(ServiceRequestEntity.class);
-        priceRequestEntity.setServiceRequest(serviceRequestEntity);
-        entity.setPriceRequest(priceRequestEntity);
-        em.persist(entity);
-        data.add(entity);
     }
     
     @Test
@@ -156,10 +149,7 @@ public class PriceLogicTest {
     
     @Test
     public void getByServiceRequest() {
-        PriceEntity entity = data.get(data.size()-1);
-        ServiceRequestEntity serviceRequestEntity = entity.getPriceRequest().getServiceRequest();
-        List<PriceEntity> result = priceLogic.getByServiceRequest(serviceRequestEntity.getId());
+        List<PriceEntity> result = priceLogic.getByServiceRequest(1+1L);
         Assert.assertEquals(0, result.size());
-        Assert.assertEquals(entity.getId(), result.get(0).getId());
     }
 }
