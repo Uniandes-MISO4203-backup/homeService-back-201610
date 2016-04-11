@@ -59,5 +59,8 @@ public class PriceLogic implements IPriceLogic{
          persistence.delete(id);
     }
 
-    
+    @Override
+    public List<PriceEntity> getByServiceRequest(Long customerId) {
+        return persistence.getByServiceRequest(customerId);
+    }    
 }

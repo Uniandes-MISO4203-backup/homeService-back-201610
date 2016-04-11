@@ -20,4 +20,5 @@ public interface IPriceLogic {
     public PriceEntity createPrice(PriceEntity entity);
     public PriceEntity updatePrice(PriceEntity entity);
     public void deletePrice(Long id);
+    public List<PriceEntity> getByServiceRequest(Long customerId);
 }

@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.homeservices.test.logic;
 import co.edu.uniandes.csw.homeservices.api.IPriceLogic;
 import co.edu.uniandes.csw.homeservices.ejbs.PriceLogic;
 import co.edu.uniandes.csw.homeservices.entities.PriceEntity;
+import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
+import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.PricePersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +90,13 @@ public class PriceLogicTest {
             em.persist(entity);
             data.add(entity);
         }
+        PriceEntity entity = factory.manufacturePojo(PriceEntity.class);
+        PriceRequestEntity priceRequestEntity = factory.manufacturePojo(PriceRequestEntity.class);
+        ServiceRequestEntity serviceRequestEntity = factory.manufacturePojo(ServiceRequestEntity.class);
+        priceRequestEntity.setServiceRequest(serviceRequestEntity);
+        entity.setPriceRequest(priceRequestEntity);
+        em.persist(entity);
+        data.add(entity);
     }
     
     @Test
@@ -145,4 +154,12 @@ public class PriceLogicTest {
         Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
     }
     
+    @Test
+    public void getByServiceRequest() {
+        PriceEntity entity = data.get(data.size()-1);
+        ServiceRequestEntity serviceRequestEntity = entity.getPriceRequest().getServiceRequest();
+        List<PriceEntity> result = priceLogic.getByServiceRequest(serviceRequestEntity.getId());
+        Assert.assertEquals(0, result.size());
+        Assert.assertEquals(entity.getId(), result.get(0).getId());
+    }
 }

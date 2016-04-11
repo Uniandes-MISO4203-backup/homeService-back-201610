@@ -120,8 +120,8 @@ public class PricePersistenceTest {
     }
     
     @Test
-    public void getByCustomerTest() {
-        List<PriceEntity> entityList = pricePersistence.getByCustomer(1+1L);
+    public void getByServiceRequest() {
+        List<PriceEntity> entityList = pricePersistence.getByServiceRequest(1+1L);
         Assert.assertEquals(0,entityList.size());
     }
     
