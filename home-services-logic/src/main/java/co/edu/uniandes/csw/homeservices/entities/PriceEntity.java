@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.homeservices.entities;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -27,7 +28,7 @@ public class PriceEntity extends BaseEntity implements Serializable{
     private String description;
     
     @PodamExclude
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private PriceRequestEntity priceRequest;
 
     public Integer getPrice() {

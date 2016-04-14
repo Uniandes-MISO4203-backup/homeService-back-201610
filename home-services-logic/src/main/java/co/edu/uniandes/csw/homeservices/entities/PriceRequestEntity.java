@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.homeservices.entities;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,11 +34,11 @@ public class PriceRequestEntity extends BaseEntity implements Serializable{
     private String status;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private ServiceRequestEntity serviceRequest;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private ContractorEntity contractor;
     
 
