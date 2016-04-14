@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.homeservices.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
 import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
+import co.edu.uniandes.csw.homeservices.api.IPriceLogic;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -17,12 +18,15 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
+import co.edu.uniandes.csw.homeservices.converters.PriceListItemConverter;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
+import co.edu.uniandes.csw.homeservices.dtos.PriceListItemDTO;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
+import static co.edu.uniandes.csw.homeservices.services.UserService.getContractorId;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
@@ -37,6 +41,8 @@ public class ServiceRequestService {
 
     @Inject
     private IServiceRequestLogic serviceRequestLogic;
+    @Inject
+    private IPriceLogic priceLogic;
     @Inject
     private ICustomerLogic customerLogic;
     @Context
@@ -147,7 +153,13 @@ public class ServiceRequestService {
     public List<SkillDTO> listExpectedskills(@PathParam("serviceRequestId") Long serviceRequestId) {
         return SkillConverter.listEntity2DTO(serviceRequestLogic.listExpectedskills(serviceRequestId));
     }
-
+    
+    @GET
+    @Path("{serviceRequestId: \\d+}/pricelist")
+    public List<PriceListItemDTO> getPriceList(@PathParam("serviceRequestId") Long serviceRequestId) {
+        Long id = getContractorId(req.getRemoteUser());
+        return PriceListItemConverter.listEntity2DTO(priceLogic.getByServiceRequest(serviceRequestId));
+    }
     /**
      * Obtiene una instancia de Skill asociada a una instancia de ServiceRequest
      *

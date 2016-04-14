@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.homeservices.tests;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
+import co.edu.uniandes.csw.homeservices.dtos.PriceListItemDTO;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.services.ServiceRequestService;
@@ -40,11 +41,13 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class ServiceRequestTest {
 
     private final int Ok = Status.OK.getStatusCode();
+    private final int NotFound = Status.NOT_FOUND.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
     private final String serviceRequestPath = "serviceRequests";
     private final static List<ServiceRequestDTO> oraculo = new ArrayList<>();
     private final String expectedskillsPath = "expectedskills";
+    private final String priceListPath = "priceList";
     private final static List<SkillDTO> oraculoExpectedskills = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
@@ -250,6 +253,20 @@ public class ServiceRequestTest {
         List<SkillDTO> expectedskillsListTest = new ObjectMapper().readValue(expectedskillsList, List.class);
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(1, expectedskillsListTest.size());
+    }
+    
+    @Test
+    @InSequence(6)
+    public void getPriceListTest() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        ServiceRequestDTO serviceRequest = oraculo.get(0);
+
+        Response response = target.path(serviceRequestPath)
+                .path(serviceRequest.getId().toString())
+                .path(priceListPath)
+                .request().cookie(cookieSessionId).get();
+        String resultString = response.readEntity(String.class);
+        Assert.assertEquals(NotFound, response.getStatus());
     }
 
     @Test
