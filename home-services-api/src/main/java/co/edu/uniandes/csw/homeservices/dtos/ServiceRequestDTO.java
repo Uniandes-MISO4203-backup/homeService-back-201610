@@ -24,6 +24,8 @@ public class ServiceRequestDTO {
     private Date creationDate;
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
+    @PodamStrategyValue(DateStrategy.class)
+    private Date priceRequestLimit;
     @PodamExclude
     private List<SkillDTO> expectedskills = new ArrayList<>();
     @PodamExclude
@@ -204,4 +206,18 @@ public class ServiceRequestDTO {
     public void setScore(Integer score) {
         this.score = score;
     }   
+
+    /**
+     * @return the priceRequestLimit
+     */
+    public Date getPriceRequestLimit() {
+        return priceRequestLimit;
+    }
+
+    /**
+     * @param priceRequestLimit the priceRequestLimit to set
+     */
+    public void setPriceRequestLimit(Date priceRequestLimit) {
+        this.priceRequestLimit = priceRequestLimit;
+    }
 }
