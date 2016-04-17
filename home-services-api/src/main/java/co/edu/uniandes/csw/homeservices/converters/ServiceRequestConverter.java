@@ -118,7 +118,7 @@ public abstract class ServiceRequestConverter {
             entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
             entity.setDescription(dto.getDescription());
             entity.setScore(dto.getScore());
-            dto.setPriceRequestLimit(entity.getPriceRequestLimit());
+            entity.setPriceRequestLimit(dto.getPriceRequestLimit());
           
             return entity;
         } else {
