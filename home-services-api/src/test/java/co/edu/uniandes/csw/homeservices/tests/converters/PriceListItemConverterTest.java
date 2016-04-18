@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.homeservices.converters.PriceListItemConverter;
 import co.edu.uniandes.csw.homeservices.dtos.PriceListItemDTO;
 import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
-import co.edu.uniandes.csw.homeservices.entities.PriceEntity;
 import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.CategoryPersistence;
 import java.util.ArrayList;
@@ -49,10 +48,8 @@ public class PriceListItemConverterTest {
     
     @Test
     public void fullEntity2DTO() {
-        PriceEntity entity = factory.manufacturePojo(PriceEntity.class);
-        PriceRequestEntity priceRequest = factory.manufacturePojo(PriceRequestEntity.class);
-        priceRequest.setContractor(factory.manufacturePojo(ContractorEntity.class));
-        entity.setPriceRequest(priceRequest);
+        PriceRequestEntity entity = factory.manufacturePojo(PriceRequestEntity.class);
+        entity.setContractor(factory.manufacturePojo(ContractorEntity.class));
         PriceListItemDTO result = PriceListItemConverter.fullEntity2DTO(entity);
         Assert.assertNotNull(result);
         Assert.assertEquals(entity.getId(), result.getId());
@@ -60,7 +57,7 @@ public class PriceListItemConverterTest {
     
     @Test
     public void listEntity2DTONullInput() {
-        List<PriceEntity> list= new ArrayList<>();
+        List<PriceRequestEntity> list= new ArrayList<>();
         list.add(null);
         List<PriceListItemDTO> result = PriceListItemConverter.listEntity2DTO(list);
         Assert.assertNotNull(result);
@@ -76,11 +73,9 @@ public class PriceListItemConverterTest {
     
     @Test
     public void listEntity2DTOListInput() {
-        List<PriceEntity> list= new ArrayList<>();
-        PriceEntity entity = factory.manufacturePojo(PriceEntity.class);
-        PriceRequestEntity priceRequest = factory.manufacturePojo(PriceRequestEntity.class);
-        priceRequest.setContractor(factory.manufacturePojo(ContractorEntity.class));
-        entity.setPriceRequest(priceRequest);
+        List<PriceRequestEntity> list= new ArrayList<>();
+        PriceRequestEntity entity = factory.manufacturePojo(PriceRequestEntity.class);
+        entity.setContractor(factory.manufacturePojo(ContractorEntity.class));
         list.add(entity);
         List<PriceListItemDTO> result = PriceListItemConverter.listEntity2DTO(list);
         Assert.assertNotNull(result);

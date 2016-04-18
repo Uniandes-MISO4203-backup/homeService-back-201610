@@ -39,10 +39,5 @@ public class PricePersistence extends CrudPersistence<PriceEntity>{
     protected Class<PriceEntity> getEntityClass() {
         return PriceEntity.class;
     }
-    
-    public List<PriceEntity> getByServiceRequest(Long idServiceRequest) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("serviceRequestId",idServiceRequest);
-        return executeListNamedQuery("PriceEntity.getByServiceRequest", params);
-    }
+
 }

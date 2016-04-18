@@ -50,4 +50,10 @@ public class PriceRequestPersistence extends CrudPersistence<PriceRequestEntity>
         params.put("contractorId",idContractor);
         return executeListNamedQuery("PriceRequest.getByContractor", params);
     }
+        
+    public List<PriceRequestEntity> getByServiceRequest(Long idServiceRequest) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("serviceRequestId",idServiceRequest);
+        return executeListNamedQuery("PriceRequest.getByServiceRequest", params);
+    }
 }

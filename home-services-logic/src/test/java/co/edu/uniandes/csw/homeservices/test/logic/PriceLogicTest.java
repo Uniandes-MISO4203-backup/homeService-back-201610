@@ -146,10 +146,5 @@ public class PriceLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
         Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
     }
-    
-    @Test
-    public void getByServiceRequest() {
-        List<PriceEntity> result = priceLogic.getByServiceRequest(1+1L);
-        Assert.assertEquals(0, result.size());
-    }
+
 }

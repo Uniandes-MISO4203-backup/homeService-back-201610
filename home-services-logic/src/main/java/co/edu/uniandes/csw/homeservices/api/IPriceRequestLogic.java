@@ -22,5 +22,6 @@ public interface IPriceRequestLogic {
     public PriceRequestEntity updatePriceRequest(PriceRequestEntity entity);
     public void deletePriceRequest(Long id);
     public List<PriceRequestEntity> getByContractor(Long idContractor);
+    public List<PriceRequestEntity> getByServiceRequest(Long customerId);
     
 }

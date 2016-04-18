@@ -18,10 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * Entidad de negocio de cotización
  * @author juan camilo cerquera lozada <jc.cerquera10@uniandes.edu.co>
  */
-@Entity
-@NamedQueries({
-    @NamedQuery(name = "PriceEntity.getByServiceRequest", query = "SELECT p FROM PriceEntity p JOIN PriceRequestEntity pr JOIN pr.serviceRequest sr WHERE sr.id = :serviceRequestId")
-})
+
 public class PriceEntity extends BaseEntity implements Serializable{
     
     private Integer price;

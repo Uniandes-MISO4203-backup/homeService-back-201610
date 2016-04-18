@@ -57,10 +57,5 @@ public class PriceLogic implements IPriceLogic{
     @Override
     public void deletePrice(Long id) {
          persistence.delete(id);
-    }
-
-    @Override
-    public List<PriceEntity> getByServiceRequest(Long customerId) {
-        return persistence.getByServiceRequest(customerId);
     }    
 }

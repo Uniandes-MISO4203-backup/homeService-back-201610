@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.homeservices.services;
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
 import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
 import co.edu.uniandes.csw.homeservices.api.IPriceLogic;
+import co.edu.uniandes.csw.homeservices.api.IPriceRequestLogic;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +43,7 @@ public class ServiceRequestService {
     @Inject
     private IServiceRequestLogic serviceRequestLogic;
     @Inject
-    private IPriceLogic priceLogic;
+    private IPriceRequestLogic priceRequestLogic;
     @Inject
     private ICustomerLogic customerLogic;
     @Context
@@ -157,8 +158,7 @@ public class ServiceRequestService {
     @GET
     @Path("{serviceRequestId: \\d+}/pricelist")
     public List<PriceListItemDTO> getPriceList(@PathParam("serviceRequestId") Long serviceRequestId) {
-        Long id = getContractorId(req.getRemoteUser());
-        return PriceListItemConverter.listEntity2DTO(priceLogic.getByServiceRequest(serviceRequestId));
+        return PriceListItemConverter.listEntity2DTO(priceRequestLogic.getByServiceRequest(serviceRequestId.longValue()));
     }
     /**
      * Obtiene una instancia de Skill asociada a una instancia de ServiceRequest

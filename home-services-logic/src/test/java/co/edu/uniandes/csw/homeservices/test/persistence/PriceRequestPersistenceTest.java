@@ -125,4 +125,10 @@ public class PriceRequestPersistenceTest {
         Assert.assertEquals(0,entityList.size());
     }
     
+    @Test
+    public void getByServiceRequest() {
+        List<PriceRequestEntity> entityList = priceRequestPersistence.getByServiceRequest(1+1L);
+        Assert.assertEquals(0,entityList.size());
+    }
+    
 }

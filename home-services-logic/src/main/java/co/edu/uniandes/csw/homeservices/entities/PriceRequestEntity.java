@@ -21,7 +21,8 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "PriceRequest.getByCustomer", query = "SELECT pr FROM PriceRequestEntity pr JOIN pr.serviceRequest sr JOIN sr.customer c1 WHERE c1.id = :customerId"),
-    @NamedQuery(name = "PriceRequest.getByContractor", query = "SELECT pr FROM PriceRequestEntity pr WHERE pr.contractor.id = :contractorId AND pr.status = 'PENDIENTE'")
+    @NamedQuery(name = "PriceRequest.getByContractor", query = "SELECT pr FROM PriceRequestEntity pr WHERE pr.contractor.id = :contractorId AND pr.status = 'PENDIENTE'"),
+    @NamedQuery(name = "PriceRequest.getByServiceRequest", query = "SELECT pr FROM PriceRequestEntity pr JOIN pr.serviceRequest sr WHERE sr.id = :serviceRequestId")
 })   
 public class PriceRequestEntity extends BaseEntity implements Serializable{
     

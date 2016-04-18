@@ -139,5 +139,10 @@ public class PriceRequestLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
-    
+        
+    @Test
+    public void getByServiceRequest() {
+        List<PriceRequestEntity> result = priceRequestLogic.getByServiceRequest(1+1L);
+        Assert.assertEquals(0, result.size());
+    }
 }

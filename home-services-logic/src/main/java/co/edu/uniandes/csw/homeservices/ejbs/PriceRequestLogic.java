@@ -64,5 +64,10 @@ public class PriceRequestLogic implements IPriceRequestLogic{
     public List<PriceRequestEntity> getByContractor(Long idContractor) {
         return persistence.getByContractor(idContractor);
     }
+    
+    @Override
+    public List<PriceRequestEntity> getByServiceRequest(Long customerId) {
+        return persistence.getByServiceRequest(customerId);
+    }
         
 }
