@@ -3,7 +3,6 @@ package co.edu.uniandes.csw.homeservices.tests;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
-import co.edu.uniandes.csw.homeservices.dtos.PriceListItemDTO;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.services.ServiceRequestService;

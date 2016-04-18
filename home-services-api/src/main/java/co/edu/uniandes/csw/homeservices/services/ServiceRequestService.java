@@ -2,7 +2,6 @@ package co.edu.uniandes.csw.homeservices.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
 import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
-import co.edu.uniandes.csw.homeservices.api.IPriceLogic;
 import co.edu.uniandes.csw.homeservices.api.IPriceRequestLogic;
 import java.util.List;
 import javax.inject.Inject;
