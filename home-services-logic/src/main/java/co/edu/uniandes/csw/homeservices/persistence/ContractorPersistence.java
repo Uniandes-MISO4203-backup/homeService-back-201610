@@ -5,9 +5,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
+import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Query;
+
 
 /**
  * @generated
@@ -15,6 +20,8 @@ import javax.persistence.Query;
 @Stateless
 public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
 
+    private static final Logger LOGGER = Logger.getLogger(ContractorPersistence.class.getCanonicalName());
+    
     @PersistenceContext(unitName="HomeServicesPU")
     protected EntityManager em;
 
@@ -95,5 +102,88 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
         return contractorsByExperience;
     }
     
+     /**
+     * Obtiene la lista de los registros de contractors los cuales tengan
+     * dentro de sus skills alguno que coincida con los skill que se esperan
+     * en el service request.
+     *
+     * @param serviceReqId
+     * @return Colección de objetos de ContractorDTO
+     */
+    public List<ContractorEntity> getContractorsBySkillServiceReq(int serviceReqId) {
+        
+                
+        List<ContractorEntity> contractorsBySkill = new ArrayList<ContractorEntity>();
+        ServiceRequestEntity servReq = null;
+        
+        if (serviceReqId != 0){
+                
+            String consulta = "SELECT u FROM ServiceRequestEntity u WHERE u.id = :serviceReqId";
+           
+            try {
+
+                Query query = em.createQuery(consulta);
+                query.setParameter("serviceReqId", serviceReqId);
+                servReq = (ServiceRequestEntity) query.getSingleResult();
+                
+                if (servReq != null){
+                
+                    if(servReq.getExpectedskills() != null && servReq.getExpectedskills().size() > 0){
+                        
+                        List<String> expectedSkillsNames = new ArrayList<String>();
+                        
+                        for (SkillEntity skill : servReq.getExpectedskills()) {
+                            expectedSkillsNames.add(skill.getName().toUpperCase().trim());
+                        }
+                        
+                        contractorsBySkill = this.getContractorsBySkillsName(expectedSkillsNames);
+                        
+                    } else {
+                        LOGGER.log(Level.WARNING, "El service request consultado por el id " + serviceReqId + " no tiene expected skills asociados");
+                    }
+                } else {
+                    LOGGER.log(Level.WARNING, "El service request consultado por el id " + serviceReqId + " no a arrojado resultados");
+                }
+ 
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Ocurrió un error al consultar los contractor por skills service request ".concat(e.getMessage()));
+                return contractorsBySkill;
+            }
+        }
+ 
+        return contractorsBySkill;
+    } 
+    
+        
+    /**
+     * Metodo que permite realizar la busqueda de los contractors dado una 
+     * lista de skills names
+     * 
+     * @param List<String >skills names
+     * @return List<ContractorEntity> encontrados que tienen ese skill 
+     *         dentro de sus skill, o lista vacia si no encuentra nada
+     */
+    public List<ContractorEntity> getContractorsBySkillsName(List<String> skills) {
+        
+        List<ContractorEntity> contractorsBySkill = new ArrayList<ContractorEntity>();
+        
+        if (skills != null && !skills.isEmpty()){
+             
+            String consulta = "SELECT c FROM ContractorEntity c JOIN c.skills skill WHERE UPPER(skill.name) in :skills";
+           
+            try {
+
+                Query query = em.createQuery(consulta);
+                query.setParameter("skills", skills);
+                contractorsBySkill = query.getResultList();
+
+            } catch (Exception e) {
+                System.out.println("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
+                return contractorsBySkill;
+            }
+        }
+ 
+        return contractorsBySkill;
+    }
     
 }

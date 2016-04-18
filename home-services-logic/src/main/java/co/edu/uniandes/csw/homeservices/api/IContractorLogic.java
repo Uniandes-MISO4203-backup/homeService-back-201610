@@ -19,4 +19,5 @@ public interface IContractorLogic {
     public void removeSkills(Long contractorId, Long skillsId);
     public List<ContractorEntity> getContractorsBySkill(String skill);
     public List<ContractorEntity> getContractorsByExperience(String skill);
+    public List<ContractorEntity> getContractorsBySkillServiceReq(int serviceReqId);
 }
