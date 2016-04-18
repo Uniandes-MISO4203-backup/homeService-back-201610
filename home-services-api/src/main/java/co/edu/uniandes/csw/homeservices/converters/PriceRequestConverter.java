@@ -20,6 +20,8 @@ public class PriceRequestConverter {
         PriceRequestDTO dto = new PriceRequestDTO();
         dto.setId(entity.getId());
         dto.setStatus(entity.getStatus());
+        dto.setPrice(entity.getPrice());
+        dto.setDescription(entity.getDescription());
         return dto;
     }
      
@@ -27,13 +29,17 @@ public class PriceRequestConverter {
         PriceRequestEntity entity = new PriceRequestEntity();
         entity.setId(dto.getId());
         entity.setStatus(dto.getStatus());
+        entity.setPrice(dto.getPrice());
+        entity.setDescription(dto.getDescription());
         return entity;
     }
     
     public static PriceRequestDTO basicEntity2DTO(PriceRequestEntity entity){
         PriceRequestDTO dto = new PriceRequestDTO();
         dto.setId(entity.getId());
-        dto.setStatus(entity.getStatus());
+        dto.setStatus(entity.getStatus());        
+        dto.setPrice(entity.getPrice());
+        dto.setDescription(entity.getDescription());
         dto.setServiceRequestDTO(ServiceRequestConverter.refEntity2DTO(entity.getServiceRequest()));
         dto.setContractorDTO(ContractorConverter.refEntity2DTO(entity.getContractor()));
         return dto;
@@ -43,6 +49,8 @@ public class PriceRequestConverter {
         PriceRequestEntity entity = new PriceRequestEntity();
         entity.setId(dto.getId());
         entity.setStatus(dto.getStatus());
+        entity.setPrice(dto.getPrice());
+        entity.setDescription(dto.getDescription());
         entity.setServiceRequest(ServiceRequestConverter.refDTO2Entity(dto.getServiceRequestDTO()));
         entity.setContractor(ContractorConverter.refDTO2Entity(dto.getContractorDTO()));
         return entity;

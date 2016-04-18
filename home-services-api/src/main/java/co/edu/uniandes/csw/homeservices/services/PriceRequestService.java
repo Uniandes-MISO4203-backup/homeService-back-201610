@@ -24,14 +24,16 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Implementa los servicios requeridos para la gestión de solicitudes de cotización.
+ * Implementa los servicios requeridos para la gestión de solicitudes de
+ * cotización.
+ *
  * @author juan camilo cerquera lozada <jc.cerquera10@uniandes.edu.co>
  */
 @Path("/priceRequests")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PriceRequestService {
-    
+
     @Inject
     private IPriceRequestLogic priceRequestLogic;
     @Context
@@ -42,16 +44,17 @@ public class PriceRequestService {
     private Integer page;
     @QueryParam("maxRecords")
     private Integer maxRecords;
-    
+
     /**
-    * Obtiene las solicitudes de cotización asignadas a un contratista.
-    */
+     * Obtiene las solicitudes de cotización asignadas a un contratista.
+     */
     @GET
-    public List<PriceRequestDTO> getPriceRequestByContractor(){
-            return PriceRequestConverter.listEntity2DTO(priceRequestLogic.getByContractor(UserService.getContractorId(req.getRemoteUser())));
+    public List<PriceRequestDTO> getPriceRequestByContractor() {
+        List<PriceRequestDTO> list = PriceRequestConverter.listEntity2DTO(priceRequestLogic.getByContractor(UserService.getContractorId(req.getRemoteUser())));
+        return list;
     }
-    
-     /**
+
+    /**
      * Actualiza la información de una instancia de Book.
      *
      * @param id Identificador de la instancia de PriceRequest a modificar

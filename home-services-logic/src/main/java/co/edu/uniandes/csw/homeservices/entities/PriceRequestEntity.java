@@ -21,7 +21,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "PriceRequest.getByCustomer", query = "SELECT pr FROM PriceRequestEntity pr JOIN pr.serviceRequest sr JOIN sr.customer c1 WHERE c1.id = :customerId"),
-    @NamedQuery(name = "PriceResquet.getByContractor", query = "SELECT pr FROM PriceRequestEntity pr WHERE pr.contractor = :contractorId AND pr.status = 'PENDIENTE'")
+    @NamedQuery(name = "PriceRequest.getByContractor", query = "SELECT pr FROM PriceRequestEntity pr WHERE pr.contractor.id = :contractorId AND pr.status = 'PENDIENTE'")
 })   
 public class PriceRequestEntity extends BaseEntity implements Serializable{
     
@@ -33,6 +33,10 @@ public class PriceRequestEntity extends BaseEntity implements Serializable{
     */
 
     private String status;
+    
+    private Integer price;
+    
+    private String description;
     
     @PodamExclude
     @ManyToOne(fetch = FetchType.EAGER)
@@ -66,6 +70,24 @@ public class PriceRequestEntity extends BaseEntity implements Serializable{
     public void setContractor(ContractorEntity contractor) {
         this.contractor = contractor;
     }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
     
     
 }
