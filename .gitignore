@@ -25,3 +25,4 @@ nbactions.xml
 /home-services-api/derby.log
 
 *.properties
+/home-services-logic/nbproject/

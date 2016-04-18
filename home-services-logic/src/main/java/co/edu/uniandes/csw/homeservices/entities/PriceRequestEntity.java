@@ -8,7 +8,10 @@ package co.edu.uniandes.csw.homeservices.entities;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -16,6 +19,11 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author juan camilo cerquera lozada <jc.cerquera10@uniandes.edu.co>
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "PriceRequest.getByCustomer", query = "SELECT pr FROM PriceRequestEntity pr JOIN pr.serviceRequest sr JOIN sr.customer c1 WHERE c1.id = :customerId"),
+    @NamedQuery(name = "PriceRequest.getByContractor", query = "SELECT pr FROM PriceRequestEntity pr WHERE pr.contractor.id = :contractorId AND pr.status = 'PENDIENTE'"),
+    @NamedQuery(name = "PriceRequest.getByServiceRequest", query = "SELECT pr FROM PriceRequestEntity pr JOIN pr.serviceRequest sr WHERE sr.id = :serviceRequestId")
+})   
 public class PriceRequestEntity extends BaseEntity implements Serializable{
     
     /* 
@@ -27,12 +35,16 @@ public class PriceRequestEntity extends BaseEntity implements Serializable{
 
     private String status;
     
+    private Integer price;
+    
+    private String description;
+    
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private ServiceRequestEntity serviceRequest;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private ContractorEntity contractor;
     
 
@@ -59,6 +71,24 @@ public class PriceRequestEntity extends BaseEntity implements Serializable{
     public void setContractor(ContractorEntity contractor) {
         this.contractor = contractor;
     }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
     
     
 }
