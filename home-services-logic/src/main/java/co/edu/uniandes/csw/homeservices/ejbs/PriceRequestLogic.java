@@ -19,7 +19,8 @@ import javax.inject.Inject;
 @Stateless
 public class PriceRequestLogic implements IPriceRequestLogic{
     
-    @Inject private PriceRequestPersistence persistence;
+    @Inject 
+    private PriceRequestPersistence persistence;
 
     @Override
     public int countPriceRequests() {
@@ -57,6 +58,11 @@ public class PriceRequestLogic implements IPriceRequestLogic{
     @Override
     public void deletePriceRequest(Long id) {
         persistence.delete(id);
+    }
+
+    @Override
+    public List<PriceRequestEntity> getByContractor(Long idContractor) {
+        return persistence.getByContractor(idContractor);
     }
         
 }
