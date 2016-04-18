@@ -25,7 +25,12 @@ import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 /**
  * @generated
@@ -34,6 +39,8 @@ import javax.servlet.http.HttpServletRequest;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ContractorService {
+    
+    private static final Logger LOGGER = Logger.getLogger(ContractorService.class);
 
     private static final String CONTRACTOR_GROUP_HREF = "https://api.stormpath.com/v1/groups/17sNxjYJEeYN8qDMfuBIbh";
     private static final String ADMIN_GROUP_HREF = "https://api.stormpath.com/v1/groups/rRAbN1pw2hLLj66xeAx4z";
@@ -45,6 +52,7 @@ public class ContractorService {
     @QueryParam("maxRecords") private Integer maxRecords;
     @QueryParam("skillName") private String skillName;
     @QueryParam("experienceName") private String experienceDesc;
+    @QueryParam("idServiceRequest") private Integer idServiceRequest;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -207,4 +215,39 @@ public class ContractorService {
     public void removeSkills(@PathParam("contractorId") Long contractorId, @PathParam("skillId") Long skillId) {
         contractorLogic.removeSkills(contractorId, skillId);
     }
+    private ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
+    
+    
+    
+    /**
+     * Obtiene la lista de los registros de contractors los cuales tengan
+     * dentro de sus skills alguno que coincida con los skill que se esperan
+     * en el service request.
+     *
+     * @param serviceReqId
+     * @return Colección de objetos de ContractorDTO
+     */
+    @GET
+    public void getContractorsBySkillServiceReq(@Suspended
+    final AsyncResponse asyncResponse) {
+ 
+        executorService.submit(new Runnable() {
+            public void run() {
+                asyncResponse.resume(doGetContractorsBySkillServiceReq());
+            }
+        });
+    }
+
+    private List<ContractorDTO> doGetContractorsBySkillServiceReq() {
+        List<ContractorDTO> contractorsBySkillServiceReq = null;
+        
+        if (idServiceRequest != null && idServiceRequest != 0){
+            contractorsBySkillServiceReq =  ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkillServiceReq(idServiceRequest));
+        } else {
+            LOGGER.log(Priority.ERROR, "El id del service request enviado es null o esta vacio" );
+        }
+        
+        return contractorsBySkillServiceReq;
+    }
+    
 }
