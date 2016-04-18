@@ -7,6 +7,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 
 /**
  * @generated
@@ -25,6 +26,11 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "customer")
     private List<ServiceRequestEntity> serviceRequests = new ArrayList<>();
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "customer")
+    private List<ChatNameEntity> chatName= new ArrayList<>();
+    
 
     /**
      * @generated
@@ -88,6 +94,20 @@ public class CustomerEntity extends BaseEntity implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    /**
+     * @return the chatName
+     */
+    public List<ChatNameEntity> getChatName() {
+        return chatName;
+    }
+
+    /**
+     * @param chatName the chatName to set
+     */
+    public void setChatName(List<ChatNameEntity> chatName) {
+        this.chatName = chatName;
     }
     
 }
