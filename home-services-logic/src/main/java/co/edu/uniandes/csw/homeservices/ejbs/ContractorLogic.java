@@ -153,4 +153,10 @@ public class ContractorLogic implements IContractorLogic {
         List<ContractorEntity> contractorsByExperience = persistence.getContractorsByExperience(experience);  
         return contractorsByExperience;
     }
+
+    @Override
+    public List<ContractorEntity> getContractorsBySkillServiceReq(int serviceReqId) {
+        List<ContractorEntity> contractorsByExperience = persistence.getContractorsBySkillServiceReq(serviceReqId);  
+        return contractorsByExperience;
+    }
 }

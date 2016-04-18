@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -44,7 +45,7 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     private Date priceRequestLimit;
 
     @PodamExclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<SkillEntity> expectedskills = new ArrayList<>();
 
     @PodamExclude
