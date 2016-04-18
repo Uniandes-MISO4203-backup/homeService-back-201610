@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -38,9 +39,13 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
     private Date dueDate;
+    
+    @Temporal(TemporalType.DATE)
+    @PodamStrategyValue(DateStrategy.class)
+    private Date priceRequestLimit;
 
     @PodamExclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<SkillEntity> expectedskills = new ArrayList<>();
 
     @PodamExclude
@@ -198,6 +203,20 @@ public class ServiceRequestEntity extends BaseEntity implements Serializable {
      */
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    /**
+     * @return the priceRequestLimit
+     */
+    public Date getPriceRequestLimit() {
+        return priceRequestLimit;
+    }
+
+    /**
+     * @param priceRequestLimit the priceRequestLimit to set
+     */
+    public void setPriceRequestLimit(Date priceRequestLimit) {
+        this.priceRequestLimit = priceRequestLimit;
     }
 
    
