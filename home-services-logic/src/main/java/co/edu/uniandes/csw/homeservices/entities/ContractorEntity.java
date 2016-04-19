@@ -32,14 +32,16 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "contractors")
     private List<SkillEntity> skills = new ArrayList<>();
 
+    @PodamExclude
     @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkExperienceEntity> workExperiences = new ArrayList<>();
 
+    @PodamExclude
     @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EducationEntity> educations = new ArrayList<>();
 
     @PodamExclude
-    @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "contractor")
     private List<ChatNameEntity> chatName= new ArrayList<>();
 
     /**
