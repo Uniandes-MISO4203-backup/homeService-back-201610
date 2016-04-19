@@ -39,6 +39,12 @@
             <version>2.6.1</version>
         </dependency>
         <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>2.2.2</version>
+            <classifier>jar</classifier>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>

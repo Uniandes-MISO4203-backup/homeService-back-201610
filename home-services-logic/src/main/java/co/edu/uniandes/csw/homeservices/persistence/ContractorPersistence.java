@@ -102,6 +102,53 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
         return contractorsByExperience;
     }
     
+    
+    /**
+     * Obtiene los skills de un contractor
+     * @param contractorId
+     * @return 
+     */
+    public List<String> getSkillsByContractorId(int contractorId){
+      List<SkillEntity> skillEntitys = new ArrayList<>();
+      List<String> stringSkills = new ArrayList<>();
+      if(contractorId != 0){
+          String consulta = "SELECT ce FROM ContractorEntity ce WHERE ce.id = :contractorId";
+          Query query = em.createQuery(consulta);
+          query.setParameter("contractorId", contractorId);
+          ContractorEntity contractorEntity = (ContractorEntity) query.getSingleResult();
+          skillEntitys = contractorEntity.getSkills();
+          for (SkillEntity skill : skillEntitys) {
+               stringSkills.add(skill.getName().toUpperCase().trim());
+          }
+      }
+      return stringSkills;
+    }   
+    
+    /**
+     * Obtiene un service request a partir de una lista de Skills
+     * @param skills
+     * @return serviceRequest
+     */
+    public ServiceRequestEntity getServiceRequestByContractorSkills(List<String> skills){
+        ServiceRequestEntity serviceRequest = null;
+                if (skills != null && !skills.isEmpty()){
+             
+            String consulta = "SELECT sr FROM ServiceRequestEntity sr JOIN sr.expectedskills skill WHERE UPPER(skill.name) in :skills";
+           
+            try {
+                Query query = em.createQuery(consulta);
+                query.setParameter("skills", skills);
+                 serviceRequest = (ServiceRequestEntity) query.getResultList().get(0);
+
+            } catch (Exception e) {
+                System.out.println("Erro al consultar el servicerequest por skills  " + e.getMessage());
+                return serviceRequest;
+            }
+        }
+                return serviceRequest;
+    }
+    
+    
      /**
      * Obtiene la lista de los registros de contractors los cuales tengan
      * dentro de sus skills alguno que coincida con los skill que se esperan

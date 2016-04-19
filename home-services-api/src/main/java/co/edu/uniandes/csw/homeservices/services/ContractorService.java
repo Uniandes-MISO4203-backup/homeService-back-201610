@@ -51,6 +51,7 @@ public class ContractorService {
     @QueryParam("skillName") private String skillName;
     @QueryParam("experienceName") private String experienceDesc;
     @QueryParam("idServiceRequest") private Integer idServiceRequest;
+    @QueryParam("idContractor") private Integer idContractor;
 
     /**
      * Obtiene la lista de los registros de Book.
@@ -76,6 +77,12 @@ public class ContractorService {
                 return  ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkillServiceReq(idServiceRequest));
             } else {
                 LOGGER.log(Priority.ERROR, "El id del service request enviado es null o esta vacio" );
+            }
+            if (idContractor != null && idContractor != 0){
+                LOGGER.log(Priority.WARN, "Entro a servicioo!" );
+                return  ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkillServiceReqAndCreatePriceRequest(idContractor));
+            } else {
+                LOGGER.log(Priority.ERROR, "El id del contractor request es nulo" );
             }
 
             if (skillName != null && !skillName.equals("")){
