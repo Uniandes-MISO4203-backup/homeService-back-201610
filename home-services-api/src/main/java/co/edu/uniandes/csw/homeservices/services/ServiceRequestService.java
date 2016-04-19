@@ -157,7 +157,7 @@ public class ServiceRequestService {
     @GET
     @Path("{serviceRequestId: \\d+}/pricelist")
     public List<PriceListItemDTO> getPriceList(@PathParam("serviceRequestId") Long serviceRequestId) {
-        return PriceListItemConverter.listEntity2DTO(priceRequestLogic.getByServiceRequest(serviceRequestId.longValue()));
+        return PriceListItemConverter.listEntity2DTO(priceRequestLogic.getByServiceRequest(serviceRequestId));
     }
     /**
      * Obtiene una instancia de Skill asociada a una instancia de ServiceRequest

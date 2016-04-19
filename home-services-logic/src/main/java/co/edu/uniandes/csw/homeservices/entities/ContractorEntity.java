@@ -21,65 +21,72 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     private String document;
 
     private String picture;
-    
+
     private String city;
 
     private String telefono;
-    
+
     private String profileDescription;
     
     private String email;
 
     @PodamExclude
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy = "contractors")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "contractors")
     private List<SkillEntity> skills = new ArrayList<>();
 
-    
+    @PodamExclude
     @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkExperienceEntity> workExperiences = new ArrayList<>();
-    
+
+    @PodamExclude
     @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EducationEntity> educations = new ArrayList<>();
-    
-    /**@OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @PodamExclude
+    @OneToMany(mappedBy = "contractor")
+    private List<ChatNameEntity> chatName= new ArrayList<>();
+
+    /**
+     * @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL,
+     * orphanRemoval = true)
      * @generated
      */
-    public String getLastName(){
+    public String getLastName() {
         return lastName;
     }
 
     /**
      * @generated
      */
-    public void setLastName(String lastName){
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /**
      * @generated
      */
-    public String getDocument(){
+    public String getDocument() {
         return document;
     }
 
     /**
      * @generated
      */
-    public void setDocument(String document){
+    public void setDocument(String document) {
         this.document = document;
     }
 
     /**
      * @generated
      */
-    public String getPicture(){
+    public String getPicture() {
         return picture;
     }
 
     /**
      * @generated
      */
-    public void setPicture(String picture){
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -119,7 +126,7 @@ public class ContractorEntity extends BaseEntity implements Serializable {
         this.educations = educations;
     }
 
-         /**
+    /**
      * @generated
      */
     public String getCity() {
@@ -155,6 +162,20 @@ public class ContractorEntity extends BaseEntity implements Serializable {
 
     public void setemail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the chatName
+     */
+    public List<ChatNameEntity> getChatName() {
+        return chatName;
+    }
+
+    /**
+     * @param chatName the chatName to set
+     */
+    public void setChatName(List<ChatNameEntity> chatName) {
+        this.chatName = chatName;
     }
 
 }
