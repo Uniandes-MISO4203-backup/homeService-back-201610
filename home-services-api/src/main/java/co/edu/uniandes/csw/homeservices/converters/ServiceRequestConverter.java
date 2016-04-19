@@ -36,6 +36,7 @@ public abstract class ServiceRequestConverter {
             dto.setCreationDate(entity.getCreationDate());
             dto.setDueDate(entity.getDueDate());
             dto.setDescription(entity.getDescription());
+            dto.setPriceRequestLimit(entity.getPriceRequestLimit());
            
 
             return dto;
@@ -86,6 +87,7 @@ public abstract class ServiceRequestConverter {
             dto.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
             dto.setDescription(entity.getDescription());
             dto.setScore(entity.getScore());
+            dto.setPriceRequestLimit(entity.getPriceRequestLimit());
            
             return dto;
         } else {
@@ -116,6 +118,7 @@ public abstract class ServiceRequestConverter {
             entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
             entity.setDescription(dto.getDescription());
             entity.setScore(dto.getScore());
+            entity.setPriceRequestLimit(dto.getPriceRequestLimit());
           
             return entity;
         } else {

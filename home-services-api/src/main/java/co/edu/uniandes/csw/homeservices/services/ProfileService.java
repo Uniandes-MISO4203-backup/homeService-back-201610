@@ -34,10 +34,12 @@ public class ProfileService {
     public ProfileDTO getProfile() {
         ProfileDTO profile = new ProfileDTO(getAccount(req.getRemoteUser()));
         try {
-            CustomerEntity customer = customerLogic.getCustomer(getCustomerId(req.getRemoteUser()));
-            profile.setDocument(customer.getDocument());
-            profile.setPicture(customer.getPicture());
-
+            Long consumerId = getCustomerId(req.getRemoteUser());
+            if (consumerId != null) {
+                CustomerEntity customer = customerLogic.getCustomer(consumerId);
+                profile.setDocument(customer.getDocument());
+                profile.setPicture(customer.getPicture());
+            }
         } catch (WebApplicationException e){ 
             LOGGER.info(e);
         }
