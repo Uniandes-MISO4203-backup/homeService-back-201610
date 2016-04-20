@@ -45,10 +45,14 @@ public class ChatNameService {
     @StatusCreated
     public ChatDTO createChat(ChatDTO dto) {
         ChatDTO res;
+        ChatNameEntity  ch;
         String name= "CU"+dto.getIdCustomer()+"CO"+dto.getIdContractor();
         dto.setName(name);
-        ChatNameEntity  ch = ChatNameConverter.fullDTO2Entity(dto);
-        ch = chatNameLogic.createChat(ch);
+        ch = chatNameLogic.getChat(name);
+        if (ch==null){
+            ch = ChatNameConverter.fullDTO2Entity(dto);
+            ch = chatNameLogic.createChat(ch);
+        }
         res= ChatNameConverter.basicEntity2DTO(ch);
         return res;
 
