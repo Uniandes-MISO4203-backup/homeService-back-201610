@@ -40,7 +40,7 @@ public class PriceRequestConverter {
         dto.setStatus(entity.getStatus());        
         dto.setPrice(entity.getPrice());
         dto.setDescription(entity.getDescription());
-        dto.setServiceRequestDTO(ServiceRequestConverter.refEntity2DTO(entity.getServiceRequest()));
+        dto.setServiceRequestDTO(ServiceRequestConverter.fullEntity2DTO(entity.getServiceRequest()));
         dto.setContractorDTO(ContractorConverter.refEntity2DTO(entity.getContractor()));
         return dto;
     }
