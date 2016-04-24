@@ -14,12 +14,37 @@ import javax.inject.Inject;
 public class ChatMsgLogic implements IChatMsgLogic {
 
     @Inject private ChatMsgPersistence persistence;
+            
+    /**
+     * @generated
+     */
+    @Override
+    public int countChatMsgs() {
+        return persistence.count();
+    }
 
-    
+    /**
+     * @generated
+     */
+    @Override
+    public List<ChatMsgEntity> getChatMsgs() {
+        return persistence.findAll();
+    }
 
-    
-
-    
+    /**
+     * @generated
+     */
+    @Override
+    public List<ChatMsgEntity> getChatMsgs(Integer page, Integer maxRecords) {
+        return persistence.findAll(page, maxRecords);
+    }
+    /**
+     * @generated
+     */
+    @Override
+    public ChatMsgEntity getChatMsg(Long id) {
+        return persistence.find(id);
+    }
 
     /**
      * @generated
@@ -40,5 +65,12 @@ public class ChatMsgLogic implements IChatMsgLogic {
         return persistence.update(newEntity);
     }
 
-    
+    /**
+     * @generated
+     */
+    @Override
+    public void deleteChatMsg(Long id) {
+        persistence.delete(id);
+    }
+            
 }
