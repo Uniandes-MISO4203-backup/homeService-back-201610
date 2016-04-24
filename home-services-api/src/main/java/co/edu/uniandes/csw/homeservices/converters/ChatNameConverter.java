@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.homeservices.entities.ChatMsgEntity;
 import co.edu.uniandes.csw.homeservices.entities.ChatNameEntity;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,5 +83,15 @@ public abstract class ChatNameConverter {
         }
     }
 
+    public static List<ChatDTO> listEntity2DTO(List<ChatNameEntity> entities) {
+          List<ChatDTO> dtos = new ArrayList<ChatDTO>();
+        if (entities != null) {
+            for (ChatNameEntity entity : entities) {
+                dtos.add(basicEntity2DTO(entity));
+            }
+        }
+        return dtos;
+    }
+    
     
 }

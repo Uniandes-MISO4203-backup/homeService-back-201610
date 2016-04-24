@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.homeservices.persistence;
 
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import co.edu.uniandes.csw.homeservices.entities.ChatNameEntity;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,6 +15,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author l.badillo10
  */
+@Stateless
 public class ChatNamePersistence extends CrudPersistence<ChatNameEntity> {
     @PersistenceContext(unitName="HomeServicesPU")
     protected EntityManager em;
