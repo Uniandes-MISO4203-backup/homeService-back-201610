@@ -18,6 +18,7 @@ public class ContractorDTO {
     private String picture;
     private String city;
     private String telefono;
+    private String email;
     
     @PodamExclude
     private List<SkillDTO> skills = new ArrayList<>();
@@ -156,6 +157,12 @@ public class ContractorDTO {
         this.telefono = telefono;
     }
     
-    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 }

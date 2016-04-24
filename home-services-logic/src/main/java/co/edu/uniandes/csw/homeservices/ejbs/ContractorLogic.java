@@ -182,7 +182,9 @@ public class ContractorLogic implements IContractorLogic {
             priceRequestLogic.createPriceRequest(priceRequestEntity);
             //Sends an email to the contractor
             try {
-              sendEmail(contractorEntity.getEmail(), contractorEntity.getName());
+              if(contractorEntity.getEmail()!=null){
+                sendEmail(contractorEntity.getEmail(), contractorEntity.getName());
+              }
             } catch (SendGridException ex) {
                 Logger.getLogger(ContractorLogic.class.getName()).log(Level.SEVERE, null, ex);
              }
