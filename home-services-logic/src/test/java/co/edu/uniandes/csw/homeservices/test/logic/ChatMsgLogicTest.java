@@ -1,9 +1,9 @@
 package co.edu.uniandes.csw.homeservices.test.logic;
 
-import co.edu.uniandes.csw.homeservices.ejbs.CategoryLogic;
-import co.edu.uniandes.csw.homeservices.api.ICategoryLogic;
-import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
-import co.edu.uniandes.csw.homeservices.persistence.CategoryPersistence;
+import co.edu.uniandes.csw.homeservices.ejbs.ChatMsgLogic;
+import co.edu.uniandes.csw.homeservices.api.IChatMsgLogic;
+import co.edu.uniandes.csw.homeservices.entities.ChatMsgEntity;
+import co.edu.uniandes.csw.homeservices.persistence.ChatMsgPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class CategoryLogicTest {
+public class ChatMsgLogicTest {
 
     /**
      * @generated
@@ -37,7 +37,7 @@ public class CategoryLogicTest {
      * @generated
      */
     @Inject
-    private ICategoryLogic categoryLogic;
+    private IChatMsgLogic chatMsgLogic;
 
     /**
      * @generated
@@ -54,7 +54,7 @@ public class CategoryLogicTest {
     /**
      * @generated
      */
-    private List<CategoryEntity> data = new ArrayList<CategoryEntity>();
+    private List<ChatMsgEntity> data = new ArrayList<ChatMsgEntity>();
 
     /**
      * @generated
@@ -62,10 +62,10 @@ public class CategoryLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CategoryEntity.class.getPackage())
-                .addPackage(CategoryLogic.class.getPackage())
-                .addPackage(ICategoryLogic.class.getPackage())
-                .addPackage(CategoryPersistence.class.getPackage())
+                .addPackage(ChatMsgEntity.class.getPackage())
+                .addPackage(ChatMsgLogic.class.getPackage())
+                .addPackage(IChatMsgLogic.class.getPackage())
+                .addPackage(ChatMsgPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -94,7 +94,7 @@ public class CategoryLogicTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from CategoryEntity").executeUpdate();
+        em.createQuery("delete from ChatMsgEntity").executeUpdate();
     }
 
     /**
@@ -102,7 +102,7 @@ public class CategoryLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CategoryEntity entity = factory.manufacturePojo(CategoryEntity.class);
+            ChatMsgEntity entity = factory.manufacturePojo(ChatMsgEntity.class);
 
             em.persist(entity);
             data.add(entity);
@@ -113,25 +113,24 @@ public class CategoryLogicTest {
      * @generated
      */
     @Test
-    public void createCategoryTest() {
-        CategoryEntity entity = factory.manufacturePojo(CategoryEntity.class);
-        CategoryEntity result = categoryLogic.createCategory(entity);
+    public void createChatMsgTest() {
+        ChatMsgEntity entity = factory.manufacturePojo(ChatMsgEntity.class);
+        ChatMsgEntity result = chatMsgLogic.createChatMsg(entity);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
-        Assert.assertEquals(result.getDescription(), entity.getDescription());
     }
 
     /**
      * @generated
      */
     @Test
-    public void getCategorysTest() {
-        List<CategoryEntity> list = categoryLogic.getCategorys();
+    public void getChatMsgsTest() {
+        List<ChatMsgEntity> list = chatMsgLogic.getChatMsgs();
         Assert.assertEquals(data.size(), list.size());
-        for (CategoryEntity entity : list) {
+        for (ChatMsgEntity entity : list) {
             boolean found = false;
-            for (CategoryEntity storedEntity : data) {
+            for (ChatMsgEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -144,23 +143,22 @@ public class CategoryLogicTest {
      * @generated
      */
     @Test
-    public void getCategoryTest() {
-        CategoryEntity entity = data.get(0);
-        CategoryEntity resultEntity = categoryLogic.getCategory(entity.getId());
+    public void getChatMsgTest() {
+        ChatMsgEntity entity = data.get(0);
+        ChatMsgEntity resultEntity = chatMsgLogic.getChatMsg(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
-        Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
     }
 
     /**
      * @generated
      */
     @Test
-    public void deleteCategoryTest() {
-        CategoryEntity entity = data.get(1);
-        categoryLogic.deleteCategory(entity.getId());
-        CategoryEntity deleted = em.find(CategoryEntity.class, entity.getId());
+    public void deleteChatMsgTest() {
+        ChatMsgEntity entity = data.get(1);
+        chatMsgLogic.deleteChatMsg(entity.getId());
+        ChatMsgEntity deleted = em.find(ChatMsgEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -168,18 +166,17 @@ public class CategoryLogicTest {
      * @generated
      */
     @Test
-    public void updateCategoryTest() {
-        CategoryEntity entity = data.get(0);
-        CategoryEntity pojoEntity = factory.manufacturePojo(CategoryEntity.class);
+    public void updateChatMsgTest() {
+        ChatMsgEntity entity = data.get(0);
+        ChatMsgEntity pojoEntity = factory.manufacturePojo(ChatMsgEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        categoryLogic.updateCategory(pojoEntity);
+        chatMsgLogic.updateChatMsg(pojoEntity);
 
-        CategoryEntity resp = em.find(CategoryEntity.class, entity.getId());
+        ChatMsgEntity resp = em.find(ChatMsgEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
-        Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
     }
 }

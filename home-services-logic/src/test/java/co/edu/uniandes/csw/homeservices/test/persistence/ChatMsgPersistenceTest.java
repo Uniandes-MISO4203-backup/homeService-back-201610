@@ -1,7 +1,7 @@
 package co.edu.uniandes.csw.homeservices.test.persistence;
 
-import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
-import co.edu.uniandes.csw.homeservices.persistence.CustomerPersistence;
+import co.edu.uniandes.csw.homeservices.entities.ChatMsgEntity;
+import co.edu.uniandes.csw.homeservices.persistence.ChatMsgPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class CustomerPersistenceTest {
+public class ChatMsgPersistenceTest {
 
     /**
      * @generated
@@ -32,8 +32,8 @@ public class CustomerPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CustomerEntity.class.getPackage())
-                .addPackage(CustomerPersistence.class.getPackage())
+                .addPackage(ChatMsgEntity.class.getPackage())
+                .addPackage(ChatMsgPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -42,7 +42,7 @@ public class CustomerPersistenceTest {
      * @generated
      */
     @Inject
-    private CustomerPersistence customerPersistence;
+    private ChatMsgPersistence chatMsgPersistence;
 
     /**
      * @generated
@@ -81,13 +81,13 @@ public class CustomerPersistenceTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from CustomerEntity").executeUpdate();
+        em.createQuery("delete from ChatMsgEntity").executeUpdate();
     }
 
     /**
      * @generated
      */
-    private List<CustomerEntity> data = new ArrayList<CustomerEntity>();
+    private List<ChatMsgEntity> data = new ArrayList<ChatMsgEntity>();
 
     /**
      * @generated
@@ -95,7 +95,7 @@ public class CustomerPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-            CustomerEntity entity = factory.manufacturePojo(CustomerEntity.class);
+            ChatMsgEntity entity = factory.manufacturePojo(ChatMsgEntity.class);
             em.persist(entity);
             data.add(entity);
         }
@@ -105,31 +105,28 @@ public class CustomerPersistenceTest {
      * @generated
      */
     @Test
-    public void createCustomerTest() {
+    public void createChatMsgTest() {
 		PodamFactory factory = new PodamFactoryImpl();
-        CustomerEntity newEntity = factory.manufacturePojo(CustomerEntity.class);
-        CustomerEntity result = customerPersistence.create(newEntity);
+        ChatMsgEntity newEntity = factory.manufacturePojo(ChatMsgEntity.class);
+        ChatMsgEntity result = chatMsgPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        CustomerEntity entity = em.find(CustomerEntity.class, result.getId());
+        ChatMsgEntity entity = em.find(ChatMsgEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
-        Assert.assertEquals(newEntity.getLastName(), entity.getLastName());
-        Assert.assertEquals(newEntity.getDocument(), entity.getDocument());
-        Assert.assertEquals(newEntity.getPicture(), entity.getPicture());
     }
 
     /**
      * @generated
      */
     @Test
-    public void getCustomersTest() {
-        List<CustomerEntity> list = customerPersistence.findAll();
+    public void getChatMsgsTest() {
+        List<ChatMsgEntity> list = chatMsgPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
-        for (CustomerEntity ent : list) {
+        for (ChatMsgEntity ent : list) {
             boolean found = false;
-            for (CustomerEntity entity : data) {
+            for (ChatMsgEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -142,24 +139,21 @@ public class CustomerPersistenceTest {
      * @generated
      */
     @Test
-    public void getCustomerTest() {
-        CustomerEntity entity = data.get(0);
-        CustomerEntity newEntity = customerPersistence.find(entity.getId());
+    public void getChatMsgTest() {
+        ChatMsgEntity entity = data.get(0);
+        ChatMsgEntity newEntity = chatMsgPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
-        Assert.assertEquals(entity.getLastName(), newEntity.getLastName());
-        Assert.assertEquals(entity.getDocument(), newEntity.getDocument());
-        Assert.assertEquals(entity.getPicture(), newEntity.getPicture());
     }
 
     /**
      * @generated
      */
     @Test
-    public void deleteCustomerTest() {
-        CustomerEntity entity = data.get(0);
-        customerPersistence.delete(entity.getId());
-        CustomerEntity deleted = em.find(CustomerEntity.class, entity.getId());
+    public void deleteChatMsgTest() {
+        ChatMsgEntity entity = data.get(0);
+        chatMsgPersistence.delete(entity.getId());
+        ChatMsgEntity deleted = em.find(ChatMsgEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -167,20 +161,17 @@ public class CustomerPersistenceTest {
      * @generated
      */
     @Test
-    public void updateCustomerTest() {
-        CustomerEntity entity = data.get(0);
+    public void updateChatMsgTest() {
+        ChatMsgEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        CustomerEntity newEntity = factory.manufacturePojo(CustomerEntity.class);
+        ChatMsgEntity newEntity = factory.manufacturePojo(ChatMsgEntity.class);
 
         newEntity.setId(entity.getId());
 
-        customerPersistence.update(newEntity);
+        chatMsgPersistence.update(newEntity);
 
-        CustomerEntity resp = em.find(CustomerEntity.class, entity.getId());
+        ChatMsgEntity resp = em.find(ChatMsgEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
-        Assert.assertEquals(newEntity.getLastName(), resp.getLastName());
-        Assert.assertEquals(newEntity.getDocument(), resp.getDocument());
-        Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
     }
 }

@@ -1,9 +1,9 @@
 package co.edu.uniandes.csw.homeservices.test.logic;
 
-import co.edu.uniandes.csw.homeservices.ejbs.CategoryLogic;
-import co.edu.uniandes.csw.homeservices.api.ICategoryLogic;
-import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
-import co.edu.uniandes.csw.homeservices.persistence.CategoryPersistence;
+import co.edu.uniandes.csw.homeservices.ejbs.ChatNameLogic;
+import co.edu.uniandes.csw.homeservices.api.IChatNameLogic;
+import co.edu.uniandes.csw.homeservices.entities.ChatNameEntity;
+import co.edu.uniandes.csw.homeservices.persistence.ChatNamePersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class CategoryLogicTest {
+public class ChatNameLogicTest {
 
     /**
      * @generated
@@ -37,7 +37,7 @@ public class CategoryLogicTest {
      * @generated
      */
     @Inject
-    private ICategoryLogic categoryLogic;
+    private IChatNameLogic chatNameLogic;
 
     /**
      * @generated
@@ -54,7 +54,7 @@ public class CategoryLogicTest {
     /**
      * @generated
      */
-    private List<CategoryEntity> data = new ArrayList<CategoryEntity>();
+    private List<ChatNameEntity> data = new ArrayList<ChatNameEntity>();
 
     /**
      * @generated
@@ -62,10 +62,10 @@ public class CategoryLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CategoryEntity.class.getPackage())
-                .addPackage(CategoryLogic.class.getPackage())
-                .addPackage(ICategoryLogic.class.getPackage())
-                .addPackage(CategoryPersistence.class.getPackage())
+                .addPackage(ChatNameEntity.class.getPackage())
+                .addPackage(ChatNameLogic.class.getPackage())
+                .addPackage(IChatNameLogic.class.getPackage())
+                .addPackage(ChatNamePersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -94,7 +94,7 @@ public class CategoryLogicTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from CategoryEntity").executeUpdate();
+        em.createQuery("delete from ChatNameEntity").executeUpdate();
     }
 
     /**
@@ -102,7 +102,7 @@ public class CategoryLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            CategoryEntity entity = factory.manufacturePojo(CategoryEntity.class);
+            ChatNameEntity entity = factory.manufacturePojo(ChatNameEntity.class);
 
             em.persist(entity);
             data.add(entity);
@@ -113,25 +113,24 @@ public class CategoryLogicTest {
      * @generated
      */
     @Test
-    public void createCategoryTest() {
-        CategoryEntity entity = factory.manufacturePojo(CategoryEntity.class);
-        CategoryEntity result = categoryLogic.createCategory(entity);
+    public void createChatNameTest() {
+        ChatNameEntity entity = factory.manufacturePojo(ChatNameEntity.class);
+        ChatNameEntity result = chatNameLogic.createChat(entity);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
-        Assert.assertEquals(result.getDescription(), entity.getDescription());
     }
 
     /**
      * @generated
      */
     @Test
-    public void getCategorysTest() {
-        List<CategoryEntity> list = categoryLogic.getCategorys();
+    public void getChatNamesTest() {
+        List<ChatNameEntity> list = chatNameLogic.getChats();
         Assert.assertEquals(data.size(), list.size());
-        for (CategoryEntity entity : list) {
+        for (ChatNameEntity entity : list) {
             boolean found = false;
-            for (CategoryEntity storedEntity : data) {
+            for (ChatNameEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -144,23 +143,22 @@ public class CategoryLogicTest {
      * @generated
      */
     @Test
-    public void getCategoryTest() {
-        CategoryEntity entity = data.get(0);
-        CategoryEntity resultEntity = categoryLogic.getCategory(entity.getId());
+    public void getChatNameTest() {
+        ChatNameEntity entity = data.get(0);
+        ChatNameEntity resultEntity = chatNameLogic.getChat(entity.getName());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
-        Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
     }
 
     /**
      * @generated
      */
     @Test
-    public void deleteCategoryTest() {
-        CategoryEntity entity = data.get(1);
-        categoryLogic.deleteCategory(entity.getId());
-        CategoryEntity deleted = em.find(CategoryEntity.class, entity.getId());
+    public void deleteChatNameTest() {
+        ChatNameEntity entity = data.get(1);
+        chatNameLogic.deleteChat(entity.getId());
+        ChatNameEntity deleted = em.find(ChatNameEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -168,18 +166,17 @@ public class CategoryLogicTest {
      * @generated
      */
     @Test
-    public void updateCategoryTest() {
-        CategoryEntity entity = data.get(0);
-        CategoryEntity pojoEntity = factory.manufacturePojo(CategoryEntity.class);
+    public void updateChatNameTest() {
+        ChatNameEntity entity = data.get(0);
+        ChatNameEntity pojoEntity = factory.manufacturePojo(ChatNameEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        categoryLogic.updateCategory(pojoEntity);
+        chatNameLogic.updateChat(pojoEntity);
 
-        CategoryEntity resp = em.find(CategoryEntity.class, entity.getId());
+        ChatNameEntity resp = em.find(ChatNameEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
-        Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
     }
 }

@@ -1,9 +1,12 @@
 package co.edu.uniandes.csw.homeservices.tests;
 
+import co.edu.uniandes.csw.homeservices.tests.*;
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
-import co.edu.uniandes.csw.homeservices.services.SkillService;
+import co.edu.uniandes.csw.homeservices.dtos.ChatDTO;
+import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
+import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
+import co.edu.uniandes.csw.homeservices.services.ChatNameService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,13 +38,15 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
-public class SkillTest {
+public class ChatNameTest {
 
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
-    private final String skillPath = "skills";
-    private final static List<SkillDTO> oraculo = new ArrayList<>();
+    private final String chatNamePath = "chat";
+    private final static List<ChatDTO> oraculo = new ArrayList<>();
+    private final static List<CustomerDTO> oraculoCustomers = new ArrayList<>();
+    private final static List<ContractorDTO> oraculoContractors = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -61,7 +66,7 @@ public class SkillTest {
                         .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(SkillService.class.getPackage())
+                .addPackage(ChatNameService.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 // El archivo beans.xml es necesario para injeccion de dependencias.
@@ -86,11 +91,24 @@ public class SkillTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            SkillDTO skill = factory.manufacturePojo(SkillDTO.class);
-            skill.setId(i + 1L);
+            
+            ChatDTO chatName = factory.manufacturePojo(ChatDTO.class);
+            chatName.setId(i + 1L);
 
-            oraculo.add(skill);
-
+            oraculo.add(chatName);
+            
+            CustomerDTO customers = factory.manufacturePojo(CustomerDTO.class);
+            customers.setId(i + 1L);
+            oraculoCustomers.add(customers);
+            System.out.println ("customer.getid" + oraculoCustomers.get(i).getId());
+            
+            ContractorDTO contractors = factory.manufacturePojo(ContractorDTO.class);
+            contractors.setId(i + 1L);
+            oraculoContractors.add(contractors);
+            System.out.println ("contractor.getid" + oraculoContractors.get(i).getId());
+            System.out.println ("contractor.getid" + oraculoContractors.get(i).getName());
+            System.out.println ("contractor.getid" + oraculoContractors.get(i).getLastName());
+            System.out.println ("contractor.getid" + oraculoContractors.get(i).getDocument());
         }
     }
 
@@ -115,67 +133,57 @@ public class SkillTest {
 
     @Test
     @InSequence(1)
-    public void createSkillTest() throws IOException {
-        SkillDTO skill = oraculo.get(0);
+    public void createChatNameTest() throws IOException {
+        
+        ContractorDTO contractor = oraculoContractors.get(0);
+        CustomerDTO customer = oraculoCustomers.get(0);
+        ChatDTO chatName = oraculo.get(0);
+        
+        System.out.println ("contractor.getid" + contractor.getId());
+        System.out.println ("customer.getid" + customer.getId());
+        
+        chatName.setIdContractor(contractor.getId());
+        chatName.setIdCustomer(customer.getId());
+        
         Cookie cookieSessionId = login(username, password);
-        Response response = target.path(skillPath)
+                     
+        Response response = target.path("customers")
                 .request().cookie(cookieSessionId)
-                .post(Entity.entity(skill, MediaType.APPLICATION_JSON));
-        SkillDTO  skillTest = (SkillDTO) response.readEntity(SkillDTO.class);
-        Assert.assertEquals(skill.getId(), skillTest.getId());
-        Assert.assertEquals(skill.getName(), skillTest.getName());
-        Assert.assertEquals(skill.getDescription(), skillTest.getDescription());
-        Assert.assertEquals(Created, response.getStatus());
+                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+            
+                Assert.assertEquals(Created, response.getStatus());
+    
+                response = target.path("contractors")
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(contractor, MediaType.APPLICATION_JSON));
+        
+                Assert.assertEquals(Created, response.getStatus());
+                
+                response = target.path(chatNamePath)
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(chatName, MediaType.APPLICATION_JSON));
+                
+                Assert.assertEquals(Created, response.getStatus());
+        
+        ChatDTO  chatNameTest = (ChatDTO) response.readEntity(ChatDTO.class);
+                
+        Assert.assertEquals(chatName.getId(), chatNameTest.getId());
+        Assert.assertEquals(chatName.getCreationDate(), chatNameTest.getCreationDate());
     }
-
+    
     @Test
     @InSequence(2)
-    public void getSkillById() {
+    public void getChatNameById() {
         Cookie cookieSessionId = login(username, password);
-        SkillDTO skillTest = target.path(skillPath)
-                .path(oraculo.get(0).getId().toString())
-                .request().cookie(cookieSessionId).get(SkillDTO.class);
-        Assert.assertEquals(skillTest.getId(), oraculo.get(0).getId());
-        Assert.assertEquals(skillTest.getName(), oraculo.get(0).getName());
-        Assert.assertEquals(skillTest.getDescription(), oraculo.get(0).getDescription());
-    }
-
-    @Test
-    @InSequence(3)
-    public void listSkillTest() throws IOException {
-        Cookie cookieSessionId = login(username, password);
-        Response response = target.path(skillPath)
-                .request().cookie(cookieSessionId).get();
-        String listSkill = response.readEntity(String.class);
-        List<SkillDTO> listSkillTest = new ObjectMapper().readValue(listSkill, List.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(1, listSkillTest.size());
-    }
-
-    @Test
-    @InSequence(4)
-    public void updateSkillTest() throws IOException {
-        Cookie cookieSessionId = login(username, password);
-        SkillDTO skill = oraculo.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
-        SkillDTO skillChanged = factory.manufacturePojo(SkillDTO.class);
-        skill.setName(skillChanged.getName());
-        skill.setDescription(skillChanged.getDescription());
-        Response response = target.path(skillPath).path(skill.getId().toString())
-                .request().cookie(cookieSessionId).put(Entity.entity(skill, MediaType.APPLICATION_JSON));
-        SkillDTO skillTest = (SkillDTO) response.readEntity(SkillDTO.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(skill.getName(), skillTest.getName());
-        Assert.assertEquals(skill.getDescription(), skillTest.getDescription());
-    }
-
-    @Test
-    @InSequence(5)
-    public void deleteSkillTest() {
-        Cookie cookieSessionId = login(username, password);
-        SkillDTO skill = oraculo.get(0);
-        Response response = target.path(skillPath).path(skill.getId().toString())
-                .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
+        ChatDTO dto =oraculo.get(0);
+        String name= "CU"+dto.getIdCustomer()+"CO"+dto.getIdContractor();
+        
+        ChatDTO chatNameTest = target.path(chatNamePath)
+                .path(name)
+                .request().cookie(cookieSessionId).get(ChatDTO.class);
+        chatNameTest.getName();
+        Assert.assertEquals(chatNameTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals(chatNameTest.getCreationDate(), oraculo.get(0).getCreationDate());
+        Assert.assertEquals(chatNameTest.getName(), name);
     }
 }
