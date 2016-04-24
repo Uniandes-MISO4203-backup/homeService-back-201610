@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
  */
 @Entity
 public class StatusEntity extends BaseEntity implements Serializable {
-    //Id of finished status in database
-    public static final Long FINISHED = 2L;
+    public static final Long PUBLISHED = 1L;
+    public static final Long WORKING = 2L;
+    public static final Long FINISHED = 3L;
 }
