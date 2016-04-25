@@ -26,10 +26,8 @@ import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import co.edu.uniandes.csw.homeservices.dtos.PriceListItemDTO;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
-import static co.edu.uniandes.csw.homeservices.services.UserService.getContractorId;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
 
 /**
  * @generated

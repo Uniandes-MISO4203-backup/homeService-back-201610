@@ -64,7 +64,7 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                 contractorsBySkill = query.getResultList();
 
             } catch (Exception e) {
-                System.out.println("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
+                LOGGER.severe("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
                 return contractorsBySkill;
             }
         }
@@ -93,8 +93,8 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                 query.setParameter("experience", experience);
                 contractorsByExperience = query.getResultList();
 
-            } catch (Exception e) {
-                System.out.println("Error al consultar contractor pot experience " + e.getMessage());
+            } catch (Exception e) {              
+                LOGGER.severe("Error al consultar contractor pot experience " + e.getMessage());
                 return contractorsByExperience;
             }
         }
