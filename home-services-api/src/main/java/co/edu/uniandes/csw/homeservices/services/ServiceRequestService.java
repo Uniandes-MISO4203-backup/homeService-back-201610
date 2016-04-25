@@ -215,4 +215,24 @@ public class ServiceRequestService {
     public void removeExpectedskills(@PathParam("serviceRequestId") Long serviceRequestId, @PathParam("skillId") Long skillId) {
         serviceRequestLogic.removeExpectedskills(serviceRequestId, skillId);
     }
+    
+     /**
+     * Remplaza las instancias de Skill asociadas a una instancia de
+     * ServiceRequest
+     *
+     * @param serviceRequestId Identificador de la instancia de ServiceRequest
+     * @param priceRequestId   Identificador de la instancia de PriceRequest
+     * @return ServiceRequestDTO con la actualización a estado 2 "Trabajando"
+     * @generated
+     */
+    @PUT
+    @Path("{serviceRequestId: \\d+}/hire/{priceRequestId: \\d+}")
+    public ServiceRequestDTO hireContractor(@PathParam("serviceRequestId") Long serviceRequestId, @PathParam("priceRequestId") Long priceRequestId)  {
+        ServiceRequestDTO srDto = new ServiceRequestDTO();
+        srDto.setName(serviceRequestId.toString() + " + " + priceRequestId.toString());
+        System.out.println("Resultado :" + serviceRequestId + " " + priceRequestId);
+        
+        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.setHire(serviceRequestId, priceRequestId));
+        
+    }
 }
