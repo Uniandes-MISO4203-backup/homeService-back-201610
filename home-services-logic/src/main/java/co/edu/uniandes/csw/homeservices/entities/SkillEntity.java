@@ -15,12 +15,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class SkillEntity extends BaseEntity implements Serializable {
 
-    @JoinTable (name = "CONTRACTORENTITY_SKILLENTITY", 
-            inverseJoinColumns = { @JoinColumn(name = "CONTRACTORENTITY_ID") },
-            joinColumns = { @JoinColumn(name = "SKILLS_ID")}
-    )
-    @ManyToMany(cascade=CascadeType.ALL)
-    private List<ContractorEntity> contractors;
+    
     
     private String description;
 
@@ -38,13 +33,7 @@ public class SkillEntity extends BaseEntity implements Serializable {
         this.description = description;
     }
 
-    public List<ContractorEntity> getContractors() {
-        return contractors;
-    }
-
-    public void setContractors(List<ContractorEntity> contractors) {
-        this.contractors = contractors;
-    }
+   
     
     
 }

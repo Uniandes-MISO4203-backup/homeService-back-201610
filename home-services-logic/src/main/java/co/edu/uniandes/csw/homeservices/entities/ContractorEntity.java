@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 
 /**
  * @generated
@@ -31,7 +32,7 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     private String email;
 
     @PodamExclude
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "contractors")
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<SkillEntity> skills = new ArrayList<>();
 
     @PodamExclude
@@ -160,7 +161,7 @@ public class ContractorEntity extends BaseEntity implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setemail(String email) {
         this.email = email;
     }
 

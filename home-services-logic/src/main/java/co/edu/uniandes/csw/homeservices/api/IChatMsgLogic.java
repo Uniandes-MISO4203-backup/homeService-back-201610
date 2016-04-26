@@ -15,12 +15,8 @@ import java.util.List;
 public interface IChatMsgLogic {
     
    
-    public int countChatMsgs();
-    public List<ChatMsgEntity> getChatMsgs();
-    public List<ChatMsgEntity> getChatMsgs(Integer page, Integer maxRecords);
-    public ChatMsgEntity getChatMsg(Long id);
     public ChatMsgEntity createChatMsg(ChatMsgEntity entity);
     public ChatMsgEntity updateChatMsg(ChatMsgEntity entity);
-    public void deleteChatMsg(Long id);
+    
+    
 }
-   

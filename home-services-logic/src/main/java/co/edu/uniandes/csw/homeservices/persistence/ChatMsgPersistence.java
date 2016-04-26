@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.homeservices.entities.ChatMsgEntity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -18,7 +17,6 @@ import javax.persistence.PersistenceContext;
  *
  * @author l.badillo10
  */
-@Stateless
 public class ChatMsgPersistence extends CrudPersistence<ChatMsgEntity> {
     @PersistenceContext(unitName="HomeServicesPU")
     protected EntityManager em;

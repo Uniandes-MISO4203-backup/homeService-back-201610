@@ -181,13 +181,12 @@ public class ContractorLogic implements IContractorLogic {
             priceRequestEntity.setContractor(contractorEntity);
             priceRequestLogic.createPriceRequest(priceRequestEntity);
             //Sends an email to the contractor
-            try {
-              if(contractorEntity.getEmail()!=null){
-                sendEmail(contractorEntity.getEmail(), contractorEntity.getName());
-              }
+          /*  try {
+              sendEmail(contractorEntity.getEmail(), contractorEntity.getName());
             } catch (SendGridException ex) {
                 Logger.getLogger(ContractorLogic.class.getName()).log(Level.SEVERE, null, ex);
              }
+            */
         }
         List<ContractorEntity> contractorsByExperience = persistence.getContractorsBySkillServiceReq(serviceRequestEntity.getId().intValue());  
         return contractorsByExperience;

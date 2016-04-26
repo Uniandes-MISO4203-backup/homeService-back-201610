@@ -5,7 +5,6 @@ import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ServiceRequestPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
-import co.edu.uniandes.csw.homeservices.persistence.StatusPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,7 +16,6 @@ import javax.inject.Inject;
 public class ServiceRequestLogic implements IServiceRequestLogic {
 
     @Inject private ServiceRequestPersistence persistence;
-    @Inject private StatusPersistence statusPersistence;
 
     /**
      * @generated
@@ -55,7 +53,6 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
      */
     @Override
     public ServiceRequestEntity createServiceRequest(ServiceRequestEntity entity) {
-        entity.setStatus(statusPersistence.find(1L));
         persistence.create(entity);
         return entity;
     }
