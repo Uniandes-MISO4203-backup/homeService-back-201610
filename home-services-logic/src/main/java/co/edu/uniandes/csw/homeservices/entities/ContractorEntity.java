@@ -29,6 +29,11 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     private String profileDescription;
     
     private String email;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "contractor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewEntity> reviews;
+        
 
     @PodamExclude
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "contractors")
@@ -176,6 +181,14 @@ public class ContractorEntity extends BaseEntity implements Serializable {
      */
     public void setChatName(List<ChatNameEntity> chatName) {
         this.chatName = chatName;
+    }
+    
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 
 }

@@ -26,6 +26,9 @@ public class ContractorDTO {
     private List<WorkExperienceDTO> workExperiences = new ArrayList<>();
     
     private List<EducationDTO> educations = new ArrayList<>();
+    
+    @PodamExclude
+    private List<ReviewDTO> reviews;
 
     /**
      * @generated
@@ -163,6 +166,14 @@ public class ContractorDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public List<ReviewDTO> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewDTO> reviews) {
+        this.reviews = reviews;
     }
 
 }
