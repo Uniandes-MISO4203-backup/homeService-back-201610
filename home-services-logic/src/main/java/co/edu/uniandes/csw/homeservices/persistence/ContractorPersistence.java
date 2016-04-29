@@ -216,8 +216,7 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
         
         if (skills != null && !skills.isEmpty()){
              
-            String consulta = "SELECT c FROM ContractorEntity c JOIN c.skills skill WHERE UPPER(skill.name) in :skills";
-           
+            String consulta = "SELECT distinct c FROM ContractorEntity c JOIN c.skills skill WHERE UPPER(skill.name) in :skills";
             try {
 
                 Query query = em.createQuery(consulta);
