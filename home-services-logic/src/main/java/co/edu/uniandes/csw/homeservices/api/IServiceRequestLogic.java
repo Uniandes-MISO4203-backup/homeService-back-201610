@@ -19,4 +19,5 @@ public interface IServiceRequestLogic {
     public void removeExpectedskills(Long serviceRequestId, Long expectedskillsId);
     public List<ServiceRequestEntity> getByDescription(String description, Long customerId);
     public ServiceRequestEntity finishContract(Long serviceRequestId);
+    public ServiceRequestEntity setHire(Long srId, Long prId);
 }
