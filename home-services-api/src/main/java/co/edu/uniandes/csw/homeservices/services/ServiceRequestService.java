@@ -213,4 +213,18 @@ public class ServiceRequestService {
     public void removeExpectedskills(@PathParam("serviceRequestId") Long serviceRequestId, @PathParam("skillId") Long skillId) {
         serviceRequestLogic.removeExpectedskills(serviceRequestId, skillId);
     }
+    
+    
+    /**
+     * Remplaza el estado de un service request a finalizado
+     *
+     * @param serviceRequestId Identificador de la instancia de ServiceRequest
+     * de ServiceRequest
+     * @return ServiceRequest actualizado
+     */
+    @PUT
+    @Path("{serviceRequestId: \\d+}/finishContract")
+    public ServiceRequestDTO finishContract(@PathParam("serviceRequestId") Long serviceRequestId) {
+        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.finishContract(serviceRequestId));
+    }
 }
