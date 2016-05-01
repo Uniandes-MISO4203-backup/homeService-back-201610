@@ -144,7 +144,6 @@ public class ReviewPersistenceTest {
         ReviewEntity newEntity = correctionRequestPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
-        Assert.assertEquals(entity.getDescription(), newEntity.getDescription());
         Assert.assertEquals(entity.getValue(), newEntity.getValue());
     }
 

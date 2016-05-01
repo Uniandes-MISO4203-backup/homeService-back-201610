@@ -8,10 +8,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Entity
 public class ReviewEntity extends BaseEntity implements Serializable {
-
-    private String source;
-    
-    private String description;
     
     private int value;
     
@@ -37,24 +33,6 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private ContractorEntity contractor;
 
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    
-    
     public CustomerEntity getCustomer() {
         return customer;
     }

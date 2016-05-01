@@ -149,7 +149,6 @@ public class ReviewLogicTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
-        Assert.assertEquals(result.getSource(), entity.getSource());
         Assert.assertEquals(result.getValue(), entity.getValue());
     }
 
@@ -181,7 +180,6 @@ public class ReviewLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
-        Assert.assertEquals(entity.getSource(), resultEntity.getSource());
         Assert.assertEquals(entity.getValue(), resultEntity.getValue());
     }
 
@@ -212,7 +210,6 @@ public class ReviewLogicTest {
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
-        Assert.assertEquals(pojoEntity.getSource(), resp.getSource());
         Assert.assertEquals(pojoEntity.getValue(), resp.getValue());
     }
 }
