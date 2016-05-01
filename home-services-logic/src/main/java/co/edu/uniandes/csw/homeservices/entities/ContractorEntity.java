@@ -29,6 +29,8 @@ public class ContractorEntity extends BaseEntity implements Serializable {
     private String profileDescription;
     
     private String email;
+    
+    private String url;
 
     @PodamExclude
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "contractors")
@@ -176,6 +178,14 @@ public class ContractorEntity extends BaseEntity implements Serializable {
      */
     public void setChatName(List<ChatNameEntity> chatName) {
         this.chatName = chatName;
+    }
+    
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }
