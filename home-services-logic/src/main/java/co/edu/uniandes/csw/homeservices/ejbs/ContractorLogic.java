@@ -1,12 +1,12 @@
 package co.edu.uniandes.csw.homeservices.ejbs;
 
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
-import co.edu.uniandes.csw.homeservices.api.IPriceRequestLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
+import co.edu.uniandes.csw.homeservices.persistence.PriceRequestPersistence;
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 public class ContractorLogic implements IContractorLogic {
 
     @Inject private ContractorPersistence persistence;
-    @Inject private IPriceRequestLogic priceRequestLogic;
+    @Inject private PriceRequestPersistence priceRequestPersistence;
 
     /**
      * @generated
@@ -179,7 +179,7 @@ public class ContractorLogic implements IContractorLogic {
             priceRequestEntity.setStatus("PENDIENTE");
             priceRequestEntity.setServiceRequest(serviceRequestEntity);
             priceRequestEntity.setContractor(contractorEntity);
-            priceRequestLogic.createPriceRequest(priceRequestEntity);
+            priceRequestPersistence.create(priceRequestEntity);
             //Sends an email to the contractor
             try {
               if(contractorEntity.getEmail()!=null){
