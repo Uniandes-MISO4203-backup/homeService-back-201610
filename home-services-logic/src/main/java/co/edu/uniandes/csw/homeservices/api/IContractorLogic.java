@@ -20,5 +20,4 @@ public interface IContractorLogic {
     public List<ContractorEntity> getContractorsBySkill(String skill);
     public List<ContractorEntity> getContractorsByExperience(String skill);
     public List<ContractorEntity> getContractorsBySkillServiceReq(int serviceReqId);
-    public List<ContractorEntity> getContractorsBySkillServiceReqAndCreatePriceRequest(int contractorId);
 }

@@ -23,5 +23,6 @@ public interface IPriceRequestLogic {
     public void deletePriceRequest(Long id);
     public List<PriceRequestEntity> getByContractor(Long idContractor);
     public List<PriceRequestEntity> getByServiceRequest(Long customerId);
+    public void createPriceRequestByContractorId(Long contractorId);
     
 }

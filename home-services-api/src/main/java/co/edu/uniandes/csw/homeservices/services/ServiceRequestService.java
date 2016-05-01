@@ -213,4 +213,35 @@ public class ServiceRequestService {
     public void removeExpectedskills(@PathParam("serviceRequestId") Long serviceRequestId, @PathParam("skillId") Long skillId) {
         serviceRequestLogic.removeExpectedskills(serviceRequestId, skillId);
     }
+    
+    
+    /**
+     * Remplaza el estado de un service request a finalizado
+     *
+     * @param serviceRequestId Identificador de la instancia de ServiceRequest
+     * de ServiceRequest
+     * @return ServiceRequest actualizado
+     */
+    @PUT
+    @Path("{serviceRequestId: \\d+}/finishContract")
+    public ServiceRequestDTO finishContract(@PathParam("serviceRequestId") Long serviceRequestId) {
+        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.finishContract(serviceRequestId));
+    }
+
+     /**
+     * Remplaza las instancias de Skill asociadas a una instancia de
+     * ServiceRequest
+     *
+     * @param serviceRequestId Identificador de la instancia de ServiceRequest
+     * @param priceRequestId   Identificador de la instancia de PriceRequest
+     * @return ServiceRequestDTO con la actualización a estado 2 "Trabajando"
+     * @generated
+     */
+    @PUT
+    @Path("{serviceRequestId: \\d+}/hire/{priceRequestId: \\d+}")
+    public ServiceRequestDTO hireContractor(@PathParam("serviceRequestId") Long serviceRequestId, @PathParam("priceRequestId") Long priceRequestId)  {
+        ServiceRequestDTO srDto = new ServiceRequestDTO();
+        srDto.setName(serviceRequestId.toString() + " + " + priceRequestId.toString());        
+        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.setHire(serviceRequestId, priceRequestId));        
+    }
 }
