@@ -63,4 +63,39 @@ public class PriceRequestConverter {
         }
         return list;
     }
+    
+        /**
+     * Convierte una instancia de ServiceRequestDTO a ServiceRequestEntity.
+     * Incluye todos los atributos de ServiceRequestEntity.
+     *
+     * @param dto Instancia de ServiceRequestDTO a convertir
+     * @return Instancia de ServiceRequestEntity con los datos recibidos por parámetro
+     * @generated
+     */
+    public static PriceRequestEntity fullDTO2Entity(PriceRequestDTO dto) {
+        if (dto != null) {
+            PriceRequestEntity entity = basicDTO2Entity(dto);
+            return entity;
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Convierte instancias de ServiceRequestEntity a ServiceRequestDTO incluyendo sus relaciones
+     * Uno a muchos y Muchos a muchos
+     *
+     * @param entity Instancia de ServiceRequestEntity a convertir
+     * @return Instancia de ServiceRequestDTO con los datos recibidos por parámetro
+     * @generated
+     */
+    public static PriceRequestDTO fullEntity2DTO(PriceRequestEntity entity) {
+        if (entity != null) {
+            PriceRequestDTO dto = basicEntity2DTO(entity);
+            return dto;
+        } else {
+            return null;
+        }
+    }
+    
 }

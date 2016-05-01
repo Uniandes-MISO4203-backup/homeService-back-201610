@@ -1,11 +1,14 @@
 package co.edu.uniandes.csw.homeservices.ejbs;
 
+import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.api.IPriceRequestLogic;
+import static co.edu.uniandes.csw.homeservices.ejbs.ContractorLogic.sendEmail2;
 import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ServiceRequestPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
+import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.persistence.StatusPersistence;
 import java.util.List;
@@ -21,7 +24,6 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
     @Inject private ServiceRequestPersistence persistence;
     @Inject private StatusPersistence statusPersistence;
     @Inject private IPriceRequestLogic priceRequestLogic;
-    
     
     /**
      * @generated
@@ -167,29 +169,46 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
      */
     @Override
     public ServiceRequestEntity setHire(Long srId, Long prId) {
+
+        List<PriceRequestEntity> lisPriceRequestEntity = priceRequestLogic.getByServiceRequest(srId);
+        
+        for (PriceRequestEntity priceEntity : lisPriceRequestEntity){
+        
+            String emailTo = priceEntity.getContractor().getEmail();
+            String nameTo =  priceEntity.getContractor().getName();
+            char indicador= ' ';
+            
+            if (priceEntity.getId()==prId) {
+                
+                priceEntity.setStatus("CONTRATADO");
+                indicador='C';
+                                
+            } else {
+              
+                priceEntity.setStatus("RECHAZADO");
+                indicador='R';
+                
+            }
+
+            try {
+                sendEmail2(emailTo, nameTo, indicador);
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage(), e);
+            } 
+            
+            priceRequestLogic.updatePriceRequest(priceEntity);
+        
+        }
     
         ServiceRequestEntity serviceEntity = persistence.find(srId);
         
-        serviceEntity.setName("Resultado :" + srId + " " + prId);
         StatusEntity status = new StatusEntity();
         status.setId((long)2);
         serviceEntity.setStatus(status);
         
         ServiceRequestEntity resServiceRequest = updateServiceRequest(serviceEntity);            
-    
-    	//  Lista de PriceRequest que pertenecen al ServiceRequest
-        List<PriceRequestEntity> lisPriceRequestEntity = priceRequestLogic.getByServiceRequest(srId);
-        
-        for (PriceRequestEntity priceEntity : lisPriceRequestEntity){
-        
-            if (priceEntity.getId()==prId)
-                priceEntity.setStatus("CONTRATADO");
-            else
-                priceEntity.setStatus("RECHAZADO");
-            
-            priceRequestLogic.updatePriceRequest(priceEntity);
-        }
-        
+
         return resServiceRequest;
+    
     }
 }

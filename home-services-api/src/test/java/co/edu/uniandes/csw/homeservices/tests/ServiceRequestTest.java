@@ -2,15 +2,20 @@ package co.edu.uniandes.csw.homeservices.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
+import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
+import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
+import co.edu.uniandes.csw.homeservices.dtos.PriceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
+import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.services.ServiceRequestService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -48,11 +53,15 @@ public class ServiceRequestTest {
     private final String expectedskillsPath = "expectedskills";
     private final String priceListPath = "priceList";
     private final static List<SkillDTO> oraculoExpectedskills = new ArrayList<>();
+    private final static List<PriceRequestDTO> oraculoPriceRequests = new ArrayList<>();
+    private final static List<ContractorDTO> oraculoContractors = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
     private final String password = System.getenv("PASSWORD_USER");
-
+    private final Long trabajando = (long) 2;
+    
+    
     @ArquillianResource
     private URL deploymentURL;
 
@@ -92,14 +101,23 @@ public class ServiceRequestTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
+            
             ServiceRequestDTO serviceRequest = factory.manufacturePojo(ServiceRequestDTO.class);
             serviceRequest.setId(i + 1L);
-
             oraculo.add(serviceRequest);
 
             SkillDTO expectedskills = factory.manufacturePojo(SkillDTO.class);
             expectedskills.setId(i + 1L);
             oraculoExpectedskills.add(expectedskills);
+            
+            PriceRequestDTO priceRequest = factory.manufacturePojo(PriceRequestDTO.class);
+            priceRequest.setId(i + 1L);
+            oraculoPriceRequests.add(priceRequest);
+            
+            ContractorDTO contractor = factory.manufacturePojo(ContractorDTO.class);
+            contractor.setId(i + 1L);
+            oraculoContractors.add(contractor);
+            
         }
     }
 
@@ -200,7 +218,7 @@ public class ServiceRequestTest {
     }
 
     @Test
-    @InSequence(9)
+    @InSequence(11)
     public void deleteServiceRequestTest() {
         Cookie cookieSessionId = login(username, password);
         ServiceRequestDTO serviceRequest = oraculo.get(0);
@@ -255,7 +273,7 @@ public class ServiceRequestTest {
     }
     
     @Test
-    @InSequence(6)
+    @InSequence(7)
     public void getPriceListTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         ServiceRequestDTO serviceRequest = oraculo.get(0);
@@ -269,7 +287,7 @@ public class ServiceRequestTest {
     }
 
     @Test
-    @InSequence(7)
+    @InSequence(8)
     public void getExpectedskillsTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         SkillDTO expectedskills = oraculoExpectedskills.get(0);
@@ -286,7 +304,7 @@ public class ServiceRequestTest {
     }
 
     @Test
-    @InSequence(8)
+    @InSequence(9)
     public void removeExpectedskillsTest() {
         Cookie cookieSessionId = login(username, password);
 
@@ -298,4 +316,48 @@ public class ServiceRequestTest {
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }
+    
+    @Test
+    @InSequence(12)
+    public void setHireTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        ServiceRequestDTO serviceVoid= new ServiceRequestDTO();
+        
+        ServiceRequestDTO serviceRequest = oraculo.get(1);
+
+        Response response = target.path(serviceRequestPath)
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(serviceRequest, MediaType.APPLICATION_JSON));
+        
+        ServiceRequestDTO serviceTest = (ServiceRequestDTO) response.readEntity(ServiceRequestDTO.class);
+        
+        Assert.assertEquals(201, response.getStatus());
+        
+        for (int i = 0; i < 3; i++) {
+
+            PriceRequestDTO priceRequest = oraculoPriceRequests.get(i);
+        
+            priceRequest.setServiceRequestDTO(serviceTest);
+            priceRequest.setContractorDTO(oraculoContractors.get(i));
+                        
+            response = target.path("contractors")
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(oraculoContractors.get(i), MediaType.APPLICATION_JSON));
+            
+            ContractorDTO contractorTest = (ContractorDTO) response.readEntity(ContractorDTO.class);
+                        
+            response = target.path("priceRequests")
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(priceRequest, MediaType.APPLICATION_JSON));            
+        }
+        
+        response = target.path(serviceRequestPath).path(serviceRequest.getId().toString())
+                .path("hire").path(oraculoPriceRequests.get(1).getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(serviceVoid, MediaType.APPLICATION_JSON));
+        
+        Assert.assertEquals(Ok, response.getStatus());
+    
+    }    
 }
