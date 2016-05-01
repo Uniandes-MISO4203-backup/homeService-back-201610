@@ -1,13 +1,16 @@
 package co.edu.uniandes.csw.homeservices.test.logic;
 
+import co.edu.uniandes.csw.homeservices.api.IPriceRequestLogic;
 import co.edu.uniandes.csw.homeservices.ejbs.ServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ServiceRequestPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.CategoryEntity;
+import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
+import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -58,6 +61,11 @@ public class ServiceRequestLogicTest {
      * @generated
      */
     private List<ServiceRequestEntity> data = new ArrayList<ServiceRequestEntity>();
+    
+    /**
+     * @generated
+     */
+    private List<PriceRequestEntity> priceRequestData = new ArrayList<PriceRequestEntity>();
 
     /**
      * @generated
@@ -73,12 +81,20 @@ public class ServiceRequestLogicTest {
      * @generated
      */
     private List<CustomerEntity> customerData = new ArrayList<>();
+    
+    /**
+     * @generated
+     */
+    private List<ContractorEntity> contractorData = new ArrayList<>();
 
     /**
      * @generated
      */
     private List<StatusEntity> statusData = new ArrayList<>();
 
+    private final Long trabajando = (long) 2;
+    @Inject private IPriceRequestLogic priceRequestLogic;
+    
     /**
      * @generated
      */
@@ -117,6 +133,7 @@ public class ServiceRequestLogicTest {
      * @generated
      */
     private void clearData() {
+        em.createQuery("delete from PriceRequestEntity").executeUpdate();
         em.createQuery("delete from ServiceRequestEntity").executeUpdate();
         em.createQuery("delete from SkillEntity").executeUpdate();
         em.createQuery("delete from CategoryEntity").executeUpdate();
@@ -146,6 +163,12 @@ public class ServiceRequestLogicTest {
             customerData.add(customer);
         }
         
+        for (int i = 0; i < 3; i++) {
+            ContractorEntity contractor = factory.manufacturePojo(ContractorEntity.class);
+            em.persist(contractor);
+            contractorData.add(contractor);
+        }
+        
         
         for (int i = 0; i < 3; i++) {
             /*For create statusEntity with especified ids (1,2,3)*/
@@ -169,6 +192,14 @@ public class ServiceRequestLogicTest {
 
             em.persist(entity);
             data.add(entity);
+            
+            PriceRequestEntity priceEntity = factory.manufacturePojo(PriceRequestEntity.class);
+            
+            priceEntity.setServiceRequest(data.get(0));
+            priceEntity.setContractor(contractorData.get(i));
+            em.persist(priceEntity);
+            priceRequestData.add(priceEntity);
+            
         }
     }
 
@@ -355,5 +386,36 @@ public class ServiceRequestLogicTest {
         SkillEntity response = serviceRequestLogic.getExpectedskills(data.get(0).getId(), expectedskillsData.get(0).getId());
         Assert.assertNull(response);
     }
-
+    
+    @Test
+    public void setHireTest() {
+               
+        // Ejecuta la confirmación de la contratacion para un ServiceRequest y un PriceRequest
+        serviceRequestLogic.setHire(data.get(0).getId(), priceRequestData.get(1).getId());
+     
+        // Valida status en el ServiceRequest
+        ServiceRequestEntity entity = data.get(0);
+        ServiceRequestEntity resultEntity = serviceRequestLogic.getServiceRequest(entity.getId());
+        
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(resultEntity.getStatus().getId(), trabajando);
+        
+        // Valida status en el Pricerequest
+        List<PriceRequestEntity> lisPriceRequestEntity = priceRequestLogic.getByServiceRequest(data.get(0).getId());
+        
+        for (PriceRequestEntity priceEntity : lisPriceRequestEntity){
+            
+            if (priceEntity.getId()==priceRequestData.get(1).getId()) {
+                
+                Assert.assertEquals(priceEntity.getStatus(),"CONTRATADO");
+                                
+            } else {
+   
+                Assert.assertEquals(priceEntity.getStatus(),"RECHAZADO");
+   
+            }
+        
+        }
+           
+    }
 }

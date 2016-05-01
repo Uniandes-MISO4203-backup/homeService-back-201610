@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.homeservices.services;
 
+import co.edu.uniandes.csw.auth.provider.StatusCreated;
 import co.edu.uniandes.csw.homeservices.api.IPriceRequestLogic;
 import co.edu.uniandes.csw.homeservices.converters.PriceRequestConverter;
 import co.edu.uniandes.csw.homeservices.dtos.PriceRequestDTO;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -68,5 +70,18 @@ public class PriceRequestService {
         PriceRequestEntity entity = PriceRequestConverter.basicDTO2Entity(dto);
         entity.setId(id);
         return PriceRequestConverter.basicEntity2DTO(priceRequestLogic.updatePriceRequest(entity));
+    }
+    /**
+     * Se encarga de crear un book en la base de datos.
+     *
+     * @param dto Objeto de ServiceRequestDTO con los datos nuevos
+     * @return Objeto de ServiceRequestDTO con los datos nuevos y su ID.
+     * @generated
+     */
+    @POST
+    @StatusCreated
+    public PriceRequestDTO createPriceRequest(PriceRequestDTO dto) {
+        PriceRequestEntity entity = PriceRequestConverter.fullDTO2Entity(dto);
+        return PriceRequestConverter.fullEntity2DTO(priceRequestLogic.createPriceRequest(entity));
     }
 }

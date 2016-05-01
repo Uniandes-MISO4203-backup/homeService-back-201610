@@ -208,7 +208,31 @@ public class ContractorLogic implements IContractorLogic {
         email.setHtml("Hola "+nameTo+"!\n Tienes una nueva solitud de cotización.");
         SendGrid.Response response = sendgrid.send(email);
         System.out.println(response.toString());
-    }   
-    
-    
+    }
+     
+         /**
+     * Send an email
+     * @param emailTo
+     * @param nameTo
+     * @throws SendGridException 
+     */
+     public static void sendEmail2(String emailTo, String nameTo, char indicador) throws SendGridException {
+         
+        SendGrid sendgrid = new SendGrid("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");
+        SendGrid.Email email = new SendGrid.Email();
+        email.addTo(emailTo);
+        email.setFrom("cotizaciones@homeservices.com");
+        
+        if (indicador == 'C') {
+            email.setSubject("[HomeServices] Solicitud Contratada");
+            email.setHtml("Hola "+nameTo+"!\n Tu cotización fue CONTRATADA. ");
+        }
+        if (indicador == 'R') {
+            email.setSubject("[HomeServices] Solicitud Rechazada");
+            email.setHtml("Hola "+nameTo+"!\n Tu cotización fue RECHAZADA. ");
+        }
+        
+        SendGrid.Response response = sendgrid.send(email);
+        System.out.println(response.toString());
+    }
 }
