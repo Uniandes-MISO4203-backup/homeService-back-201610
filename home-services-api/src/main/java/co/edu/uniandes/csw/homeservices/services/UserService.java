@@ -21,6 +21,7 @@ import com.stormpath.sdk.group.Group;
 import com.stormpath.sdk.resource.ResourceException;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
+import javax.servlet.http.HttpServletResponse;
 
 public class UserService extends AuthService {
 
@@ -79,11 +80,11 @@ public class UserService extends AuthService {
         if (account == null) {
             return null;
         }
-        Integer translatorId = (Integer) account.getCustomData().get(CONTRACTOR_CUSTOM_DATA_KEY);
-        if (translatorId == null) {
+        Integer contractorId = (Integer) account.getCustomData().get(CONTRACTOR_CUSTOM_DATA_KEY);
+        if (contractorId == null) {
             return null;
         }
-        return new Long(translatorId);
+        return new Long(contractorId);
     }
 
     public static Account getAccount(String href) {
@@ -91,5 +92,18 @@ public class UserService extends AuthService {
             return null;
         }
         return getClient().getResource(href, Account.class);
+    }
+    
+    
+    
+    public static CustomerEntity getCurrentCustomer(String href) {
+        Account account = getAccount(href);
+        Integer customerId = (Integer) account.getCustomData().get(CUSTOMER_CUSTOM_DATA_KEY);
+        if (customerId == null) {
+            throw new WebApplicationException(HttpServletResponse.SC_FORBIDDEN);
+        }
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(new Long(customerId));
+        return customer;
     }
 }

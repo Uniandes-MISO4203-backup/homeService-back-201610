@@ -30,7 +30,6 @@ import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getContractorId;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
 
 /**
  * @generated
@@ -217,6 +216,20 @@ public class ServiceRequestService {
         serviceRequestLogic.removeExpectedskills(serviceRequestId, skillId);
     }
     
+    
+    /**
+     * Remplaza el estado de un service request a finalizado
+     *
+     * @param serviceRequestId Identificador de la instancia de ServiceRequest
+     * de ServiceRequest
+     * @return ServiceRequest actualizado
+     */
+    @PUT
+    @Path("{serviceRequestId: \\d+}/finishContract")
+    public ServiceRequestDTO finishContract(@PathParam("serviceRequestId") Long serviceRequestId) {
+        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.finishContract(serviceRequestId));
+    }
+
      /**
      * Remplaza las instancias de Skill asociadas a una instancia de
      * ServiceRequest

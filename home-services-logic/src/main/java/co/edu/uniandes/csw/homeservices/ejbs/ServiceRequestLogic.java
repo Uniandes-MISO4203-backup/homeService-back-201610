@@ -151,12 +151,25 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
     }
 
     /**
+     * Metodo que permite cambiar el estado de un service request a finalizado
+     * @param serviceRequestId
+     * @return serviceRequest actualizado
+     */
+    @Override
+    public ServiceRequestEntity finishContract(Long serviceRequestId) {
+        ServiceRequestEntity serviceRequest = persistence.find(serviceRequestId);      
+        StatusEntity finishStatus = statusPersistence.find(StatusEntity.FINISHED);       
+        serviceRequest.setStatus(finishStatus);
+        
+        return persistence.update(serviceRequest);
+    }
+
+    /*
      * @generated
      */
     @Override
     public ServiceRequestEntity setHire(Long srId, Long prId) {
-    
-    //  Lista de PriceRequest que pertenecen al ServiceRequest
+
         List<PriceRequestEntity> lisPriceRequestEntity = priceRequestLogic.getByServiceRequest(srId);
         
         for (PriceRequestEntity priceEntity : lisPriceRequestEntity){

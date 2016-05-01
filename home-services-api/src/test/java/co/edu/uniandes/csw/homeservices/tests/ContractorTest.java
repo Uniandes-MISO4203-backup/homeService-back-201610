@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.dtos.EducationDTO;
+import co.edu.uniandes.csw.homeservices.dtos.ReviewDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.dtos.WorkExperienceDTO;
 import co.edu.uniandes.csw.homeservices.services.ContractorService;
@@ -110,7 +111,17 @@ public class ContractorTest {
                 educations.add(educationDTO);
             }
             contractor.setEducations(educations);
+            
+            List<ReviewDTO> listReviews = new ArrayList<>();
+            for (int j = 0; j < 5; j++)
+            {
+                ReviewDTO review = factory.manufacturePojo(ReviewDTO.class);
+                review.setId(i + 1L);
+                listReviews.add(review);
+            }
 
+            contractor.setReviews(listReviews);
+            
             oraculo.add(contractor);
 
             SkillDTO skills = factory.manufacturePojo(SkillDTO.class);

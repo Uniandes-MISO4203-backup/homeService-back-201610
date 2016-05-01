@@ -64,7 +64,7 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                 contractorsBySkill = query.getResultList();
 
             } catch (Exception e) {
-                System.out.println("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
+                LOGGER.severe("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
                 return contractorsBySkill;
             }
         }
@@ -93,8 +93,8 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                 query.setParameter("experience", experience);
                 contractorsByExperience = query.getResultList();
 
-            } catch (Exception e) {
-                System.out.println("Error al consultar contractor pot experience " + e.getMessage());
+            } catch (Exception e) {              
+                LOGGER.severe("Error al consultar contractor pot experience " + e.getMessage());
                 return contractorsByExperience;
             }
         }
@@ -141,7 +141,6 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                  serviceRequest = (ServiceRequestEntity) query.getResultList().get(0);
 
             } catch (Exception e) {
-                System.out.println("Erro al consultar el servicerequest por skills  " + e.getMessage());
                 return serviceRequest;
             }
         }
@@ -216,8 +215,8 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
         
         if (skills != null && !skills.isEmpty()){
              
-            String consulta = "SELECT c FROM ContractorEntity c JOIN c.skills skill WHERE UPPER(skill.name) in :skills";
-           
+            String consulta = "SELECT distinct c FROM ContractorEntity c JOIN c.skills skill WHERE UPPER(skill.name) in :skills";
+
             try {
 
                 Query query = em.createQuery(consulta);
@@ -225,7 +224,6 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                 contractorsBySkill = query.getResultList();
 
             } catch (Exception e) {
-                System.out.println("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
                 return contractorsBySkill;
             }
         }

@@ -100,15 +100,10 @@ public class ChatNameTest {
             CustomerDTO customers = factory.manufacturePojo(CustomerDTO.class);
             customers.setId(i + 1L);
             oraculoCustomers.add(customers);
-            System.out.println ("customer.getid" + oraculoCustomers.get(i).getId());
             
             ContractorDTO contractors = factory.manufacturePojo(ContractorDTO.class);
             contractors.setId(i + 1L);
             oraculoContractors.add(contractors);
-            System.out.println ("contractor.getid" + oraculoContractors.get(i).getId());
-            System.out.println ("contractor.getid" + oraculoContractors.get(i).getName());
-            System.out.println ("contractor.getid" + oraculoContractors.get(i).getLastName());
-            System.out.println ("contractor.getid" + oraculoContractors.get(i).getDocument());
         }
     }
 
@@ -138,10 +133,6 @@ public class ChatNameTest {
         ContractorDTO contractor = oraculoContractors.get(0);
         CustomerDTO customer = oraculoCustomers.get(0);
         ChatDTO chatName = oraculo.get(0);
-        
-        System.out.println ("contractor.getid" + contractor.getId());
-        System.out.println ("customer.getid" + customer.getId());
-        
         chatName.setIdContractor(contractor.getId());
         chatName.setIdCustomer(customer.getId());
         

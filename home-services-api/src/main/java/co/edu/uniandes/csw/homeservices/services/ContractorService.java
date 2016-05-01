@@ -80,7 +80,6 @@ public class ContractorService {
             }
             if (idContractor != null && idContractor != 0){
                 LOGGER.log(Priority.WARN, "Entro a servicioo!" );
-                return  ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkillServiceReqAndCreatePriceRequest(idContractor));
             } else {
                 LOGGER.log(Priority.ERROR, "El id del contractor request es nulo" );
             }

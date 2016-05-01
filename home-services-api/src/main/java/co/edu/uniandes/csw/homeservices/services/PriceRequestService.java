@@ -84,4 +84,15 @@ public class PriceRequestService {
         PriceRequestEntity entity = PriceRequestConverter.fullDTO2Entity(dto);
         return PriceRequestConverter.fullEntity2DTO(priceRequestLogic.createPriceRequest(entity));
     }
+    
+    /**
+     * Crea un nuevo PriceRequest
+     * @param contractorId 
+     */
+    @POST
+    @Path("{contractorId: \\d+}")
+    public void addSkills(@PathParam("contractorId") Long contractorId) {
+        priceRequestLogic.createPriceRequestByContractorId(contractorId);       
+    }
+
 }

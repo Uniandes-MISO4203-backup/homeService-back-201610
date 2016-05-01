@@ -19,6 +19,7 @@ public class ContractorDTO {
     private String city;
     private String telefono;
     private String email;
+    private String url;
     
     @PodamExclude
     private List<SkillDTO> skills = new ArrayList<>();
@@ -26,6 +27,9 @@ public class ContractorDTO {
     private List<WorkExperienceDTO> workExperiences = new ArrayList<>();
     
     private List<EducationDTO> educations = new ArrayList<>();
+    
+    @PodamExclude
+    private List<ReviewDTO> reviews;
 
     /**
      * @generated
@@ -163,6 +167,22 @@ public class ContractorDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public List<ReviewDTO> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewDTO> reviews) {
+        this.reviews = reviews;
+    }   
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

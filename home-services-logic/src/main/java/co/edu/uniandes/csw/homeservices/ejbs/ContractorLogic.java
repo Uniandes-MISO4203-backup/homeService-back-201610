@@ -23,8 +23,8 @@ import javax.inject.Inject;
 @Stateless
 public class ContractorLogic implements IContractorLogic {
 
-    @Inject private IPriceRequestLogic priceRequestLogic;
     @Inject private ContractorPersistence persistence;
+    @Inject private IPriceRequestLogic priceRequestLogic;
 
     /**
      * @generated
@@ -207,7 +207,6 @@ public class ContractorLogic implements IContractorLogic {
         email.setSubject("[HomeServices]Solicitud cotización");
         email.setHtml("Hola "+nameTo+"!\n Tienes una nueva solitud de cotización.");
         SendGrid.Response response = sendgrid.send(email);
-        System.out.println(response.toString());
     }
      
          /**
@@ -233,6 +232,5 @@ public class ContractorLogic implements IContractorLogic {
         }
         
         SendGrid.Response response = sendgrid.send(email);
-        System.out.println(response.toString());
     }
 }

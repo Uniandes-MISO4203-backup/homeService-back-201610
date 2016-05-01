@@ -37,6 +37,7 @@ public abstract class ContractorConverter {
             dto.setCity(entity.getCity());
             dto.setTelefono(entity.getTelefono());
             dto.setEmail(entity.getEmail());
+            dto.setUrl(entity.getUrl());
             return dto;
         } else {
             return null;
@@ -82,6 +83,7 @@ public abstract class ContractorConverter {
             dto.setCity(entity.getCity());
             dto.setTelefono(entity.getTelefono());
             dto.setEmail(entity.getEmail());
+            dto.setUrl(entity.getUrl());
             return dto;
         } else {
             return null;
@@ -108,6 +110,13 @@ public abstract class ContractorConverter {
             entity.setCity(dto.getCity());
             entity.setTelefono(dto.getTelefono());
             entity.setEmail(dto.getEmail());
+            if(dto.getUrl().length() == 11){
+              entity.setUrl(dto.getUrl());
+            }else{
+              if(dto.getUrl().length()>11){
+                 entity.setUrl(dto.getUrl().substring(dto.getUrl().length() - 11));
+                }
+            }
             return entity;
         } else {
             return null;
@@ -128,6 +137,8 @@ public abstract class ContractorConverter {
             dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
             dto.setWorkExperiences(WorkExperienceConverter.listEntity2DTO(entity.getWorkExperiences()));
             dto.setEducations(EducationConverter.listEntity2DTO(entity.getEducations()));
+            
+            dto.setReviews(ReviewConverter.listEntity2DTO(entity.getReviews()));
             return dto;
         } else {
             return null;
@@ -148,6 +159,8 @@ public abstract class ContractorConverter {
             entity.setSkills(SkillConverter.listDTO2Entity(dto.getSkills()));
             entity.setWorkExperiences(WorkExperienceConverter.childListDTO2Entity(dto.getWorkExperiences(), entity));
             entity.setEducations(EducationConverter.childListDTO2Entity(dto.getEducations(), entity));
+            
+            entity.setReviews(ReviewConverter.childListDTO2Entity(dto.getReviews(), entity));
             return entity;
         } else {
             return null;
