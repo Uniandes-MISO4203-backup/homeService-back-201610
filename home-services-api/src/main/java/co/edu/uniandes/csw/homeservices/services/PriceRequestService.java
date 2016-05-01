@@ -78,7 +78,6 @@ public class PriceRequestService {
     @POST
     @Path("{contractorId: \\d+}")
     public void addSkills(@PathParam("contractorId") Long contractorId) {
-        System.out.println("Entro con: "+String.valueOf(contractorId));
         priceRequestLogic.createPriceRequestByContractorId(contractorId);       
     }
 

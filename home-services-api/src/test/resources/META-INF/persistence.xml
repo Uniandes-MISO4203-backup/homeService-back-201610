@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="HomeServicesPU" transaction-type="JTA">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>co.edu.uniandes.csw.homeservices.entities.CategoryEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.ContractorEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.CustomerEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.SkillEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.StatusEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.EducationEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.ChatNameEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.ChatMsgEntity</class>
-        <class>co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <shared-cache-mode>NONE</shared-cache-mode>
-        <properties>
-            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-            <property name="eclipselink.target-database" value="Derby"/>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-            <property name="javax.persistence.jdbc.url" value="java:app/jdbc:derby://localhost:1527/jdbcHomeServicesTest"/>
-            <property name="javax.persistence.jdbc.user" value="APP"/>
-            <property name="javax.persistence.jdbc.password" value="APP"/>
-            <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="eclipselink.logging.parameters" value="true"/>
-        </properties>
-    </persistence-unit>
+  <persistence-unit name="HomeServicesPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>co.edu.uniandes.csw.homeservices.entities.CategoryEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.ContractorEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.CustomerEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.SkillEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.StatusEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.EducationEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.ChatNameEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.ChatMsgEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity</class>
+    <class>co.edu.uniandes.csw.homeservices.entities.ReviewEntity</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.target-database" value="Derby"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.url" value="java:app/jdbc:derby://localhost:1527/jdbcHomeServicesTest"/>
+      <property name="javax.persistence.jdbc.user" value="APP"/>
+      <property name="javax.persistence.jdbc.password" value="APP"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+    </properties>
+  </persistence-unit>
 </persistence>

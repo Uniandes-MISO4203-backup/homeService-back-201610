@@ -141,7 +141,6 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                  serviceRequest = (ServiceRequestEntity) query.getResultList().get(0);
 
             } catch (Exception e) {
-                System.out.println("Erro al consultar el servicerequest por skills  " + e.getMessage());
                 return serviceRequest;
             }
         }
@@ -225,7 +224,6 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
                 contractorsBySkill = query.getResultList();
 
             } catch (Exception e) {
-                System.out.println("Ocurrió un error al consultar los contractor por skill " + e.getMessage());
                 return contractorsBySkill;
             }
         }
