@@ -134,8 +134,6 @@ public class ReviewTest {
         ReviewDTO reviewTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
         Assert.assertEquals(review.getId(), reviewTest.getId());
         Assert.assertEquals(review.getName(), reviewTest.getName());
-        Assert.assertEquals(review.getDescription(), reviewTest.getDescription());
-        Assert.assertEquals(review.getSource(), reviewTest.getSource());
         Assert.assertEquals(review.getValue(), reviewTest.getValue());
         Assert.assertEquals(Created, response.getStatus());
     }
@@ -149,8 +147,6 @@ public class ReviewTest {
                 .request().cookie(cookieSessionId).get(ReviewDTO.class);
         Assert.assertEquals(reviewTest.getId(), oraculo.get(0).getId());
         Assert.assertEquals(reviewTest.getName(), oraculo.get(0).getName());
-        Assert.assertEquals(reviewTest.getDescription(), oraculo.get(0).getDescription());
-        Assert.assertEquals(reviewTest.getSource(), oraculo.get(0).getSource());
         Assert.assertEquals(reviewTest.getValue(), oraculo.get(0).getValue());
     }
 
@@ -174,16 +170,12 @@ public class ReviewTest {
         PodamFactory factory = new PodamFactoryImpl();
         ReviewDTO reviewChanged = factory.manufacturePojo(ReviewDTO.class);
         review.setName(reviewChanged.getName());
-        review.setDescription(reviewChanged.getDescription());
         review.setValue(reviewChanged.getValue());
-        review.setSource(reviewChanged.getSource());
         Response response = target.path(reviewsPath).path(review.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(review, MediaType.APPLICATION_JSON));
         ReviewDTO statusTest = (ReviewDTO) response.readEntity(ReviewDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(review.getName(), reviewChanged.getName());
-        Assert.assertEquals(review.getDescription(), reviewChanged.getDescription());
-        Assert.assertEquals(review.getSource(), reviewChanged.getSource());
         Assert.assertEquals(review.getValue(), reviewChanged.getValue());
     }
 

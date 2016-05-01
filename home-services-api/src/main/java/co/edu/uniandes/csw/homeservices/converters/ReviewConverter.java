@@ -23,8 +23,6 @@ public abstract class ReviewConverter {
             ReviewDTO dto = new ReviewDTO();
             dto.setId(entity.getId());
             dto.setName(entity.getName());
-            dto.setSource(entity.getSource());
-            dto.setDescription(entity.getDescription());
             dto.setValue(entity.getValue());
             dto.setContractor(ContractorConverter.refEntity2DTO(entity.getContractor()));
             dto.setCustomer(CustomerConverter.refEntity2DTO(entity.getCustomer()));
@@ -47,8 +45,6 @@ public abstract class ReviewConverter {
 
             entity.setId(dto.getId());
             entity.setName(dto.getName());
-            entity.setSource(dto.getSource());
-            entity.setDescription(dto.getDescription());
             entity.setValue(dto.getValue());
             entity.setContractor(ContractorConverter.refDTO2Entity(dto.getContractor()));
             entity.setCustomer(CustomerConverter.refDTO2Entity(dto.getCustomer()));

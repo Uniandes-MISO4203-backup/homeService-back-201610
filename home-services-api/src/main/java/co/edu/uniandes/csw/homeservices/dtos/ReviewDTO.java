@@ -17,10 +17,6 @@ public class ReviewDTO {
 
     private String name;
 
-    private String source;
-
-    private String description;
-
     @PodamExclude
     private ContractorDTO contractor;
     
@@ -43,22 +39,6 @@ public class ReviewDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public ContractorDTO getContractor() {
