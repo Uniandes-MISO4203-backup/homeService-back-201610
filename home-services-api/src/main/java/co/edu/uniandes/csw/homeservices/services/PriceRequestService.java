@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -69,4 +70,16 @@ public class PriceRequestService {
         entity.setId(id);
         return PriceRequestConverter.basicEntity2DTO(priceRequestLogic.updatePriceRequest(entity));
     }
+    
+    /**
+     * Crea un nuevo PriceRequest
+     * @param contractorId 
+     */
+    @POST
+    @Path("{contractorId: \\d+}")
+    public void addSkills(@PathParam("contractorId") Long contractorId) {
+        System.out.println("Entro con: "+String.valueOf(contractorId));
+        priceRequestLogic.createPriceRequestByContractorId(contractorId);       
+    }
+
 }

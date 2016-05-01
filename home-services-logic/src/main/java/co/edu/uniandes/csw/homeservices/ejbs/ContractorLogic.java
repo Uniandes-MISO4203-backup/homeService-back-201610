@@ -23,7 +23,6 @@ import javax.inject.Inject;
 @Stateless
 public class ContractorLogic implements IContractorLogic {
 
-    @Inject private IPriceRequestLogic priceRequestLogic;
     @Inject private ContractorPersistence persistence;
 
     /**
@@ -167,48 +166,6 @@ public class ContractorLogic implements IContractorLogic {
     public List<ContractorEntity> getContractorsBySkillServiceReq(int serviceReqId) {
         List<ContractorEntity> contractorsByExperience = persistence.getContractorsBySkillServiceReq(serviceReqId);  
         return contractorsByExperience;
-    }
-
-    @Override
-    public List<ContractorEntity> getContractorsBySkillServiceReqAndCreatePriceRequest(int contractorId) {
-        ContractorEntity contractorEntity = getContractor(Long.valueOf(contractorId));
-        List<String> skills = persistence.getSkillsByContractorId(contractorId);
-        ServiceRequestEntity serviceRequestEntity = persistence.getServiceRequestByContractorSkills(skills);
-        if(serviceRequestEntity.getPriceRequestLimit().after(new Date())){
-            PriceRequestEntity priceRequestEntity = new PriceRequestEntity();
-            priceRequestEntity.setStatus("PENDIENTE");
-            priceRequestEntity.setServiceRequest(serviceRequestEntity);
-            priceRequestEntity.setContractor(contractorEntity);
-            priceRequestLogic.createPriceRequest(priceRequestEntity);
-            //Sends an email to the contractor
-            try {
-              if(contractorEntity.getEmail()!=null){
-                sendEmail(contractorEntity.getEmail(), contractorEntity.getName());
-              }
-            } catch (SendGridException ex) {
-                Logger.getLogger(ContractorLogic.class.getName()).log(Level.SEVERE, null, ex);
-             }
-        }
-        List<ContractorEntity> contractorsByExperience = persistence.getContractorsBySkillServiceReq(serviceRequestEntity.getId().intValue());  
-        return contractorsByExperience;
-    }
-    
-    /**
-     * Send an email
-     * @param emailTo
-     * @param nameTo
-     * @throws SendGridException 
-     */
-     public static void sendEmail(String emailTo, String nameTo) throws SendGridException {
-        SendGrid sendgrid = new SendGrid("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");
-        SendGrid.Email email = new SendGrid.Email();
-        email.addTo(emailTo);
-        email.setFrom("cotizaciones@homeservices.com");
-        email.setSubject("[HomeServices]Solicitud cotización");
-        email.setHtml("Hola "+nameTo+"!\n Tienes una nueva solitud de cotización.");
-        SendGrid.Response response = sendgrid.send(email);
-        System.out.println(response.toString());
-    }   
-    
+    }    
     
 }
