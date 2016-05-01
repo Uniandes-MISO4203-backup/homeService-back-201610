@@ -37,6 +37,7 @@ public abstract class ContractorConverter {
             dto.setCity(entity.getCity());
             dto.setTelefono(entity.getTelefono());
             dto.setEmail(entity.getEmail());
+            dto.setUrl(entity.getUrl());
             return dto;
         } else {
             return null;
@@ -82,6 +83,7 @@ public abstract class ContractorConverter {
             dto.setCity(entity.getCity());
             dto.setTelefono(entity.getTelefono());
             dto.setEmail(entity.getEmail());
+            dto.setUrl(entity.getUrl());
             return dto;
         } else {
             return null;
@@ -108,6 +110,13 @@ public abstract class ContractorConverter {
             entity.setCity(dto.getCity());
             entity.setTelefono(dto.getTelefono());
             entity.setEmail(dto.getEmail());
+            if(dto.getUrl().length() == 11){
+              entity.setUrl(dto.getUrl());
+            }else{
+              if(dto.getUrl().length()>11){
+                 entity.setUrl(dto.getUrl().substring(dto.getUrl().length() - 11));
+                }
+            }
             return entity;
         } else {
             return null;
