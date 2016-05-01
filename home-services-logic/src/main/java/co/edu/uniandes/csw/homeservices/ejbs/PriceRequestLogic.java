@@ -117,7 +117,6 @@ public class PriceRequestLogic implements IPriceRequestLogic{
         email.setSubject("[HomeServices]Solicitud cotización");
         email.setHtml("Hola "+nameTo+"!\n Tienes una nueva solitud de cotización.");
         SendGrid.Response response = sendgrid.send(email);
-        System.out.println(response.toString());
     }   
         
 }
