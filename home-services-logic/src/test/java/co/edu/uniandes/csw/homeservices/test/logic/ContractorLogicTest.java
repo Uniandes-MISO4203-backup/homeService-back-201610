@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.homeservices.ejbs.ContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.EducationEntity;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
@@ -117,6 +118,17 @@ public class ContractorLogicTest {
             em.persist(skills);
             skillsData.add(skills);
         }
+    
+        
+        List<ReviewEntity> listReviews = new ArrayList<>();
+        for (int j = 0; j < 5; j++)
+        {
+            ReviewEntity review = factory.manufacturePojo(ReviewEntity.class);
+            review.setId(j + 1L);
+            em.persist(review);
+            listReviews.add(review);
+
+        }
 
         for (int i = 0; i < 3; i++) {
             ContractorEntity entity = factory.manufacturePojo(ContractorEntity.class);
@@ -128,9 +140,9 @@ public class ContractorLogicTest {
             for (EducationEntity educationEntity : entity.getEducations()) {
                 educationEntity.setContractor(entity);
             }
-
+            
             entity.getSkills().add(skillsData.get(0));
-
+            entity.setReviews(listReviews);
             em.persist(entity);
             data.add(entity);
         }
@@ -278,5 +290,17 @@ public class ContractorLogicTest {
         contractorLogic.removeSkills(data.get(0).getId(), skillsData.get(0).getId());
         SkillEntity response = contractorLogic.getSkills(data.get(0).getId(), skillsData.get(0).getId());
         Assert.assertNull(response);
+    }
+    
+        /**
+     * Metodo que nos permite obtener los reviews que a tenido un contractor
+     * recibiendo como parametro el id de este contractor
+     * @param contractorId
+     * @return List<Reviews> si todo funciona bien, y null si ocurre un error
+     */
+    @Test
+    public void getReviewsTest(Long contractorId) {
+        List<ReviewEntity> response = contractorLogic.getReviews(data.get(0).getId());
+        Assert.assertNotNull(response);
     }
 }
