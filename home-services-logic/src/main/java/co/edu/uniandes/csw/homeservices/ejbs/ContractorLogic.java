@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.homeservices.ejbs;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
@@ -232,5 +233,17 @@ public class ContractorLogic implements IContractorLogic {
         }
         
         SendGrid.Response response = sendgrid.send(email);
+    }
+
+    /**
+     * Metodo que nos permite obtener los reviews que a tenido un contractor
+     * recibiendo como parametro el id de este contractor
+     * @param contractorId
+     * @return List<Reviews> si todo funciona bien, y null si ocurre un error
+     */
+    @Override
+    public List<ReviewEntity> getReviews(Long contractorId) {
+        List<ReviewEntity> reviwesContractors = persistence.getReviewsByContractors(contractorId);  
+        return reviwesContractors;
     }
 }

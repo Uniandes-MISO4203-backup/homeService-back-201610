@@ -52,6 +52,7 @@ public class ContractorTest {
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
     private final String password = System.getenv("PASSWORD_USER");
+    private final String reviewsPath = "reviews";
 
     @ArquillianResource
     private URL deploymentURL;
@@ -123,7 +124,7 @@ public class ContractorTest {
             contractor.setReviews(listReviews);
             
             oraculo.add(contractor);
-
+            
             SkillDTO skills = factory.manufacturePojo(SkillDTO.class);
             skills.setId(i + 1L);
             oraculoSkills.add(skills);
@@ -314,5 +315,16 @@ public class ContractorTest {
                 .path(skillsPath).path(skills.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+    
+    @Test
+    @InSequence(9)
+    public void getReviewsTest() {
+        Cookie cookieSessionId = login(username, password);
+        ContractorDTO contractor = oraculo.get(0);
+
+        Response response = target.path(contractorPath).path(contractor.getId().toString())
+                .path(reviewsPath).request().cookie(cookieSessionId).get();
+        Assert.assertEquals(Ok, response.getStatus());
     }
 }

@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import java.util.ArrayList;
@@ -229,6 +230,28 @@ public class ContractorPersistence extends CrudPersistence<ContractorEntity> {
         }
  
         return contractorsBySkill;
+    }
+    
+    /**
+     * Metodo que nos permite obtener los reviews que a tenido un contractor
+     * recibiendo como parametro el id de este contractor
+     * @param contractorId
+     * @return List<Reviews> si todo funciona bien, y null si ocurre un error
+     */
+    public List<ReviewEntity> getReviewsByContractors(Long contractorId){
+        
+        String consulta = "SELECT r FROM ReviewEntity r WHERE r.contractor.id = :contractorId";
+        List<ReviewEntity> reviews = null;
+        
+        try {
+                Query query = em.createQuery(consulta);
+                query.setParameter("contractorId", contractorId);
+                reviews = query.getResultList();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Ocurrió un error al consultar los reviews de un contractor ".concat(e.getMessage()));
+        }
+        
+        return reviews;
     }
     
 }
