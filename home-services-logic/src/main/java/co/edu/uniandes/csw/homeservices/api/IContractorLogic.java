@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.api;
 
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import java.util.List;
 
@@ -21,4 +22,5 @@ public interface IContractorLogic {
     public List<ContractorEntity> getContractorsByExperience(String skill);
     public List<ContractorEntity> getContractorsBySkillServiceReq(int serviceReqId);
     public List<ContractorEntity> getContractorsBySkillServiceReqAndCreatePriceRequest(int contractorId);
+    public List<ReviewEntity> getReviews(Long contractorId);
 }

@@ -20,8 +20,11 @@ import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
+import co.edu.uniandes.csw.homeservices.converters.ReviewConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
+import co.edu.uniandes.csw.homeservices.dtos.ReviewDTO;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -232,6 +235,19 @@ public class ContractorService {
     @Path("{contractorId: \\d+}/skills/{skillId: \\d+}")
     public void removeSkills(@PathParam("contractorId") Long contractorId, @PathParam("skillId") Long skillId) {
         contractorLogic.removeSkills(contractorId, skillId);
+    }
+    
+    /**
+     * Metodo que nos permite obtener los reviews que a tenido un contractor
+     * recibiendo como parametro el id de este contractor
+     * @param contractorId
+     * @return List<ReviewDTO> si todo funciona bien, y null si ocurre un error
+     */
+    @GET
+    @Path("{contractorId: \\d+}/reviews")
+    public List<ReviewDTO> getReviews(@PathParam("contractorId") Long contractorId) {
+        List<ReviewEntity> reviewsEntities = contractorLogic.getReviews(contractorId);
+        return ReviewConverter.listEntity2DTO(reviewsEntities);
     }
     
     private ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
