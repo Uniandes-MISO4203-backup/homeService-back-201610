@@ -20,8 +20,11 @@ import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
 import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import co.edu.uniandes.csw.homeservices.converters.CustomerConverter;
+import co.edu.uniandes.csw.homeservices.converters.ReviewConverter;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
+import co.edu.uniandes.csw.homeservices.dtos.ReviewDTO;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -195,4 +198,17 @@ public class CustomerService {
     public void removeServiceRequests(@PathParam("customerId") Long customerId, @PathParam("serviceRequestId") Long serviceRequestId) {
         customerLogic.removeServiceRequests(customerId, serviceRequestId);
     }
+    
+   /**
+     * Obtiene las calificaciones de un customer
+     * @param customerId Identificador de la instancia de Customer
+     * @return Colección de instancias de ReviewDTO asociadas a la instancia de Customer
+     */
+    @GET 
+    @Path("{customerId: \\d+}/reviews")
+    public List<ReviewDTO> listServicesRequests(@PathParam("customerId") Long customerId) {
+        List<ReviewEntity> reviewsEntities = customerLogic.getReviews(customerId);
+        return ReviewConverter.listEntity2DTO(reviewsEntities);
+    }
+    
 }
