@@ -65,8 +65,7 @@ public class EducationConverter {
      
     public static EducationDTO fullEntity2DTO(EducationEntity entity) {
         if (entity != null) {
-            EducationDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -74,8 +73,7 @@ public class EducationConverter {
     
     public static EducationEntity fullDTO2Entity(EducationDTO dto) {
         if (dto != null) {
-            EducationEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }
