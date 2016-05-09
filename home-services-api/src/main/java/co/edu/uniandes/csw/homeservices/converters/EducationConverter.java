@@ -12,9 +12,6 @@ import java.util.List;
  */
 public class EducationConverter {
 
-    private EducationConverter() {
-    }
-
     public static EducationDTO refEntity2DTO(EducationEntity entity) {
         if (entity != null) {
             EducationDTO dto = new EducationDTO();
