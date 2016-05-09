@@ -70,11 +70,13 @@ public class CustomerService {
                 switch (gr.getHref()) {                    
                     case ADMIN_GROUP_HREF:
                         res = resultAdmin();
+                        break;
                     case CUSTOMER_GROUP_HREF:
                         Integer id = (int) account.getCustomData().get("customer_id");
                         List<CustomerDTO> list = new ArrayList();
                         list.add(CustomerConverter.fullEntity2DTO(customerLogic.getCustomer(id.longValue())));
                         res = list;   
+                        break;
                     default:
                         break;
                 }
