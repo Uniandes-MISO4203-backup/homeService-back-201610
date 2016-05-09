@@ -74,8 +74,7 @@ public class PriceRequestConverter {
      */
     public static PriceRequestEntity fullDTO2Entity(PriceRequestDTO dto) {
         if (dto != null) {
-            PriceRequestEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }
@@ -91,11 +90,28 @@ public class PriceRequestConverter {
      */
     public static PriceRequestDTO fullEntity2DTO(PriceRequestEntity entity) {
         if (entity != null) {
-            PriceRequestDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
+    }
+ 
+    /**
+     * Convierte una colección de instancias de CategoryDTO a instancias de
+     * CategoryEntity Para cada instancia se invoca el método basicDTO2Entity
+     *
+     * @param dtos entities Colección de CategoryDTO a convertir
+     * @return Collección de instancias de CategoryEntity
+     * @generated
+     */
+    public static List<PriceRequestEntity> listDTO2Entity(List<PriceRequestDTO> dtos) {
+        List<PriceRequestEntity> entities = new ArrayList<PriceRequestEntity>();
+        if (dtos != null) {
+            for (PriceRequestDTO dto : dtos) {
+                entities.add(basicDTO2Entity(dto));
+            }
+        }
+        return entities;
     }
     
 }

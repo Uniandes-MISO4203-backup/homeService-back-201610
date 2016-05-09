@@ -39,21 +39,23 @@ public class UserService extends AuthService {
     public void register(UserDTO user) {
         try {
             Account acc = createUser(user);
+            CustomerEntity customer = new CustomerEntity();
+            ContractorEntity contractor = new ContractorEntity();
             for (Group group : acc.getGroups()) {
                 switch (group.getHref()) {
                     case CUSTOMER_GROUP_HREF:
-                        CustomerEntity customer = new CustomerEntity();
                         customer.setName(user.getGivenName());
                         customer.setLastName(user.getSurName());
                         customer = customerLogic.createCustomer(customer);
                         acc.getCustomData().put(CUSTOMER_CUSTOM_DATA_KEY, customer.getId());
                         break;
                     case CONTRACTOR_GROUP_HREF:
-                        ContractorEntity contractor = new ContractorEntity();
                         contractor.setName(user.getGivenName());
                         contractor.setLastName(user.getSurName());
                         contractor = contractorLogic.createContractor(contractor);
                         acc.getCustomData().put(CONTRACTOR_CUSTOM_DATA_KEY, contractor.getId());
+                        break;
+                    default:
                         break;
                 }
             }

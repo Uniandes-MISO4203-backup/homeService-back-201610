@@ -52,8 +52,8 @@ public class PriceRequestService {
      */
     @GET
     public List<PriceRequestDTO> getPriceRequestByContractor() {
-        List<PriceRequestDTO> list = PriceRequestConverter.listEntity2DTO(priceRequestLogic.getByContractor(UserService.getContractorId(req.getRemoteUser())));
-        return list;
+        return PriceRequestConverter.listEntity2DTO(priceRequestLogic.getByContractor(UserService.getContractorId(req.getRemoteUser())));
+
     }
 
     /**

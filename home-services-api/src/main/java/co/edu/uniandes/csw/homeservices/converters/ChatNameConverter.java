@@ -93,5 +93,55 @@ public abstract class ChatNameConverter {
         return dtos;
     }
     
+     /**
+     * Realiza la conversión de CategoryEntity a CategoryDTO.
+     * Se invoca cuando otra entidad tiene una referencia a CategoryEntity.
+     * Entrega únicamente los atributos proprios de la entidad.
+     *
+     * @param entity instancia de CategoryEntity a convertir
+     * @return instancia de CategoryDTO con los datos recibidos por parámetro
+     * @generated
+     */
+    public static ChatDTO refEntity2DTO(ChatNameEntity entity) {
+        if (entity != null) {
+            ChatDTO dto = new ChatDTO();
+            dto.setId(entity.getId());
+            dto.setName(entity.getName());
+
+            return dto;
+        } else {
+            return null;
+        }
+    }
+    
+    public static List<ChatNameEntity> listDTO2Entity(List<ChatDTO> dtos) {
+        List<ChatNameEntity> entities = new ArrayList<ChatNameEntity>();
+        if (dtos != null) {
+            for (ChatDTO dto : dtos) {
+                entities.add(basicDTO2Entity(dto));
+            }
+        }
+        return entities;
+    }
+    
+    /**
+     * Realiza la conversión de CategoryDTO a CategoryEntity Se invoca cuando otro DTO
+     * tiene una referencia a CategoryDTO Convierte únicamente el ID ya que es el
+     * único atributo necesario para guardar la relación en la base de datos
+     *
+     * @param dto instancia de CategoryDTO a convertir
+     * @return instancia de CategoryEntity con los datos recibidos por parámetro
+     * @generated
+     */
+    public static ChatNameEntity refDTO2Entity(ChatDTO dto) {
+        if (dto != null) {
+            ChatNameEntity entity = new ChatNameEntity();
+            entity.setId(dto.getId());
+
+            return entity;
+        } else {
+            return null;
+        }
+    }
     
 }

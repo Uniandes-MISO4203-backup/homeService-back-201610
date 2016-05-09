@@ -2,20 +2,17 @@ package co.edu.uniandes.csw.homeservices.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.dtos.CustomerDTO;
 import co.edu.uniandes.csw.homeservices.dtos.PriceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
-import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.services.ServiceRequestService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -49,6 +46,7 @@ public class ServiceRequestTest {
     private final int Created = Status.CREATED.getStatusCode();
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
     private final String serviceRequestPath = "serviceRequests";
+    private final String statisticsPath = "statistics";
     private final static List<ServiceRequestDTO> oraculo = new ArrayList<>();
     private final String expectedskillsPath = "expectedskills";
     private final String priceListPath = "priceList";
@@ -360,4 +358,17 @@ public class ServiceRequestTest {
         Assert.assertEquals(Ok, response.getStatus());
     
     }    
+    
+    /**
+     * Prueba unitaria para verificar la respuesta
+     * al obtener las estatisticas de la aplicaciones
+     */
+    @Test
+    @InSequence(13)
+    public void getStatisticsTest() {
+        
+        Cookie cookieSessionId = login(username, password);
+        Response response = target.path(serviceRequestPath).path(statisticsPath).request().cookie(cookieSessionId).get();
+        Assert.assertEquals(Ok, response.getStatus());
+    }
 }

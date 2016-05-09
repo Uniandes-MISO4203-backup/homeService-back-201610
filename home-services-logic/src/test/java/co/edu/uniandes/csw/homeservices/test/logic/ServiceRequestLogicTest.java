@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
+import co.edu.uniandes.csw.homeservices.entities.StatisticDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -417,5 +418,16 @@ public class ServiceRequestLogicTest {
         
         }
            
+    }
+    
+    /**
+     * Metodo que nos permite verificar la funcionalidad
+     * de obtener las estadisticas
+     */
+    @Test
+    public void getStatisticTest(){
+        List<StatisticDTO> statistics = serviceRequestLogic.getStatistics();
+        
+        Assert.assertNotNull(statistics);
     }
 }
