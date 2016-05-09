@@ -28,7 +28,6 @@ import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -62,9 +61,43 @@ public class ContractorService {
      * @return Colección de objetos de ContractorDTO cada uno con sus respectivos Review
      * @generated
      */
+        public List<ContractorDTO> resultAdmin() {
+        List<ContractorDTO> res = new ArrayList();
+        res.clear();
+        if (page != null && maxRecords != null) {
+            this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
+            res = ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
+        }
+        res = ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
+        return res;
+    }
+    
+    public List<ContractorDTO> validateAccount(Account account) {
+        List<ContractorDTO> res = new ArrayList();
+        res.clear();
+        for (Group gr : account.getGroups()) {
+            switch (gr.getHref()) {
+                case ADMIN_GROUP_HREF:
+                    res = resultAdmin();                
+                    break;
+                case CONTRACTOR_GROUP_HREF:
+                    Integer id = (int) account.getCustomData().get("contractor_id");
+                    List<ContractorDTO> list = new ArrayList();
+                    list.add(ContractorConverter.fullEntity2DTO(contractorLogic.getContractor(id.longValue())));
+                    res = list;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return res;
+    }
+            
     @GET
     public List<ContractorDTO> getContractors() {
         String accountHref = req.getRemoteUser();
+        List<ContractorDTO> res = new ArrayList();
+        res.clear();
         if (accountHref != null) {
             Account account = getClient().getResource(accountHref, Account.class);
             
@@ -81,37 +114,17 @@ public class ContractorService {
             } else {
                 LOGGER.log(Priority.ERROR, "El id del service request enviado es null o esta vacio" );
             }
-            if (idContractor != null && idContractor != 0){
-                LOGGER.log(Priority.WARN, "Entro a servicioo!" );
-            } else {
-                LOGGER.log(Priority.ERROR, "El id del contractor request es nulo" );
-            }
-
-            if (skillName != null && !skillName.equals("")){
-                return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkill(skillName));
-            }else if(experienceDesc != null && !experienceDesc.equals("")){
-                return ContractorConverter.listEntity2DTO(contractorLogic.getContractorsByExperience(experienceDesc));
+            
+            if (skillName != null && !"".equals(skillName)){     
+                res = ContractorConverter.listEntity2DTO(contractorLogic.getContractorsBySkill(skillName));
+            }else if(experienceDesc != null && ! "".equals(experienceDesc)){
+                res = ContractorConverter.listEntity2DTO(contractorLogic.getContractorsByExperience(experienceDesc));
             }
             else {
-            
-                for (Group gr : account.getGroups()) {
-                    switch (gr.getHref()) {                    
-                        case ADMIN_GROUP_HREF:
-                            if (page != null && maxRecords != null) {
-                            this.response.setIntHeader("X-Total-Count", contractorLogic.countContractors());
-                            return ContractorConverter.listEntity2DTO(contractorLogic.getContractors(page, maxRecords));
-                            }
-                            return ContractorConverter.listEntity2DTO(contractorLogic.getContractors());
-                        case CONTRACTOR_GROUP_HREF:
-                            Integer id = (int) account.getCustomData().get("contractor_id");
-                            List<ContractorDTO> list = new ArrayList();
-                            list.add(ContractorConverter.fullEntity2DTO(contractorLogic.getContractor(id.longValue())));
-                            return list;    
-                    }
-                }
+                res = validateAccount(account);
             }
         }
-        return null;          
+        return res;          
     }
 
     /**
@@ -241,7 +254,7 @@ public class ContractorService {
      * Metodo que nos permite obtener los reviews que a tenido un contractor
      * recibiendo como parametro el id de este contractor
      * @param contractorId
-     * @return List<ReviewDTO> si todo funciona bien, y null si ocurre un error
+     * @return List<ReviewDTO> si funciona bien, y null si ocurre un error
      */
     @GET
     @Path("{contractorId: \\d+}/reviews")
@@ -249,7 +262,5 @@ public class ContractorService {
         List<ReviewEntity> reviewsEntities = contractorLogic.getReviews(contractorId);
         return ReviewConverter.listEntity2DTO(reviewsEntities);
     }
-    
-    private ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
     
 }
