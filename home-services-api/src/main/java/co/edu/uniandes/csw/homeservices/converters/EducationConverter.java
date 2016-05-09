@@ -11,6 +11,10 @@ import java.util.List;
  * @author juan camilo cerquera lozada <jc.cerquera10@uniandes.edu.co>
  */
 public class EducationConverter {
+    
+    private EducationConverter(){
+        //este constructor tendra un uso futuro
+    }
 
     public static EducationDTO refEntity2DTO(EducationEntity entity) {
         if (entity != null) {
