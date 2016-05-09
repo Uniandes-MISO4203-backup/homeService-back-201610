@@ -17,6 +17,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
+import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
@@ -46,6 +47,7 @@ public class ContractorService {
     private static final String ADMIN_GROUP_HREF = "https://api.stormpath.com/v1/groups/rRAbN1pw2hLLj66xeAx4z";
 
     @Inject private IContractorLogic contractorLogic;
+    @Inject private ICustomerLogic customerLogic;
     @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
@@ -262,5 +264,19 @@ public class ContractorService {
         List<ReviewEntity> reviewsEntities = contractorLogic.getReviews(contractorId);
         return ReviewConverter.listEntity2DTO(reviewsEntities);
     }
+    
+    
+       /**
+     * Obtiene las calificaciones de un customer
+     * @param customerId Identificador de la instancia de Customer
+     * @return Colección de instancias de ReviewDTO asociadas a la instancia de Customer
+     */
+    @GET 
+    @Path("{customerId: \\d+}/customerReviews")
+    public List<ReviewDTO> getCustomerReviews(@PathParam("customerId") Long customerId) {
+        List<ReviewEntity> reviewsEntities = customerLogic.getReviews(customerId);
+        return ReviewConverter.listEntity2DTO(reviewsEntities);
+    }
+    
     
 }

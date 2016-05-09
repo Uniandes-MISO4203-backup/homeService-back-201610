@@ -218,7 +218,7 @@ public class CustomerService {
      */
     @GET 
     @Path("{customerId: \\d+}/reviews")
-    public List<ReviewDTO> listServicesRequests(@PathParam("customerId") Long customerId) {
+    public List<ReviewDTO> getCustomerReviews(@PathParam("customerId") Long customerId) {
         List<ReviewEntity> reviewsEntities = customerLogic.getReviews(customerId);
         return ReviewConverter.listEntity2DTO(reviewsEntities);
     }
