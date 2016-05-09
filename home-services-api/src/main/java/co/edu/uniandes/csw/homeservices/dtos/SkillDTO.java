@@ -9,8 +9,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SkillDTO {
 
     private Long id;
-    private String name;
+    
     private String description;
+    
+    private String name;
+    
+        /**
+     * @generated
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @generated
+     */
+    public String getDescription() {
+        return description;
+    }
+    
 
     /**
      * @generated
@@ -31,20 +48,6 @@ public class SkillDTO {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * @generated
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @generated
-     */
-    public String getDescription() {
-        return description;
     }
 
     /**
