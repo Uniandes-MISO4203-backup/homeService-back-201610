@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class EducationConverter {
 
-    public EducationConverter() {
+    private EducationConverter() {
     }
 
     public static EducationDTO refEntity2DTO(EducationEntity entity) {
