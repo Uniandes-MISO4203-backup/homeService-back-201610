@@ -272,7 +272,7 @@ public class ContractorService {
      * @return Colección de instancias de ReviewDTO asociadas a la instancia de Customer
      */
     @GET 
-    @Path("{customerId: \\d+}/customerReviews")
+    @Path("{customerId: \\d+}/customerReviews ")
     public List<ReviewDTO> getCustomerReviews(@PathParam("customerId") Long customerId) {
         List<ReviewEntity> reviewsEntities = customerLogic.getReviews(customerId);
         return ReviewConverter.listEntity2DTO(reviewsEntities);
