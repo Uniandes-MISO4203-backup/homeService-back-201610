@@ -25,6 +25,7 @@ import co.edu.uniandes.csw.homeservices.converters.ServiceRequestConverter;
 import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import co.edu.uniandes.csw.homeservices.dtos.PriceListItemDTO;
+import co.edu.uniandes.csw.homeservices.dtos.StatisticDTO;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.servlet.http.HttpServletRequest;
@@ -244,4 +245,21 @@ public class ServiceRequestService {
         return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.setHire(serviceRequestId, priceRequestId));
         
     }
+    
+    /**
+     * Metodo que nos permite obtener las estadisticas de uso 
+     * de la aplcacion las cuales serán mostradas en la pagina principal
+     * de la aplicacion
+     * @return List<StatisticDTO> o null si no se encuentra nada
+     */
+    @GET
+    @Path("/statistics")
+    public List<StatisticDTO> getStatistics(){
+        
+        List<StatisticDTO> statistics = ServiceRequestConverter.listEntityToDto(serviceRequestLogic.getStatistics());
+        
+        return statistics;
+    }
+    
+    
 }

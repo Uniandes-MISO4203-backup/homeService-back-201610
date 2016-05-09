@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.converters;
 
 import co.edu.uniandes.csw.homeservices.dtos.ServiceRequestDTO;
+import co.edu.uniandes.csw.homeservices.dtos.StatisticDTO;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -197,5 +198,26 @@ public abstract class ServiceRequestConverter {
             }
         }
         return entities;
+    }
+    
+    /**
+     * Metodo encargado de transformar las estadisticas de la capa de
+     * persistencia a los dtos de la capa de API    
+     * @param statisticsEntities
+     * @return List<StatisticDTO>
+     */
+    public static List<StatisticDTO> listEntityToDto(List<co.edu.uniandes.csw.homeservices.entities.StatisticDTO> statisticsEntities) {
+        
+        List<StatisticDTO> dtos = new ArrayList<>();
+        
+        for (co.edu.uniandes.csw.homeservices.entities.StatisticDTO entity : statisticsEntities) {
+            
+            StatisticDTO dto = new StatisticDTO();
+            dto.setName(entity.getName());
+            dto.setStatistic(entity.getStatistic());
+            dtos.add(dto);
+        }
+    
+        return dtos;
     }
 }

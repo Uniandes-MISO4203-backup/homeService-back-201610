@@ -80,5 +80,62 @@ public abstract class ChatMsgConverter {
         }
         return dtos;
     }
-    
+  
+        /**
+     * Realiza la conversión de CategoryDTO a CategoryEntity Se invoca cuando otro DTO
+     * tiene una referencia a CategoryDTO Convierte únicamente el ID ya que es el
+     * único atributo necesario para guardar la relación en la base de datos
+     *
+     * @param dto instancia de CategoryDTO a convertir
+     * @return instancia de CategoryEntity con los datos recibidos por parámetro
+     * @generated
+     */
+    public static ChatMsgEntity refDTO2Entity(ChatMsgDTO dto) {
+        if (dto != null) {
+            ChatMsgEntity entity = new ChatMsgEntity();
+            entity.setId(dto.getIdChatName());
+
+            return entity;
+        } else {
+            return null;
+        }
+    }
+
+        /**
+     * Realiza la conversión de CategoryEntity a CategoryDTO.
+     * Se invoca cuando otra entidad tiene una referencia a CategoryEntity.
+     * Entrega únicamente los atributos proprios de la entidad.
+     *
+     * @param entity instancia de CategoryEntity a convertir
+     * @return instancia de CategoryDTO con los datos recibidos por parámetro
+     * @generated
+     */
+    public static ChatMsgDTO refEntity2DTO(ChatMsgEntity entity) {
+        if (entity != null) {
+            ChatMsgDTO dto = new ChatMsgDTO();
+            dto.setIdChatName(entity.getId());
+            dto.setUserName(entity.getName());
+
+            return dto;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convierte instancias de CategoryEntity a CategoryDTO incluyendo sus relaciones
+     * Uno a muchos y Muchos a muchos
+     *
+     * @param entity Instancia de CategoryEntity a convertir
+     * @return Instancia de CategoryDTO con los datos recibidos por parámetro
+     * @generated
+     */
+    public static ChatMsgDTO fullEntity2DTO(ChatMsgEntity entity) {
+        if (entity != null) {
+            ChatMsgDTO dto = basicEntity2DTO(entity);
+            return dto;
+        } else {
+            return null;
+        }
+    }
 }

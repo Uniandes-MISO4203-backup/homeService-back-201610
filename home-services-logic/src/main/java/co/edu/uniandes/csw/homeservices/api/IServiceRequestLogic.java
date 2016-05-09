@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.homeservices.api;
 
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
+import co.edu.uniandes.csw.homeservices.entities.StatisticDTO;
 import java.util.List;
 
 public interface IServiceRequestLogic {
@@ -20,4 +21,5 @@ public interface IServiceRequestLogic {
     public List<ServiceRequestEntity> getByDescription(String description, Long customerId);
     public ServiceRequestEntity finishContract(Long serviceRequestId);
     public ServiceRequestEntity setHire(Long srId, Long prId);
+    public List<StatisticDTO> getStatistics();
 }
