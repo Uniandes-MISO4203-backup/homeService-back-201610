@@ -317,6 +317,9 @@ public class ContractorTest {
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }
     
+    /**
+     * Prueba al API para traer los reviews de un contractor
+     */
     @Test
     @InSequence(9)
     public void getReviewsTest() {
@@ -327,4 +330,5 @@ public class ContractorTest {
                 .path(reviewsPath).request().cookie(cookieSessionId).get();
         Assert.assertEquals(Ok, response.getStatus());
     }
+    
 }
