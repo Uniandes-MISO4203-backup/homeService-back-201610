@@ -352,7 +352,7 @@ public class ServiceRequestTest {
                 .post(Entity.entity(priceRequest, MediaType.APPLICATION_JSON));            
         }
         
-        response = target.path(serviceRequestPath).path(serviceRequest.getId().toString())
+            response = target.path(serviceRequestPath).path(serviceRequest.getId().toString())
                 .path("hire").path(oraculoPriceRequests.get(1).getId().toString())
                 .request().cookie(cookieSessionId)
                 .put(Entity.entity(serviceVoid, MediaType.APPLICATION_JSON));
