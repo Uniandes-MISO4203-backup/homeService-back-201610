@@ -11,8 +11,9 @@ import java.util.List;
  * @author juan camilo cerquera lozada <jc.cerquera10@uniandes.edu.co>
  */
 public class EducationConverter {
-
-    public EducationConverter() {
+    
+    private EducationConverter(){
+        //este constructor tendra un uso futuro
     }
 
     public static EducationDTO refEntity2DTO(EducationEntity entity) {
@@ -68,8 +69,7 @@ public class EducationConverter {
      
     public static EducationDTO fullEntity2DTO(EducationEntity entity) {
         if (entity != null) {
-            EducationDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -77,8 +77,7 @@ public class EducationConverter {
     
     public static EducationEntity fullDTO2Entity(EducationDTO dto) {
         if (dto != null) {
-            EducationEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

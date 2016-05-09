@@ -242,9 +242,8 @@ public class ServiceRequestService {
     @Path("{serviceRequestId: \\d+}/hire/{priceRequestId: \\d+}")
     public ServiceRequestDTO hireContractor(@PathParam("serviceRequestId") Long serviceRequestId, @PathParam("priceRequestId") Long priceRequestId)  {
                 
-        ServiceRequestDTO srn = ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.setHire(serviceRequestId, priceRequestId));
+        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.setHire(serviceRequestId, priceRequestId));
         
-        return srn;        
     }
     
     /**

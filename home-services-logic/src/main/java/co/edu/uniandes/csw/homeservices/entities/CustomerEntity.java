@@ -30,6 +30,19 @@ public class CustomerEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "customer")
     private List<ChatNameEntity> chatName= new ArrayList<>();
     
+        /**
+     * @generated
+     */
+    public String getDocument(){
+        return document;
+    }
+
+    /**
+     * @generated
+     */
+    public void setDocument(String document){
+        this.document = document;
+    }
 
     /**
      * @generated
@@ -45,19 +58,7 @@ public class CustomerEntity extends BaseEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    /**
-     * @generated
-     */
-    public String getDocument(){
-        return document;
-    }
 
-    /**
-     * @generated
-     */
-    public void setDocument(String document){
-        this.document = document;
-    }
 
     /**
      * @generated

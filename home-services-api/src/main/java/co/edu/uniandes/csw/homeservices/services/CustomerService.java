@@ -43,6 +43,17 @@ public class CustomerService {
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
 
+    
+    public List<CustomerDTO> resultAdmin() {
+        List<CustomerDTO> res = new ArrayList();
+        if (page != null && maxRecords != null) {
+            this.response.setIntHeader("X-Total-Count", customerLogic.countCustomers());
+            res = CustomerConverter.listEntity2DTO(customerLogic.getCustomers(page, maxRecords));
+        }
+        res = CustomerConverter.listEntity2DTO(customerLogic.getCustomers());
+        
+        return res;
+    }
     /**
      * Obtiene la lista de los registros de Book.
      *
@@ -52,25 +63,26 @@ public class CustomerService {
     @GET
     public List<CustomerDTO> getCustomers() {
         String accountHref = req.getRemoteUser();
+        List<CustomerDTO> res = new ArrayList();
         if (accountHref != null) {
             Account account = getClient().getResource(accountHref, Account.class);
             for (Group gr : account.getGroups()) {
                 switch (gr.getHref()) {                    
                     case ADMIN_GROUP_HREF:
-                        if (page != null && maxRecords != null) {
-                        this.response.setIntHeader("X-Total-Count", customerLogic.countCustomers());
-                        return CustomerConverter.listEntity2DTO(customerLogic.getCustomers(page, maxRecords));
-                    }
-                        return CustomerConverter.listEntity2DTO(customerLogic.getCustomers());
+                        res = resultAdmin();
+                        break;
                     case CUSTOMER_GROUP_HREF:
                         Integer id = (int) account.getCustomData().get("customer_id");
                         List<CustomerDTO> list = new ArrayList();
                         list.add(CustomerConverter.fullEntity2DTO(customerLogic.getCustomer(id.longValue())));
-                        return list;    
+                        res = list;   
+                        break;
+                    default:
+                        break;
                 }
             }
         }
-        return null;        
+        return res;
     }
 
     /**
