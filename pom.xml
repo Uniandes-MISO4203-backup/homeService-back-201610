@@ -27,6 +27,7 @@
         <sonar.jacoco.outReportPath>target/jacoco</sonar.jacoco.outReportPath>
         <sonar.jacoco.outItReportPath>target/jacoco-it</sonar.jacoco.outItReportPath>
         <sonar.host.url>http://157.253.238.75:9000</sonar.host.url>
+        <sonar.exclusions>src/main/java/co/edu/uniandes/csw/homeservices/exceptions/*,src/main/java/co/edu/uniandes/csw/homeservices/ejbs/*,src/main/java/co/edu/uniandes/csw/homeservices/persistence/*</sonar.exclusions>
     </properties>
     <dependencyManagement>
         <dependencies>
