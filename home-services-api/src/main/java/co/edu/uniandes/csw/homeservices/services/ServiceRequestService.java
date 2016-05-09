@@ -26,8 +26,6 @@ import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import co.edu.uniandes.csw.homeservices.dtos.PriceListItemDTO;
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
-import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
-import static co.edu.uniandes.csw.homeservices.services.UserService.getContractorId;
 import static co.edu.uniandes.csw.homeservices.services.UserService.getCustomerId;
 import javax.servlet.http.HttpServletRequest;
 
@@ -243,8 +241,7 @@ public class ServiceRequestService {
     @Path("{serviceRequestId: \\d+}/hire/{priceRequestId: \\d+}")
     public ServiceRequestDTO hireContractor(@PathParam("serviceRequestId") Long serviceRequestId, @PathParam("priceRequestId") Long priceRequestId)  {
                 
-        ServiceRequestDTO srn = ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.setHire(serviceRequestId, priceRequestId));
+        return ServiceRequestConverter.fullEntity2DTO(serviceRequestLogic.setHire(serviceRequestId, priceRequestId));
         
-        return srn;        
     }
 }
