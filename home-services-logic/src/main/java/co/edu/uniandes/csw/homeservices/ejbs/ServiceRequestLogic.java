@@ -1,6 +1,5 @@
 package co.edu.uniandes.csw.homeservices.ejbs;
 
-import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
 import co.edu.uniandes.csw.homeservices.api.IPriceRequestLogic;
 import static co.edu.uniandes.csw.homeservices.ejbs.ContractorLogic.sendEmail2;
@@ -8,7 +7,7 @@ import co.edu.uniandes.csw.homeservices.entities.PriceRequestEntity;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ServiceRequestPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
-import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
+import co.edu.uniandes.csw.homeservices.entities.StatisticDTO;
 import co.edu.uniandes.csw.homeservices.entities.StatusEntity;
 import co.edu.uniandes.csw.homeservices.persistence.StatusPersistence;
 import java.util.List;
@@ -210,5 +209,16 @@ public class ServiceRequestLogic implements IServiceRequestLogic {
 
         return resServiceRequest;
     
+    }
+
+    /**
+     * Metodo que nos permite obtener las estadisticas de uso 
+     * de la aplcacion las cuales serán mostradas en la pagina principal
+     * de la aplicacion
+     * @return List<StatisticDTO> o null si no se encuentra nada
+     */
+    @Override
+    public List<StatisticDTO> getStatistics() {
+        return persistence.getStatistics();
     }
 }

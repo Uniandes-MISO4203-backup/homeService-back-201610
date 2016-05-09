@@ -7,7 +7,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.ArrayList;
-import javax.persistence.CascadeType;
 
 /**
  * @generated
