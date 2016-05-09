@@ -18,6 +18,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
 import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
+import co.edu.uniandes.csw.homeservices.api.IReviewLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
@@ -26,6 +27,7 @@ import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import co.edu.uniandes.csw.homeservices.dtos.ReviewDTO;
 import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
+import static co.edu.uniandes.csw.homeservices.services.UserService.getCurrentCustomer;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class ContractorService {
 
     @Inject private IContractorLogic contractorLogic;
     @Inject private ICustomerLogic customerLogic;
+    @Inject private IReviewLogic reviewLogic;
     @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
@@ -276,6 +279,22 @@ public class ContractorService {
     public List<ReviewDTO> getCustomerReviews(@PathParam("customerId") Long customerId) {
         List<ReviewEntity> reviewsEntities = customerLogic.getReviews(customerId);
         return ReviewConverter.listEntity2DTO(reviewsEntities);
+    }
+    
+     /**
+     * Se encarga de crear un book en la base de datos.
+     *
+     * @param dto Objeto de ReviewDTO con los datos nuevos
+     * @return Objeto de ReviewDTO con los datos nuevos y su ID.
+     * @generated
+     */
+    @POST
+    @Path("/reviews")
+    @StatusCreated
+    public ReviewDTO createReview(ReviewDTO dto) {
+        ReviewEntity entity = ReviewConverter.basicDTO2Entity(dto);
+        entity.setCustomer(getCurrentCustomer(req.getRemoteUser()));
+        return ReviewConverter.basicEntity2DTO(reviewLogic.createReview(entity));
     }
     
     
