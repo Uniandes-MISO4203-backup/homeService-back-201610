@@ -9,9 +9,6 @@ public class ProfileDTO {
     private String document;
     private String picture;
 
-    public ProfileDTO() {
-    }
-
     public ProfileDTO(Account acc) {
         this.name = acc.getGivenName();
         this.lastName = acc.getSurname();

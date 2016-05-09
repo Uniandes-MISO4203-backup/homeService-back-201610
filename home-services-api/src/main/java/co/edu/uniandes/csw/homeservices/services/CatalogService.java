@@ -24,16 +24,21 @@ public class CatalogService {
 
     @Inject 
     private IServiceRequestLogic serviceRequestLogic;
-    @Inject
-    private ICustomerLogic customerLogic;
+    
     @Context 
     private HttpServletResponse response;
     @Context
     private HttpServletRequest req;
-    @QueryParam("page") 
-    private Integer page;
+    
     @QueryParam("maxRecords") 
     private Integer maxRecords;
+    
+    @QueryParam("page") 
+    private Integer page;
+    
+    
+    @Inject
+    private ICustomerLogic customerLogic;
 
 
     /**
@@ -45,13 +50,10 @@ public class CatalogService {
     @GET
     public List<ServiceRequestDTO> getServiceRequests() {
         if (page != null && maxRecords != null) {
-          //  this.response.setIntHeader("X-Total-Count", serviceRequestLogic.countServiceRequests());
-          //  return ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())  ));
           
             this.response.setIntHeader("X-Total-Count", serviceRequestLogic.countServiceRequests());
             return ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getServiceRequests(page, maxRecords));
         }
-        //return ServiceRequestConverter.listEntity2DTO(serviceRequestLogic.getServiceRequests());
        return ServiceRequestConverter.listEntity2DTO(customerLogic.listServiceRequests(getCustomerId(req.getRemoteUser())  ));
 
     }

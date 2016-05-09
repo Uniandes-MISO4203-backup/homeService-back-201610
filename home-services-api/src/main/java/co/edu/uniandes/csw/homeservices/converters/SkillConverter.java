@@ -112,8 +112,7 @@ public abstract class SkillConverter {
      */
     public static SkillDTO fullEntity2DTO(SkillEntity entity) {
         if (entity != null) {
-            SkillDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -129,8 +128,7 @@ public abstract class SkillConverter {
      */
     public static SkillEntity fullDTO2Entity(SkillDTO dto) {
         if (dto != null) {
-            SkillEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

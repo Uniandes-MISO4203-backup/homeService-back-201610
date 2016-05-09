@@ -112,8 +112,7 @@ public abstract class CategoryConverter {
      */
     public static CategoryDTO fullEntity2DTO(CategoryEntity entity) {
         if (entity != null) {
-            CategoryDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -129,8 +128,7 @@ public abstract class CategoryConverter {
      */
     public static CategoryEntity fullDTO2Entity(CategoryDTO dto) {
         if (dto != null) {
-            CategoryEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

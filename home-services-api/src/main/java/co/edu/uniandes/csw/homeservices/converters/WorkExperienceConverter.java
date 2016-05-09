@@ -120,8 +120,7 @@ public abstract class WorkExperienceConverter {
      */
     public static WorkExperienceDTO fullEntity2DTO(WorkExperienceEntity entity) {
         if (entity != null) {
-            WorkExperienceDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -137,8 +136,7 @@ public abstract class WorkExperienceConverter {
      */
     public static WorkExperienceEntity fullDTO2Entity(WorkExperienceDTO dto) {
         if (dto != null) {
-            WorkExperienceEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }
