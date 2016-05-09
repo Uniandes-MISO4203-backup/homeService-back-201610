@@ -9,8 +9,6 @@ import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
