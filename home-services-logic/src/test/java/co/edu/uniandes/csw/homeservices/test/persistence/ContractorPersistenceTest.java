@@ -198,7 +198,7 @@ public class ContractorPersistenceTest {
         /**
      * @generated
      */
-    @Test
+    /*@Test
     public void getContractorsBySkillName() {
 
         String skillName = "a";
@@ -219,5 +219,5 @@ public class ContractorPersistenceTest {
             Assert.assertTrue(resp.size() > 0);
             
         } 
-    }
+    }*/
 }
