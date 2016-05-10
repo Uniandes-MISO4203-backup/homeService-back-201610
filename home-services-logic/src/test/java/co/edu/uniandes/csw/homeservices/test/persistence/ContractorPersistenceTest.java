@@ -5,6 +5,7 @@ import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.entities.EducationEntity;
 import co.edu.uniandes.csw.homeservices.entities.WorkExperienceEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
+import co.edu.uniandes.csw.homeservices.persistence.SkillPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,13 @@ public class ContractorPersistenceTest {
      */
     @Inject
     private ContractorPersistence contractorPersistence;
+    
+    /**
+     * @generated
+     */
+    @Inject
+    private SkillPersistence skillPersistence;
+    
 
     /**
      * @generated
@@ -198,7 +206,7 @@ public class ContractorPersistenceTest {
         /**
      * @generated
      */
-    /*@Test
+    @Test
     public void getContractorsBySkillName() {
 
         String skillName = "a";
@@ -208,7 +216,8 @@ public class ContractorPersistenceTest {
         skill.setName(skillName);
         newEntity.getSkills().add(skill);
         
-       
+        skill = skillPersistence.create(skill);        
+
         newEntity = contractorPersistence.create(newEntity);
 
         List<ContractorEntity> resp = contractorPersistence.getContractorsBySkill(skillName);
@@ -219,5 +228,5 @@ public class ContractorPersistenceTest {
             Assert.assertTrue(resp.size() > 0);
             
         } 
-    }*/
+    }
 }
