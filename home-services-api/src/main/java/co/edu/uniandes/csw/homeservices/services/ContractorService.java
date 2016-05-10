@@ -224,7 +224,7 @@ public class ContractorService {
      */
     @POST
     @Path("{contractorId: \\d+}/skills/{skillId: \\d+}")
-    public SkillDTO addSkills(@PathParam("contractorId") Long contractorId, @PathParam("skillId") Long skillId) {
+    public SkillDTO addSkills(@PathParam("contractorId") Long contractorId, @PathParam("skillId") Long skillId) throws Exception {
         return SkillConverter.fullEntity2DTO(contractorLogic.addSkills(contractorId, skillId));
     }
 

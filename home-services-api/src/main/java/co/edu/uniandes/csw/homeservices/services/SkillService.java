@@ -70,7 +70,7 @@ public class SkillService {
      */
     @POST
     @StatusCreated
-    public SkillDTO createSkill(SkillDTO dto) {
+    public SkillDTO createSkill(SkillDTO dto) throws Exception {
         SkillEntity entity = SkillConverter.fullDTO2Entity(dto);
         return SkillConverter.fullEntity2DTO(skillLogic.createSkill(entity));
     }

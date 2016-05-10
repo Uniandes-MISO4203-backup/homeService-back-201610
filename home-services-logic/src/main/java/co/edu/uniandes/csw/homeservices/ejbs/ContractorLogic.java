@@ -8,6 +8,7 @@ import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.persistence.ContractorPersistence;
 import co.edu.uniandes.csw.homeservices.entities.SkillEntity;
 import co.edu.uniandes.csw.homeservices.persistence.PriceRequestPersistence;
+import co.edu.uniandes.csw.homeservices.persistence.SkillPersistence;
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class ContractorLogic implements IContractorLogic {
 
     @Inject private ContractorPersistence persistence;
     @Inject private PriceRequestPersistence priceRequestPersistence;
+    @Inject private SkillPersistence skillPersistence;
+
 
     /**
      * @generated
@@ -115,8 +118,7 @@ public class ContractorLogic implements IContractorLogic {
     @Override
     public SkillEntity addSkills(Long contractorId, Long skillsId) {
         ContractorEntity contractorEntity = persistence.find(contractorId);
-        SkillEntity skillsEntity = new SkillEntity();
-        skillsEntity.setId(skillsId);
+        SkillEntity skillsEntity = skillPersistence.find(skillsId);
         contractorEntity.getSkills().add(skillsEntity);
         return getSkills(contractorId, skillsId);
     }
