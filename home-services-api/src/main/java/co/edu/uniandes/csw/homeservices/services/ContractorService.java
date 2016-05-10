@@ -17,6 +17,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.homeservices.api.IContractorLogic;
+import co.edu.uniandes.csw.homeservices.api.ICustomerLogic;
+import co.edu.uniandes.csw.homeservices.api.IReviewLogic;
 import co.edu.uniandes.csw.homeservices.dtos.ContractorDTO;
 import co.edu.uniandes.csw.homeservices.entities.ContractorEntity;
 import co.edu.uniandes.csw.homeservices.converters.ContractorConverter;
@@ -25,6 +27,7 @@ import co.edu.uniandes.csw.homeservices.dtos.SkillDTO;
 import co.edu.uniandes.csw.homeservices.converters.SkillConverter;
 import co.edu.uniandes.csw.homeservices.dtos.ReviewDTO;
 import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
+import static co.edu.uniandes.csw.homeservices.services.UserService.getCurrentCustomer;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
@@ -46,6 +49,8 @@ public class ContractorService {
     private static final String ADMIN_GROUP_HREF = "https://api.stormpath.com/v1/groups/rRAbN1pw2hLLj66xeAx4z";
 
     @Inject private IContractorLogic contractorLogic;
+    @Inject private ICustomerLogic customerLogic;
+    @Inject private IReviewLogic reviewLogic;
     @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
@@ -262,5 +267,34 @@ public class ContractorService {
         List<ReviewEntity> reviewsEntities = contractorLogic.getReviews(contractorId);
         return ReviewConverter.listEntity2DTO(reviewsEntities);
     }
+    
+    
+       /**
+     * Obtiene las calificaciones de un customer
+     * @param customerId Identificador de la instancia de Customer
+     * @return Colección de instancias de ReviewDTO asociadas a la instancia de Customer
+     */
+    @GET 
+    @Path("{customerId: \\d+}/customerReviews ")
+    public List<ReviewDTO> getCustomerReviews(@PathParam("customerId") Long customerId) {
+        List<ReviewEntity> reviewsEntities = customerLogic.getReviews(customerId);
+        return ReviewConverter.listEntity2DTO(reviewsEntities);
+    }
+    
+     /**
+     * Se encarga de crear un book en la base de datos.
+     *
+     * @param dto Objeto de ReviewDTO con los datos nuevos
+     * @return Objeto de ReviewDTO con los datos nuevos y su ID.
+     * @generated
+     */
+    @POST
+    @Path("/reviews")
+    @StatusCreated
+    public ReviewDTO createReview(ReviewDTO dto) {
+        ReviewEntity entity = ReviewConverter.basicDTO2Entity(dto);
+        return ReviewConverter.basicEntity2DTO(reviewLogic.createReview(entity));
+    }
+    
     
 }

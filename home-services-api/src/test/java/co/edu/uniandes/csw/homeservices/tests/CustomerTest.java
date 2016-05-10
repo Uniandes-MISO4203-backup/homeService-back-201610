@@ -49,6 +49,7 @@ public class CustomerTest {
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
     private final String password = System.getenv("PASSWORD_USER");
+    private final String reviewsPath = "reviews";
 
     @ArquillianResource
     private URL deploymentURL;
@@ -275,4 +276,15 @@ public class CustomerTest {
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }
+    
+    @Test
+    @InSequence(9)
+    public void getReviewsTest() {
+         Cookie cookieSessionId = login(username, password);
+         CustomerDTO customer = oraculo.get(0);
+         Response response = target.path(customerPath).path(customer.getId().toString())
+                 .path(reviewsPath).request().cookie(cookieSessionId).get();
+         Assert.assertEquals(Ok, response.getStatus());
+     }
+    
 }

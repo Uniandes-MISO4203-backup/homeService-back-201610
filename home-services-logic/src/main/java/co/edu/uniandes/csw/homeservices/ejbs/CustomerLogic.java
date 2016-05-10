@@ -5,6 +5,7 @@ import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
 import co.edu.uniandes.csw.homeservices.persistence.CustomerPersistence;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import co.edu.uniandes.csw.homeservices.api.IServiceRequestLogic;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -139,5 +140,16 @@ public class CustomerLogic implements ICustomerLogic {
     public void removeServiceRequests(Long customerId, Long serviceRequestsId) {
         ServiceRequestEntity entity = serviceRequestLogic.getServiceRequest(serviceRequestsId);
         entity.setCustomer(null);
+    }
+    
+    /**
+     * Obtiene los reviews de un customer
+     * @param customerId id del customer
+     * @return 
+     */
+    @Override
+    public List<ReviewEntity> getReviews(Long customerId) {        
+        List<ReviewEntity> reviewEntitys = persistence.getReviewsByCustomer(customerId);  
+        return reviewEntitys;
     }
 }

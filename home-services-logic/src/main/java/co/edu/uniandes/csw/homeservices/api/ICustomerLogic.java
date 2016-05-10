@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.homeservices.api;
 
 import co.edu.uniandes.csw.homeservices.entities.CustomerEntity;
+import co.edu.uniandes.csw.homeservices.entities.ReviewEntity;
 import co.edu.uniandes.csw.homeservices.entities.ServiceRequestEntity;
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface ICustomerLogic {
     public ServiceRequestEntity addServiceRequests(Long customerId, Long serviceRequestsId);
     public List<ServiceRequestEntity> replaceServiceRequests(Long customerId, List<ServiceRequestEntity> list);
     public void removeServiceRequests(Long customerId, Long serviceRequestsId);
+    public List<ReviewEntity> getReviews(Long customerId);
 }
