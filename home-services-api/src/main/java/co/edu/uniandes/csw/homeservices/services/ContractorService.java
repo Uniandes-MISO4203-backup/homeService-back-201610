@@ -293,7 +293,6 @@ public class ContractorService {
     @StatusCreated
     public ReviewDTO createReview(ReviewDTO dto) {
         ReviewEntity entity = ReviewConverter.basicDTO2Entity(dto);
-        entity.setCustomer(getCurrentCustomer(req.getRemoteUser()));
         return ReviewConverter.basicEntity2DTO(reviewLogic.createReview(entity));
     }
     
